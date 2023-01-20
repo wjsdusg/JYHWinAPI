@@ -27,7 +27,7 @@ void StudyGameCore::Start()
 	new int();
 
 	CreateLevel<TitleLevel>("TitleLevel");
-	CreateLevel<PlayLevel>("PlayLevel");
+	//CreateLevel<PlayLevel>("PlayLevel");
 	// static_assert
 	// CreateLevel<HPlayer>("Title1");
 	ChangeLevel("TitleLevel");
@@ -45,3 +45,4 @@ void StudyGameCore::End()
 {
 	
 }
+//ffffffffffffffffffffffffffffff
