@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="GameEngineActor.cpp" />
+    <ClCompile Include="GameEngineCore.cpp" />
+    <ClCompile Include="GameEngineLevel.cpp" />
+    <ClCompile Include="GameEngineObject.cpp" />
+    <ClCompile Include="GameEngineRender.cpp" />
+    <ClCompile Include="GameEngineResources.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameEngineActor.h" />
+    <ClInclude Include="GameEngineCore.h" />
+    <ClInclude Include="GameEngineLevel.h" />
+    <ClInclude Include="GameEngineObject.h" />
+    <ClInclude Include="GameEngineRender.h" />
+    <ClInclude Include="GameEngineResources.h" />
+  </ItemGroup>
+</Project>
