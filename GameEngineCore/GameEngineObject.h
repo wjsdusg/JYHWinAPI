@@ -1,10 +1,11 @@
 #pragma once
+#include <string>
+#include <string_view>
 
-// 설명 : 오브젝트 구조의 가장 기본이 되어주는 클래스.
 class GameEngineObject
 {
 public:
-	// constrcuter destructer
+	
 	GameEngineObject();
 	virtual ~GameEngineObject();
 
@@ -14,7 +15,7 @@ public:
 	GameEngineObject& operator=(const GameEngineObject& _Other) = delete;
 	GameEngineObject& operator=(GameEngineObject&& _Other) noexcept = delete;
 
-	bool IsUpdate() 
+	bool IsUpdate()
 	{
 		//         조건          ?              true 일때                                      :         false 일때
 		// 부모가 있다면
@@ -25,7 +26,7 @@ public:
 
 		return nullptr != Parent ? ((true == ObjectUpdate && false == IsDeath()) && true == Parent->IsUpdate()) : (ObjectUpdate && false == IsDeath());
 
-		// return nullptr != Parent ? 1000 : 200;
+		
 	}
 
 	bool IsDeath()
@@ -33,16 +34,16 @@ public:
 		return nullptr != Parent ? (true == ObjectDeath || Parent->IsDeath()) : (true == ObjectDeath);
 	}
 
-	void Death() 
+	void Death()
 	{
 		ObjectDeath = true;
 	}
 
-	void On() 
+	void On()
 	{
 		ObjectUpdate = true;
 	}
-	void Off() 
+	void Off()
 	{
 		ObjectUpdate = false;
 	}
@@ -52,8 +53,17 @@ public:
 		ObjectUpdate = !ObjectUpdate;
 	}
 
+	virtual void SetOrder(int _Order)
+	{
+		Order = _Order;
+	}
 
-	void SetOwner(GameEngineObject* _Parent)
+	int GetOrder()
+	{
+		return Order;
+	}
+
+	virtual void SetOwner(GameEngineObject* _Parent)
 	{
 		Parent = _Parent;
 	}
@@ -69,14 +79,32 @@ public:
 		return Parent;
 	}
 
+	void SetName(const std::string_view& _View)
+	{
+		Name = _View;
+	}
+
+	const std::string& GetName()
+	{
+		return Name;
+	}
+
+	std::string GetNameCopy()
+	{
+		return Name;
+	}
+
 protected:
 
 private:
-	// 자기를 관리하거나 자기를 소유한 오브젝트들을 부모라는 느낌으로 보려고 하는것.
+	int Order;
+
 	GameEngineObject* Parent = nullptr;
 
 	bool ObjectDeath = false;
 	bool ObjectUpdate = true;
+
+	std::string Name;
 
 };
 

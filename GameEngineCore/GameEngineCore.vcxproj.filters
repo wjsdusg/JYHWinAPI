@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="GameEngineCore.cpp" />
-    <ClCompile Include="GameEngineLevel.cpp" />
-    <ClCompile Include="GameEngineObject.cpp" />
-    <ClCompile Include="GameEngineResources.cpp" />
     <ClCompile Include="Button.cpp">
       <Filter>Object\BasicContents\Actor</Filter>
     </ClCompile>
@@ -20,12 +17,21 @@
     <ClCompile Include="GameEngineActor.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineLevel.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineResources.cpp">
+      <Filter>Resourcces</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineComponent.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineCore.h" />
-    <ClInclude Include="GameEngineLevel.h" />
-    <ClInclude Include="GameEngineObject.h" />
-    <ClInclude Include="GameEngineResources.h" />
     <ClInclude Include="Button.h">
       <Filter>Object\BasicContents\Actor</Filter>
     </ClInclude>
@@ -41,7 +47,18 @@
     <ClInclude Include="GameEngineActor.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineComponent.h" />
+    <ClInclude Include="GameEngineObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineLevel.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineResources.h">
+      <Filter>Resourcces</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineComponent.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">
@@ -61,6 +78,9 @@
     </Filter>
     <Filter Include="Object\Rendering">
       <UniqueIdentifier>{49f8101d-17c7-4f19-ad45-f32b39966671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resourcces">
+      <UniqueIdentifier>{f4323109-0091-44cb-b745-f32b48afa69c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

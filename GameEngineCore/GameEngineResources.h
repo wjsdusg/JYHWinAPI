@@ -4,7 +4,6 @@
 #include <string>
 #include <GameEnginePlatform/GameEngineImage.h>
 
-// 사운드 이미지 전부다 이녀석이 관리하겠습니다.
 
 // 설명 :
 class GameEnginePath;
@@ -17,7 +16,7 @@ public:
 	GameEngineResources& operator=(const GameEngineResources& _Other) = delete;
 	GameEngineResources& operator=(GameEngineResources&& _Other) noexcept = delete;
 
-	static GameEngineResources& GetInst() 
+	static GameEngineResources& GetInst()
 	{
 		return Inst;
 	}

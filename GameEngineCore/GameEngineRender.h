@@ -2,7 +2,7 @@
 #include <GameEnginePlatform/GameEngineImage.h>
 #include <map>
 #include "GameEngineComponent.h"
-// 랜더링에 관련된 기능을 모두 집약한다.
+
 
 class FrameAnimationParameter
 {
@@ -103,7 +103,7 @@ private:
 	{
 	public:
 		GameEngineRender* Parent = nullptr;
-		// 짤려있는 이미지여야 한다.
+	
 		GameEngineImage* Image = nullptr;
 		std::vector<int> FrameIndex;
 		std::vector<float> FrameTime;

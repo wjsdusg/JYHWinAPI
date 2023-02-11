@@ -158,6 +158,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="GameEngineActor.cpp" />
     <ClCompile Include="GameEngineCollision.cpp" />
+    <ClCompile Include="GameEngineComponent.cpp" />
     <ClCompile Include="GameEngineCore.cpp" />
     <ClCompile Include="GameEngineLevel.cpp" />
     <ClCompile Include="GameEngineObject.cpp" />

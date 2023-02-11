@@ -13,14 +13,14 @@ GameEngineCore* GameEngineCore::GetInst()
 	return Core;
 }
 
-void GameEngineCore::GlobalStart() 
+void GameEngineCore::GlobalStart()
 {
 	Core->Start();
 
 	GameEngineTime::GlobalTime.Reset();
 }
 
-void GameEngineCore::GlobalUpdate() 
+void GameEngineCore::GlobalUpdate()
 {
 	// 여기에서 처리한다
 	if (nullptr != Core->NextLevel)
@@ -31,6 +31,7 @@ void GameEngineCore::GlobalUpdate()
 		if (nullptr != PrevLevel)
 		{
 			PrevLevel->LevelChangeEnd(NextLevel);
+			PrevLevel->ActorLevelChangeEnd(NextLevel);
 		}
 
 		Core->MainLevel = NextLevel;
@@ -39,12 +40,12 @@ void GameEngineCore::GlobalUpdate()
 		if (nullptr != NextLevel)
 		{
 			NextLevel->LevelChangeStart(PrevLevel);
+			NextLevel->ActorLevelChangeStart(PrevLevel);
 		}
 	}
 
 	// 프레임 시작할때 한번 델타타임을 정하고
 	float TimeDeltaTime = GameEngineTime::GlobalTime.TimeCheck();
-
 	GameEngineInput::Update(TimeDeltaTime);
 
 	Core->Update();
@@ -59,9 +60,10 @@ void GameEngineCore::GlobalUpdate()
 	GameEngineWindow::DoubleBufferClear();
 	Core->MainLevel->ActorsRender(TimeDeltaTime);
 	GameEngineWindow::DoubleBufferRender();
+	Core->MainLevel->Release();
 }
 
-void GameEngineCore::GlobalEnd() 
+void GameEngineCore::GlobalEnd()
 {
 	Core->End();
 
@@ -69,7 +71,7 @@ void GameEngineCore::GlobalEnd()
 }
 
 
-GameEngineCore::GameEngineCore() 
+GameEngineCore::GameEngineCore()
 {
 	GameEngineDebug::LeakCheck();
 	// 나는 자식중에 하나일수밖에 없다.
@@ -77,7 +79,7 @@ GameEngineCore::GameEngineCore()
 	Core = this;
 }
 
-GameEngineCore::~GameEngineCore() 
+GameEngineCore::~GameEngineCore()
 {
 	std::map<std::string, GameEngineLevel*>::iterator StartIter = Levels.begin();
 	std::map<std::string, GameEngineLevel*>::iterator EndIter = Levels.end();
@@ -95,11 +97,17 @@ GameEngineCore::~GameEngineCore()
 
 void GameEngineCore::CoreStart(HINSTANCE _instance)
 {
+	if (false == GameEngineInput::IsKey("EngineMouseLeft"))
+	{
+		GameEngineInput::CreateKey("EngineMouseLeft", VK_LBUTTON);
+		GameEngineInput::CreateKey("EngineMouseRight", VK_RBUTTON);
+	}
+
 	GameEngineWindow::WindowCreate(_instance, "MainWindow", { 1280, 720 }, { 0, 0 });
 	GameEngineWindow::WindowLoop(GameEngineCore::GlobalStart, GameEngineCore::GlobalUpdate, GameEngineCore::GlobalEnd);
 }
 
-void GameEngineCore::ChangeLevel(const std::string_view& _Name) 
+void GameEngineCore::ChangeLevel(const std::string_view& _Name)
 {
 	std::map<std::string, GameEngineLevel*>::iterator FindIter = Levels.find(_Name.data());
 
