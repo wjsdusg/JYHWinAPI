@@ -5,29 +5,39 @@
 #include "GameEngineLevel.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 
-GameEngineRender::GameEngineRender() 
+GameEngineRender::GameEngineRender()
 {
 }
 
-GameEngineRender::~GameEngineRender() 
+GameEngineRender::~GameEngineRender()
 {
 }
 
-GameEngineActor* GameEngineRender::GetActor()
-{
-	return GetOwner<GameEngineActor>();
-}
-
-
-void GameEngineRender::SetImage(const std::string_view& _ImageName) 
+void GameEngineRender::SetImage(const std::string_view& _ImageName)
 {
 	Image = GameEngineResources::GetInst().ImageFind(_ImageName);
+	// SetScaleToImage();
 }
 
-void GameEngineRender::SetOrder(int _Order) 
+void GameEngineRender::SetImageToScaleToImage(const std::string_view& _ImageName)
 {
-	Order = _Order;
-	GetActor()->GetLevel()->PushRender(this);
+	Image = GameEngineResources::GetInst().ImageFind(_ImageName);
+	SetScaleToImage();
+}
+
+void GameEngineRender::SetScaleToImage()
+{
+	if (nullptr == Image)
+	{
+		MsgAssert("이미지를 세팅하지 않았는데 이미지의 크기로 변경하려고 했습니다.");
+	}
+
+	SetScale(Image->GetImageScale());
+}
+
+void GameEngineRender::SetOrder(int _Order)
+{
+	GetActor()->GetLevel()->PushRender(this, _Order);
 }
 
 void GameEngineRender::SetFrame(int _Frame)
@@ -48,6 +58,12 @@ void GameEngineRender::SetFrame(int _Frame)
 	}
 
 	Frame = _Frame;
+}
+
+bool GameEngineRender::FrameAnimation::IsEnd()
+{
+	int Value = (static_cast<int>(FrameIndex.size()) - 1);
+	return CurrentIndex == Value;
 }
 
 void GameEngineRender::FrameAnimation::Render(float _DeltaTime)
@@ -73,9 +89,42 @@ void GameEngineRender::FrameAnimation::Render(float _DeltaTime)
 	}
 }
 
+void GameEngineRender::SetText(const std::string_view& _Text)
+{
+	RenderText = _Text;
+}
+
 void GameEngineRender::Render(float _DeltaTime)
 {
+	if (RenderText != "")
+	{
+		TextRender(_DeltaTime);
+	}
+	else
+	{
+		ImageRender(_DeltaTime);
+	}
+}
 
+void GameEngineRender::TextRender(float _DeltaTime)
+{
+
+	float4 CameraPos = float4::Zero;
+
+	if (true == IsEffectCamera)
+	{
+		CameraPos = GetActor()->GetLevel()->GetCameraPos();
+	}
+
+	float4 RenderPos = GetActorPlusPos() - CameraPos;
+
+	TextOutA(GameEngineWindow::GetDoubleBufferImage()->GetImageDC(), RenderPos.ix(), RenderPos.iy(), RenderText.c_str(), static_cast<int>(RenderText.size()));
+
+	return;
+}
+
+void GameEngineRender::ImageRender(float _DeltaTime)
+{
 	if (nullptr != CurrentAnimation)
 	{
 		CurrentAnimation->Render(_DeltaTime);
@@ -95,19 +144,24 @@ void GameEngineRender::Render(float _DeltaTime)
 		CameraPos = GetActor()->GetLevel()->GetCameraPos();
 	}
 
-	float4 RenderPos = GetActor()->GetPos() + Position - CameraPos;
+	float4 RenderPos = GetActorPlusPos() - CameraPos;
 
 	if (true == Image->IsImageCutting())
 	{
-		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, Frame, RenderPos, Scale, TransColor);
+		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, Frame, RenderPos, GetScale(), TransColor);
 	}
-	else 
+	else
 	{
-		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, RenderPos, Scale, {0, 0}, Image->GetImageScale(), TransColor);
+		GameEngineWindow::GetDoubleBufferImage()->TransCopy(Image, RenderPos, GetScale(), { 0, 0 }, Image->GetImageScale(), TransColor);
 	}
 }
 
-void GameEngineRender::CreateAnimation(const FrameAnimationParameter& _Paramter) 
+bool GameEngineRender::IsAnimationEnd()
+{
+	return CurrentAnimation->IsEnd();
+}
+
+void GameEngineRender::CreateAnimation(const FrameAnimationParameter& _Paramter)
 {
 	// 애니메이션을 만들기 위해서 이미지를 검증한다.
 	GameEngineImage* Image = GameEngineResources::GetInst().ImageFind(_Paramter.ImageName);
@@ -138,7 +192,7 @@ void GameEngineRender::CreateAnimation(const FrameAnimationParameter& _Paramter)
 	{
 		NewAnimation.FrameIndex = _Paramter.FrameIndex;
 	}
-	else 
+	else
 	{
 		for (int i = _Paramter.Start; i <= _Paramter.End; ++i)
 		{
@@ -163,7 +217,7 @@ void GameEngineRender::CreateAnimation(const FrameAnimationParameter& _Paramter)
 	NewAnimation.Parent = this;
 }
 
-void GameEngineRender::ChangeAnimation(const std::string_view& _AnimationName)
+void GameEngineRender::ChangeAnimation(const std::string_view& _AnimationName, bool _ForceChange /*= false*/)
 {
 	// 이미 같은 애니메이션으로 바꾸라고 리턴할껍니다.
 
@@ -174,7 +228,8 @@ void GameEngineRender::ChangeAnimation(const std::string_view& _AnimationName)
 		MsgAssert("존재하지 않는 애니메이션으로 바꾸려고 했습니다." + UpperName);
 	}
 
-	if (CurrentAnimation == &Animation[UpperName])
+	// 강제로 바꾸지 않는 상황에서 애니메이션이 같으면
+	if (false == _ForceChange && CurrentAnimation == &Animation[UpperName])
 	{
 		return;
 	}

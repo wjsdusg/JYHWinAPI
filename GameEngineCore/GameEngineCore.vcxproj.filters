@@ -1,19 +1,66 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="GameEngineActor.cpp" />
     <ClCompile Include="GameEngineCore.cpp" />
     <ClCompile Include="GameEngineLevel.cpp" />
     <ClCompile Include="GameEngineObject.cpp" />
-    <ClCompile Include="GameEngineRender.cpp" />
     <ClCompile Include="GameEngineResources.cpp" />
+    <ClCompile Include="Button.cpp">
+      <Filter>Object\BasicContents\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="NumberRenderObject.cpp">
+      <Filter>Object\BasicContents\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineCollision.cpp">
+      <Filter>Object\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineRender.cpp">
+      <Filter>Object\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineActor.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameEngineActor.h" />
     <ClInclude Include="GameEngineCore.h" />
     <ClInclude Include="GameEngineLevel.h" />
     <ClInclude Include="GameEngineObject.h" />
-    <ClInclude Include="GameEngineRender.h" />
     <ClInclude Include="GameEngineResources.h" />
+    <ClInclude Include="Button.h">
+      <Filter>Object\BasicContents\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="NumberRenderObject.h">
+      <Filter>Object\BasicContents\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineCollision.h">
+      <Filter>Object\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineRender.h">
+      <Filter>Object\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineActor.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineComponent.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Object">
+      <UniqueIdentifier>{c221bd23-1ebc-482f-ae9f-0cec2fe66dec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\BasicContents">
+      <UniqueIdentifier>{3e755137-365c-4bc4-97bd-a0976b212219}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\BasicContents\Actor">
+      <UniqueIdentifier>{632846aa-6bb6-4e6c-b69a-d29686ca30f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\BasicContents\SubClass">
+      <UniqueIdentifier>{eb37679c-f041-43c8-ba8c-9c094fb1a705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Collision">
+      <UniqueIdentifier>{8e4284f5-3ca6-47ab-a828-f67b12852fd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Rendering">
+      <UniqueIdentifier>{49f8101d-17c7-4f19-ad45-f32b39966671}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
