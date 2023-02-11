@@ -32,7 +32,7 @@ protected:
 private:
 	float AccTime = 0.0f;
 	int StartFrame = 0;
-	float MoveSpeed = 1.0f;
+	float MoveSpeed = 100.0f;
 
 	std::string DirString = "Right_";
 	PlayerState StateValue = PlayerState::IDLE;

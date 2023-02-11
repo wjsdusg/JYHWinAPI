@@ -96,10 +96,10 @@ void Player::MoveUpdate(float _Time)
 
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{
-		MoveDir += float4::Left * MoveSpeed;
+		SetMove(float4::Left * MoveSpeed * _Time);
 	} else if (true == GameEngineInput::IsPress("RightMove"))
 	{
-		MoveDir += float4::Right * MoveSpeed;
+		SetMove(float4::Right * MoveSpeed * _Time);
 	}
 
 

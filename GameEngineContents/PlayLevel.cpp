@@ -63,14 +63,7 @@ void PlayLevel::Loading()
 	}
 
 
-	if (false == GameEngineInput::IsKey("CameraLeftMove"))
-	{
-		// VK 알파뱃과 숫자를 제외한 키를 표현하는데 쓰고 있다. 
-		GameEngineInput::CreateKey("CameraLeftMove", VK_LEFT);
-		GameEngineInput::CreateKey("CameraRightMove", VK_RIGHT);
-		GameEngineInput::CreateKey("CameraDownMove", VK_DOWN);
-		GameEngineInput::CreateKey("CameraUpMove", VK_UP);
-	}
+	
 }
 
 void PlayLevel::Update(float _DeltaTime)
@@ -81,23 +74,8 @@ void PlayLevel::Update(float _DeltaTime)
 		// Player::MainPlayer->Death()p;
 	}
 
-	float CameraMoveSpeed = 100.0f;
 
-	//if (GameEngineInput::IsPress("CameraLeftMove"))
-	//{
-	//	SetCameraMove(float4::Left * _DeltaTime * CameraMoveSpeed);
-	//}
-	//if (GameEngineInput::IsPress("CameraRightMove"))
-	//{
-	//	SetCameraMove(float4::Right * _DeltaTime * CameraMoveSpeed);
-	//}
-	//if (GameEngineInput::IsPress("CameraDownMove"))
-	//{
-	//	SetCameraMove(float4::Down * _DeltaTime * CameraMoveSpeed);
-	//}
-	//if (GameEngineInput::IsPress("CameraUpMove"))
-	//{
-	//	SetCameraMove(float4::Up * _DeltaTime * CameraMoveSpeed);
-	//}
+
+	
 
 }

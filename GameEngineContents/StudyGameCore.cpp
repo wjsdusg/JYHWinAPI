@@ -22,9 +22,9 @@ void StudyGameCore::Start()
 
 	new int();
 
-	CreateLevel<TitleLevel>("TitleLevel");
+	CreateLevel<PlayLevel>("PlayLevel");
 	
-	ChangeLevel("TitleLevel");
+	ChangeLevel("PlayLevel");
 
 	
 }

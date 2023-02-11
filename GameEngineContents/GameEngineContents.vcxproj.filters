@@ -8,8 +8,12 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayLevel.h" />
     <ClInclude Include="StudyGameCore.h" />
-    <ClInclude Include="TitleBack.h" />
-    <ClInclude Include="TitleLevel.h" />
+    <ClInclude Include="TitleLevel.h">
+      <Filter>Title</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleBack.h">
+      <Filter>Title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Map.cpp" />
@@ -18,8 +22,17 @@
     <ClCompile Include="Player_State.cpp" />
     <ClCompile Include="PlayLevel.cpp" />
     <ClCompile Include="StudyGameCore.cpp" />
-    <ClCompile Include="TitleBack.cpp" />
-    <ClCompile Include="TitleLevel.cpp" />
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="TitleBack.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleLevel.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Title">
+      <UniqueIdentifier>{b8994743-99c3-46d8-96bf-a2b41e0de11f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
