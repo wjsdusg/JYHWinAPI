@@ -44,6 +44,7 @@ void GameEngineCore::GlobalUpdate()
 
 	// 프레임 시작할때 한번 델타타임을 정하고
 	float TimeDeltaTime = GameEngineTime::GlobalTime.TimeCheck();
+
 	GameEngineInput::Update(TimeDeltaTime);
 
 	Core->Update();
