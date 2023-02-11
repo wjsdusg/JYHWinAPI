@@ -1,13 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="GameEngineImage.cpp" />
-    <ClCompile Include="GameEngineInput.cpp" />
     <ClCompile Include="GameEngineWindow.cpp" />
+    <ClCompile Include="GameEngineInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineImage.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameEngineImage.h" />
-    <ClInclude Include="GameEngineInput.h" />
     <ClInclude Include="GameEngineWindow.h" />
+    <ClInclude Include="GameEngineInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineImage.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Input">
+      <UniqueIdentifier>{1f8ad618-7467-4552-bdaa-da9756dd3a2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{d0a38ea4-afdb-48c9-a8c4-fe21f44197d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -6,11 +6,11 @@
 // 다른 lib를 사용하겠다.
 #pragma comment(lib, "msimg32.lib")
 
-GameEngineImage::GameEngineImage() 
+GameEngineImage::GameEngineImage()
 {
 }
 
-GameEngineImage::~GameEngineImage() 
+GameEngineImage::~GameEngineImage()
 {
 	if (nullptr != BitMap)
 	{
@@ -92,24 +92,15 @@ bool GameEngineImage::ImageLoad(const GameEnginePath& _Path)
 
 #define TEST(Value) Value
 
-bool GameEngineImage::ImageLoad(const std::string_view& _Path) 
+bool GameEngineImage::ImageLoad(const std::string_view& _Path)
 {
-	//HDC ImageDC;
-	//HBITMAP BitMap;
-	//HBITMAP OldBitMap;
-	//BITMAP Info;
 
-	// 이미지중에 일부만 로드할수 있는데 0을 넣어주면 다 로드하겠다는 이야기가 도힙니다.
-	// LR_LOADFROMFILE 파일에서부터 로드하겠다는 의미가 됩니다.
-
-	// 이미지를 로드한 2차원 배열의 정보고
-	// 윈도우에게 new를 지시한것과 다름이 없다.
 	BitMap = static_cast<HBITMAP>(LoadImageA(nullptr, _Path.data(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE));
 
 	if (nullptr == BitMap)
 	{
 		std::string Path = _Path.data();
-		MsgAssert(Path + " 이미지 로드에 실패했습니다." );
+		MsgAssert(Path + " 이미지 로드에 실패했습니다.");
 		return false;
 	}
 
@@ -166,7 +157,7 @@ void GameEngineImage::TransCopy(const GameEngineImage* _OtherImage, int _CutInde
 
 	ImageCutData Data = _OtherImage->GetCutData(_CutIndex);
 
-	TransCopy(_OtherImage,  _CopyCenterPos, _CopySize, Data.GetStartPos(), Data.GetScale(), _Color);
+	TransCopy(_OtherImage, _CopyCenterPos, _CopySize, Data.GetStartPos(), Data.GetScale(), _Color);
 }
 
 void GameEngineImage::TransCopy(const GameEngineImage* _OtherImage, float4 _CopyCenterPos, float4 _CopySize, float4 _OtherImagePos, float4 _OtherImageSize, int _Color)
