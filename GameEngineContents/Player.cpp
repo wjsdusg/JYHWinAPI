@@ -33,13 +33,13 @@ void Player::Start()
 
 	{
 		AnimationRender = CreateRender(CrazyRenderOrder::Player);
-		AnimationRender->SetScale({ 200, 200 });
+		AnimationRender->SetScale({ 160, 160 });
 
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "Right_Player.bmp", .Start = 0, .End = 2, .InterTime = 0.3f});
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "Right_Player.bmp", .Start = 3, .End = 7 });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "WaitBazzi.bmp", .Start = 0, .End = 2, .InterTime = 0.3f});
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "BazziMoveAll.bmp", .Start = 4, .End = 7 });
 
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "Left_Player.bmp", .Start = 0, .End = 2, .InterTime = 0.3f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "Left_Player.bmp", .Start = 3, .End = 7 });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "WaitBazzi.bmp", .Start = 0, .End = 2, .InterTime = 0.3f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "BazziMoveAll.bmp", .Start = 12, .End = 15 });
 	}
 
 	ChangeState(PlayerState::IDLE);

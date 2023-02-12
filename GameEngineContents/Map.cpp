@@ -18,9 +18,19 @@ void Map::Start()
 		// float4 Scree = GameEngineWindow::GetScreenSize();
 
 		GameEngineRender* AnimationRender = CreateRender(CrazyRenderOrder::Map);
-		AnimationRender->SetPosition(GameEngineWindow::GetScreenSize().half());
-		//AnimationRender->SetScale(GameEngineWindow::GetScreenSize());
+		/*float4 MapSize = GameEngineWindow::GetScreenSize().half();
+		MapSize.x -= 80.0f;*/
+
 		AnimationRender->SetImageToScaleToImage("Camp_Back.Bmp");
+		float4 MapSize = AnimationRender->GetScale().half();
+		MapSize.x += 20.0f;
+		MapSize.y += 40.0f;
+		
+		AnimationRender->SetPosition(MapSize);
+		
+		//600,520
+		
+	//	AnimationRender->SetPosition(AnimationRender->GetScale());
 		AnimationRender->SetImage("Camp_Back.Bmp");
 		// AnimationRender->ChangeAnimation("Loop");
 	}
