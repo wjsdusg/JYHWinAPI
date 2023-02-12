@@ -9,7 +9,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "BackGround.h"
-
+#include "MapCover.h"
 PlayLevel::PlayLevel()
 {
 }
@@ -39,7 +39,12 @@ void PlayLevel::Loading()
 	
 	{
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("PlayUI.BMP"));
-		GameEngineImage* Mapmage = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Camp_Back.BMP"));
+		GameEngineImage* MapImage = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Camp_Back.BMP"));
+		GameEngineImage* COlMapImage = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Camp_ColMap.BMP"));
+		GameEngineImage* CoverMapImage = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Camp_Front.BMP"));
+
+		
+		
 	}
 	// 액터 생성
 	{
@@ -50,6 +55,9 @@ void PlayLevel::Loading()
 	}
 	{
 		Player* Actor = CreateActor<Player>();
+	}
+	{
+		MapCover* Actor = CreateActor< MapCover>();
 	}
 
 

@@ -51,35 +51,35 @@ void Player::Start()
 	ChangeState(PlayerState::IDLE);
 }
 
-void Player::Movecalculation(float _DeltaTime)
+bool Player::Movecalculation(float4 _Pos)
 {
 	
 		// ColMap.BMP 이걸 변수로하면 
-	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("ColMap.BMP");
+	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Camp_ColMap.BMP");
 	if (nullptr == ColImage)
 	{
 		MsgAssert("충돌용 맵 이미지가 없습니다.");
 	}
-
 
 	// 내 미래의 위치는 여기인데/.
 
 	bool Check = true;
 	//float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 
-	//if (RGB(0, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 0)))
-	//{
-	//	Check = false;
-	//	// MoveDir = float4::Zero;
-	//}
+	if (RGB(0, 0, 0) == ColImage->GetPixelColor(_Pos, RGB(0, 0, 0)))
+	{
+		Check = false;
+		
+	}
 
-	//SetMove(MoveDir * _DeltaTime);
+	return Check;
+	
 }
 
 void Player::Update(float _DeltaTime) 
 {
 	UpdateState(_DeltaTime);
-	//Movecalculation(_DeltaTime);
+	
 }
 
 void Player::DirCheck(const std::string_view& _AnimationName)

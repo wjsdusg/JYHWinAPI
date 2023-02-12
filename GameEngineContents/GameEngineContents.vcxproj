@@ -158,6 +158,7 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="ContentsEnums.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MapCover.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayLevel.h" />
@@ -168,6 +169,7 @@
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapCover.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player_State.cpp" />
