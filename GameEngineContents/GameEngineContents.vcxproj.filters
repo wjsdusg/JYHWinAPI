@@ -15,6 +15,7 @@
       <Filter>Title</Filter>
     </ClInclude>
     <ClInclude Include="MapCover.h" />
+    <ClInclude Include="Bomb.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Map.cpp" />
@@ -31,6 +32,7 @@
       <Filter>Title</Filter>
     </ClCompile>
     <ClCompile Include="MapCover.cpp" />
+    <ClCompile Include="Bomb.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

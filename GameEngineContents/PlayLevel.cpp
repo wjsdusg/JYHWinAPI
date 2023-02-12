@@ -10,6 +10,7 @@
 #include "Map.h"
 #include "BackGround.h"
 #include "MapCover.h"
+#include "Bomb.h"
 PlayLevel::PlayLevel()
 {
 }
@@ -46,6 +47,10 @@ void PlayLevel::Loading()
 		
 		
 	}
+	{
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Bomb.BMP"));
+		Image->Cut(4, 1);
+	}
 	// 액터 생성
 	{
 		BackGround* Actor = CreateActor<BackGround>();
@@ -59,7 +64,9 @@ void PlayLevel::Loading()
 	{
 		MapCover* Actor = CreateActor< MapCover>();
 	}
-
+	{
+		Bomb* Actor = CreateActor<Bomb>();
+	}
 
 	if (false == GameEngineInput::IsKey("PlayerOff"))
 	{

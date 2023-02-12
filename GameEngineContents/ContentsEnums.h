@@ -5,5 +5,6 @@ enum class CrazyRenderOrder
 	BackGround,
 	Map,
 	MapCover,
+	Item,
 	Player,
 };
