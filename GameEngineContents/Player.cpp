@@ -32,7 +32,7 @@ void Player::Start()
 	}
 
 	{
-		AnimationRender = CreateRender(BubbleRenderOrder::Player);
+		AnimationRender = CreateRender(CrazyRenderOrder::Player);
 		AnimationRender->SetScale({ 200, 200 });
 
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "Right_Player.bmp", .Start = 0, .End = 2, .InterTime = 0.3f});

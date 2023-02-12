@@ -17,7 +17,7 @@ void TitleBack::Start()
 	float4 Size = GameEngineWindow::GetScreenSize();
 	
 
-	GameEngineRender* Render = CreateRender("titleback.bmp", BubbleRenderOrder::BackGround);
+	GameEngineRender* Render = CreateRender("titleback.bmp", CrazyRenderOrder::BackGround);
 	Render->SetPosition(GameEngineWindow::GetScreenSize().half());
 	Render->SetScale(GameEngineWindow::GetScreenSize());
 }

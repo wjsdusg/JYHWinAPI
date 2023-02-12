@@ -17,10 +17,11 @@ void Map::Start()
 	{
 		// float4 Scree = GameEngineWindow::GetScreenSize();
 
-		GameEngineRender* AnimationRender = CreateRender(BubbleRenderOrder::Map);
+		GameEngineRender* AnimationRender = CreateRender(CrazyRenderOrder::Map);
 		AnimationRender->SetPosition(GameEngineWindow::GetScreenSize().half());
-		AnimationRender->SetScale(GameEngineWindow::GetScreenSize());
-		AnimationRender->SetImage("Map.Bmp");
+		//AnimationRender->SetScale(GameEngineWindow::GetScreenSize());
+		AnimationRender->SetImageToScaleToImage("Camp_Back.Bmp");
+		AnimationRender->SetImage("Camp_Back.Bmp");
 		// AnimationRender->ChangeAnimation("Loop");
 	}
 

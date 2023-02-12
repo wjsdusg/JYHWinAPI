@@ -1,6 +1,6 @@
 #pragma once
 
-enum class BubbleRenderOrder
+enum class CrazyRenderOrder
 {
 	BackGround,
 	Map,

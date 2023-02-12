@@ -18,7 +18,7 @@ StudyGameCore::~StudyGameCore()
 void StudyGameCore::Start()
 {
 	
-	GameEngineWindow::SettingWindowSize({ 1040 , 780 });
+	GameEngineWindow::SettingWindowSize({ 800 , 600 });
 
 	new int();
 
