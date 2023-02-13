@@ -3,22 +3,27 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include "ContentsEnums.h"
 
+#include "Player.h"
+
 Bomb::Bomb()
 {
+	Bomb::BombPtr=this;
+	
 }
 
 Bomb::~Bomb()
 {
 }
-
-void Bomb::Start()
+bool Bomb::Check = false;
+bool IsCheck(bool _Check) {
+	Bomb::Check = _Check;
+	return Bomb::Check;
+};
+void Bomb::Update(float _DeltaTime)
 {
-	{
-		GameEngineRender* AnimationRender = CreateRender(CrazyRenderOrder::Item);
-		AnimationRender->SetPosition(GameEngineWindow::GetScreenSize().half());
-		AnimationRender->CreateAnimation({ .AnimationName="Bomb",.ImageName="Bomb.BMP",.Start=0,.End=3,.InterTime=0.2f});
-		AnimationRender->SetScale(float4{ 40.0f,40.0f });
-		AnimationRender->ChangeAnimation("Bomb");
-	}
+	Bomb::UpdateState(_DeltaTime);
+
 
 }
+
+// GameEngineRender* ¹è¿­·Î

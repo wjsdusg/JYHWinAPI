@@ -1,10 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="BackGround.h" />
     <ClInclude Include="ContentsEnums.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="Monster.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayLevel.h" />
     <ClInclude Include="StudyGameCore.h" />
@@ -14,29 +11,64 @@
     <ClInclude Include="TitleBack.h">
       <Filter>Title</Filter>
     </ClInclude>
-    <ClInclude Include="MapCover.h" />
-    <ClInclude Include="Bomb.h" />
+    <ClInclude Include="Bomb.h">
+      <Filter>Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapCover.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player_State.cpp" />
     <ClCompile Include="PlayLevel.cpp" />
     <ClCompile Include="StudyGameCore.cpp" />
-    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="TitleBack.cpp">
       <Filter>Title</Filter>
     </ClCompile>
     <ClCompile Include="TitleLevel.cpp">
       <Filter>Title</Filter>
     </ClCompile>
-    <ClCompile Include="MapCover.cpp" />
-    <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="Bomb.cpp">
+      <Filter>Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapCover.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="BombState.cpp">
+      <Filter>Bomb</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">
       <UniqueIdentifier>{b8994743-99c3-46d8-96bf-a2b41e0de11f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bomb">
+      <UniqueIdentifier>{afef9b2b-9b4f-4973-8d26-e4bd6046e226}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{ec0deae2-7340-47eb-acc9-4928f02f61cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster">
+      <UniqueIdentifier>{bfc5c860-ff2f-4bdb-9714-5076d936c9ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

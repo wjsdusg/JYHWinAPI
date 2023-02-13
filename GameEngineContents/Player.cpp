@@ -5,7 +5,7 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include "ContentsEnums.h"
-
+#include "Bomb.h"
 Player* Player::MainPlayer;
 
 Player::Player() 
@@ -29,6 +29,7 @@ void Player::Start()
 		GameEngineInput::CreateKey("RightMove", 'D');
 		GameEngineInput::CreateKey("DownMove", 'S');
 		GameEngineInput::CreateKey("UpMove", 'W');
+		GameEngineInput::CreateKey("Space", VK_SPACE);
 	}
 
 	{
@@ -54,17 +55,14 @@ void Player::Start()
 bool Player::Movecalculation(float4 _Pos)
 {
 	
-		// ColMap.BMP 이걸 변수로하면 
 	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Camp_ColMap.BMP");
 	if (nullptr == ColImage)
 	{
 		MsgAssert("충돌용 맵 이미지가 없습니다.");
 	}
 
-	// 내 미래의 위치는 여기인데/.
 
 	bool Check = true;
-	//float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 
 	if (RGB(0, 0, 0) == ColImage->GetPixelColor(_Pos, RGB(0, 0, 0)))
 	{
@@ -102,6 +100,9 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 		DirString = "Down_";
 	}
 
+	if (GameEngineInput::IsPress("Space")) {
+		Bomb::Check = true;
+	}
 
 	if (PrevDirString != DirString)
 	{
