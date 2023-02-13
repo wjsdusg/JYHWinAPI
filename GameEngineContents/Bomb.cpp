@@ -7,23 +7,55 @@
 
 Bomb::Bomb()
 {
-	Bomb::BombPtr=this;
+	
 	
 }
 
 Bomb::~Bomb()
 {
 }
-bool Bomb::Check = false;
-bool IsCheck(bool _Check) {
-	Bomb::Check = _Check;
-	return Bomb::Check;
-};
+
+bool Bomb::BombCheck[10] = { false };
+ int Bomb::BombCount = 6;
+
+void Bomb::Start() {
+	for (int i = 0; i < BombCount; i++) {
+		
+		if (BombCheck[i] == false)
+		{
+			BombCheck[i] = true;
+			AnimationRender = CreateRender(CrazyRenderOrder::Item);
+			AnimationRender->SetPosition(GetPos());
+			AnimationRender->CreateAnimation({ .AnimationName = "Bomb",.ImageName = "Bomb.BMP",.Start = 0,.End = 3,.InterTime = 0.2f });
+			AnimationRender->SetScale(float4{ 40.0f,40.0f });
+			AnimationRender->ChangeAnimation("Bomb");
+			break;
+		}
+		
+	}
+	}
+
 void Bomb::Update(float _DeltaTime)
 {
-	Bomb::UpdateState(_DeltaTime);
-
-
+	ActTime += _DeltaTime;
+	if (ActTime >= 10.0) {
+		Live = false;
+	}
+	//Bomb::UpdateState(_DeltaTime);
+	
+	//AnimationRender->SetPosition(Player::MainPlayer); 불가능
+	if (Live == false) {
+		Death();
+		for (int i = 0; i < BombCount; i++) {
+			if (BombCheck[i] == true) {
+				BombCheck[i] = false;
+				break;
+			}
+		}
+	}
 }
 
-// GameEngineRender* 배열로
+
+bool Bomb::IsLive() {
+	return Live;
+}

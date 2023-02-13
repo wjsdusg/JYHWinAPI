@@ -21,38 +21,24 @@ public:
 	Bomb(Bomb&& _Other) noexcept = delete;
 	Bomb& operator=(const Bomb& _Other) = delete;
 	Bomb& operator=(Bomb&& _Other) noexcept = delete;
-	static bool Check;
-
-	static bool IsCheck(bool _Check);
-protected:
-	void Update(float _DeltaTime) override;
-
-private:
-	float BombActTime = 0.0f;
-	bool Timer(float _DeltaTime);
-
-	GameEngineRender* AnimationRender = nullptr;
-
-	BombState StateValue = BombState::IDLE;
-
-
-	void ChangeState(BombState _State);
-
-	void IdleStart();
-	void IdleUpdate(float _Time);
-	void IdleEnd();
-
-	void PungStart();
-	void PungUpdate(float _Time);
-	void PungEnd();
-
-	void UpdateState(float _DeltaTime);
-	Bomb* BombPtr = nullptr;
-
 	
+protected:
+	void Start() override;
+	void Update(float _DeltaTime) override;
+	
+private:
+	static int BombCount;
 
-	int Bombnum = 0;
-
+	static bool BombCheck[10];
+	
+	float BombActTime = 0.0f;
+	
+	bool IsLive();
+	GameEngineRender* AnimationRender = nullptr;
+	
+	bool Live = true;
+	void UpdateState(float _DeltaTime);
+	
 	float ActTime = 0.0f;
 };
 

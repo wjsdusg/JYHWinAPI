@@ -8,6 +8,7 @@ enum class PlayerState
 };
 
 // Ό³Έν :
+class Bomb;
 class Player : public GameEngineActor
 {
 public:
@@ -30,10 +31,11 @@ protected:
 
 
 private:
+	
+	
 	float AccTime = 0.0f;
 	int StartFrame = 0;
 	float MoveSpeed = 200.0f;
-
 	std::string DirString = "Right_";
 	PlayerState StateValue = PlayerState::IDLE;
 	float4 MoveDir = float4::Zero;

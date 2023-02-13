@@ -6,6 +6,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include "ContentsEnums.h"
 #include "Bomb.h"
+#include <GameEngineCore/GameEngineLevel.h>
 Player* Player::MainPlayer;
 
 Player::Player() 
@@ -78,6 +79,15 @@ void Player::Update(float _DeltaTime)
 {
 	UpdateState(_DeltaTime);
 	
+	if (GameEngineInput::IsDown("Space")) {
+
+		
+			Bomb* NewBomb2 = GetLevel()->CreateActor<Bomb>();
+			NewBomb2->SetPos(GetPos());
+		
+		
+
+	}
 }
 
 void Player::DirCheck(const std::string_view& _AnimationName)
@@ -100,9 +110,7 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 		DirString = "Down_";
 	}
 
-	if (GameEngineInput::IsPress("Space")) {
-		Bomb::Check = true;
-	}
+	
 
 	if (PrevDirString != DirString)
 	{

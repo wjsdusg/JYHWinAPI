@@ -38,9 +38,6 @@
     <ClCompile Include="TitleLevel.cpp">
       <Filter>Title</Filter>
     </ClCompile>
-    <ClCompile Include="Bomb.cpp">
-      <Filter>Bomb</Filter>
-    </ClCompile>
     <ClCompile Include="BackGround.cpp">
       <Filter>Map</Filter>
     </ClCompile>
@@ -54,6 +51,9 @@
       <Filter>Monster</Filter>
     </ClCompile>
     <ClCompile Include="BombState.cpp">
+      <Filter>Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="Bomb.cpp">
       <Filter>Bomb</Filter>
     </ClCompile>
   </ItemGroup>

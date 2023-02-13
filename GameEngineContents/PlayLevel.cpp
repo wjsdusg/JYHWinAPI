@@ -64,9 +64,7 @@ void PlayLevel::Loading()
 	{
 		MapCover* Actor = CreateActor< MapCover>();
 	}
-	{
-		Bomb* Actor = CreateActor<Bomb>();
-	}
+
 
 	if (false == GameEngineInput::IsKey("PlayerOff"))
 	{
