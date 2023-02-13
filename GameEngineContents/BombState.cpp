@@ -1,5 +1,5 @@
 #include "Bomb.h"
-
+#include "Player.h"
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -83,6 +83,7 @@ void Bomb:: PungStart() {
 
 	{
 		AnimationRender = CreateRender(CrazyRenderOrder::Item);
+		//AnimationRender->SetPosition(Player::MainPlayer); ºÒ°¡´É
 		AnimationRender->SetPosition(float4(200,200));
 		AnimationRender->CreateAnimation({ .AnimationName = "Bomb",.ImageName = "Bomb.BMP",.Start = 0,.End = 3,.InterTime = 0.2f });
 		AnimationRender->SetScale(float4{ 40.0f,40.0f });
