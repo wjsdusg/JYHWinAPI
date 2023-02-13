@@ -11,9 +11,10 @@ enum class PlayerState
 class Bomb;
 class Player : public GameEngineActor
 {
+	friend Bomb;
 public:
 	static Player* MainPlayer;
-
+	static int BombCount;
 	// constrcuter destructer
 	Player();
 	~Player();
@@ -33,8 +34,10 @@ protected:
 private:
 	
 	
+	
 	float AccTime = 0.0f;
 	int StartFrame = 0;
+	int* BombCountptr = &BombCount;
 	float MoveSpeed = 200.0f;
 	std::string DirString = "Right_";
 	PlayerState StateValue = PlayerState::IDLE;

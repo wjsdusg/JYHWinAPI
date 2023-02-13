@@ -27,18 +27,13 @@ protected:
 	void Update(float _DeltaTime) override;
 	
 private:
-	static int BombCount;
+	
 
-	static bool BombCheck[10];
-	
+	int* Playerbombcount=nullptr;
 	float BombActTime = 0.0f;
+		
+	GameEngineRender* AnimationRender = nullptr;	
 	
-	bool IsLive();
-	GameEngineRender* AnimationRender = nullptr;
 	
-	bool Live = true;
-	void UpdateState(float _DeltaTime);
-	
-	float ActTime = 0.0f;
 };
 

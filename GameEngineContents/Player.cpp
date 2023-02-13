@@ -17,6 +17,8 @@ Player::~Player()
 {
 }
 
+int Player::BombCount = 6;
+
 void Player::Start()
 {
 	MainPlayer = this;
@@ -34,6 +36,7 @@ void Player::Start()
 	}
 
 	{
+		
 		AnimationRender = CreateRender(CrazyRenderOrder::Player);
 		AnimationRender->SetScale({ 160, 160 });
 
@@ -79,12 +82,12 @@ void Player::Update(float _DeltaTime)
 {
 	UpdateState(_DeltaTime);
 	
-	if (GameEngineInput::IsDown("Space")) {
+	if (GameEngineInput::IsDown("Space")&&BombCount>0) {
 
 		
 			Bomb* NewBomb2 = GetLevel()->CreateActor<Bomb>();
 			NewBomb2->SetPos(GetPos());
-		
+			BombCount--;
 		
 
 	}
