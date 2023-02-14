@@ -30,10 +30,10 @@ private:
 	
 
 	int* Playerbombcount=nullptr;
-	float BombActTime = 0.0f;
-		
+	int BombPowerCount = 1;
+	int* BombPowerCountPtr = &BombPowerCount;
 	GameEngineRender* AnimationRender = nullptr;	
-	
+	GameEngineRender* BPAnimationRender = nullptr;
 	
 };
 

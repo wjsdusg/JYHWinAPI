@@ -26,6 +26,9 @@
     <ClInclude Include="Monster.h">
       <Filter>Monster</Filter>
     </ClInclude>
+    <ClInclude Include="BombPower.h">
+      <Filter>Bomb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp" />
@@ -50,10 +53,10 @@
     <ClCompile Include="Monster.cpp">
       <Filter>Monster</Filter>
     </ClCompile>
-    <ClCompile Include="BombState.cpp">
+    <ClCompile Include="Bomb.cpp">
       <Filter>Bomb</Filter>
     </ClCompile>
-    <ClCompile Include="Bomb.cpp">
+    <ClCompile Include="BombPower.cpp">
       <Filter>Bomb</Filter>
     </ClCompile>
   </ItemGroup>

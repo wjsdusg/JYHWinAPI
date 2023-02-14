@@ -50,6 +50,8 @@ void PlayLevel::Loading()
 	{
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Bomb.BMP"));
 		Image->Cut(4, 1);
+		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("unit_bombwaterAll.BMP"));
+		Image2->Cut(4, 10);
 	}
 	// 액터 생성
 	{
