@@ -28,7 +28,7 @@ void Bomb::Start() {
 			AnimationRender->CreateAnimation({ .AnimationName = "BombEnd",.ImageName = "unit_bombwaterAll.BMP",.Start = 4,.End = 7,.InterTime = 0.17f });
 			AnimationRender->SetScale(float4{ 40.0f,40.0f });
 			AnimationRender->ChangeAnimation("Bomb");
-
+			
 			
 }
 
