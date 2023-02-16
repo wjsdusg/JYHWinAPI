@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+
 enum class BombState
 {
 	IDLE,
@@ -8,9 +9,11 @@ enum class BombState
 
 // Ό³Έν :
 class Player;
+class BombPower;
 class Bomb : public GameEngineActor
 {
 	friend Player;
+	friend BombPower;
 public:
 	
 	Bomb();
@@ -28,12 +31,13 @@ protected:
 	
 private:
 	
-
+	int num = 1;
 	int* Playerbombcount=nullptr;
-	int BombPowerCount = 1;
-	int* BombPowerCountPtr = &BombPowerCount;
+	int BombPowerCount = 2;
+	int PlusPos = 40;
+	int* PlusPosPtr = &PlusPos;
 	GameEngineRender* AnimationRender = nullptr;	
-	GameEngineRender* BPAnimationRender = nullptr;
+	
 	
 };
 

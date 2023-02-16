@@ -25,7 +25,7 @@ void Bomb::Start() {
 			AnimationRender = CreateRender(CrazyRenderOrder::Item);
 			AnimationRender->SetPosition(GetPos());
 			AnimationRender->CreateAnimation({ .AnimationName = "Bomb",.ImageName = "Bomb.BMP",.Start = 0,.End = 3,.InterTime = 0.2f });
-			AnimationRender->CreateAnimation({ .AnimationName = "BombEnd",.ImageName = "unit_bombwaterAll.BMP",.Start = 4,.End = 7,.InterTime = 0.13333f });
+			AnimationRender->CreateAnimation({ .AnimationName = "BombEnd",.ImageName = "unit_bombwaterAll.BMP",.Start = 4,.End = 7,.InterTime = 0.17f });
 			AnimationRender->SetScale(float4{ 40.0f,40.0f });
 			AnimationRender->ChangeAnimation("Bomb");
 
@@ -37,23 +37,28 @@ void Bomb::Update(float _DeltaTime)
 	
 	Playerbombcount = Player::MainPlayer->BombCountptr;
 	
+	
 	if (GetLiveTime() >= 4.5)
 	{
 		
-
-	}
-	if (GetLiveTime() >= 4.6)
-	{
 		AnimationRender->ChangeAnimation("BombEnd");
-		if (BombPowerCount > 0) {
+
+		
 			BombPower* NewBombPower = GetLevel()->CreateActor<BombPower>();
+			//내가만든 주소값
+			
+			//NewBombPower->PlusPosPtr = PlusPosPtr;
 
-			//NewBombPower->SetOwner(this);
-
+			PlusPos *=num;
 			NewBombPower->SetPos(GetPos());
-			NewBombPower->BombPowerCountPtr = BombPowerCountPtr;
-			BombPowerCount--;
-		}
+			NewBombPower->PlusPos = PlusPos;
+
+			//PlusPos *= num;
+			
+			num++;
+
+			
+		
 		
 	}
 	

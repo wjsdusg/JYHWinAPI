@@ -6,6 +6,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include "ContentsEnums.h"
 #include "Bomb.h"
+#include "BombPower.h"
 #include <GameEngineCore/GameEngineLevel.h>
 Player* Player::MainPlayer;
 
@@ -18,6 +19,7 @@ Player::~Player()
 }
 
 int Player::BombCount = 6;
+int Player::PBombPower = 2;
 
 void Player::Start()
 {

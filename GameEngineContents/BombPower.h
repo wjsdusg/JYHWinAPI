@@ -22,9 +22,12 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	int* BombPowerCountPtr = nullptr;
+	int* PlusPosPtr = nullptr;
+	int PlusPos = 40;
 	GameEngineRender* AnimationRender[4] = {};
-	float ActTime = 0.0f;
+
+	std::vector<float> _FrameTime;
+	//int PlusPos = 80;
 
 };
 
