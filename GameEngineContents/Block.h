@@ -20,5 +20,9 @@ protected:
 	void Start() override;
 
 private:
+	float4 MapSize = { 600,520 };
+	int TileSize = 40;
+	int XTileNum = MapSize.x / TileSize;
+	int YTileNum = MapSize.y / TileSize;
 	GameEngineTileMap* NewGameEngineTileMap;
 };

@@ -11,6 +11,7 @@
 #include "BackGround.h"
 #include "MapCover.h"
 #include "Bomb.h"
+#include "Block.h"
 PlayLevel::PlayLevel()
 {
 }
@@ -53,6 +54,11 @@ void PlayLevel::Loading()
 		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("unit_bombwaterAll.BMP"));
 		Image2->Cut(4, 10);
 	}
+
+	{
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Block1.BMP"));
+		Image->Cut(1, 1);
+	}
 	// 액터 생성
 	{
 		BackGround* Actor = CreateActor<BackGround>();
@@ -66,7 +72,9 @@ void PlayLevel::Loading()
 	{
 		MapCover* Actor = CreateActor< MapCover>();
 	}
-
+	{
+		Block* Actor = CreateActor< Block>();
+	}
 
 	if (false == GameEngineInput::IsKey("PlayerOff"))
 	{
