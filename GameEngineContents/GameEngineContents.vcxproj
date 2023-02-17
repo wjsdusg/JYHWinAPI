@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Block.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="BombPower.h" />
     <ClInclude Include="ContentsEnums.h" />
@@ -170,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Block.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="BombPower.cpp" />
     <ClCompile Include="Map.cpp" />

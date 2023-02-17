@@ -3,7 +3,7 @@
 #include <map>
 #include <string_view>
 #include <GameEngineBase/GameEngineDebug.h>
-
+#include <GameEngineCore/GameEngineLevel.h>
 
 class GameEngineLevel;
 class GameEngineCore
