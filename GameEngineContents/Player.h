@@ -10,6 +10,7 @@ enum class PlayerState
 
 // Ό³Έν :
 class Bomb;
+class GameEngineTileMap;
 class Player : public GameEngineActor
 {
 	friend Bomb;
@@ -47,7 +48,7 @@ private:
 	float4 MoveDir = float4::Zero;
 
 	GameEngineRender* AnimationRender = nullptr;
-
+	GameEngineTileMap* NewGameEngineTileMap = nullptr;
 
 	void DirCheck(const std::string_view& _AnimationName);
 

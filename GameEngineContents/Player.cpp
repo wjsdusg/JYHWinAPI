@@ -8,6 +8,7 @@
 #include "Bomb.h"
 #include "BombPower.h"
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineTileMap.h>
 Player* Player::MainPlayer;
 
 Player::Player() 
@@ -25,8 +26,12 @@ void Player::Start()
 {
 	MainPlayer = this;
 
-	SetMove(GameEngineWindow::GetScreenSize().half());
+	SetMove(GameEngineWindow::GetScreenSize().half()-float4{200,0});
 
+	NewGameEngineTileMap = GetLevel()->CreateActor<GameEngineTileMap>();
+	NewGameEngineTileMap->SetPos(float4(20, 40));
+	NewGameEngineTileMap->CreateTileMap(15, 13, 1, 0, float4{ 40,40 });
+	
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -88,7 +93,7 @@ void Player::Update(float _DeltaTime)
 
 		
 			Bomb* NewBomb2 = GetLevel()->CreateActor<Bomb>();
-			NewBomb2->SetPos(GetPos());
+			NewBomb2->SetPos(NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()));
 			BombCount--;
 		
 
