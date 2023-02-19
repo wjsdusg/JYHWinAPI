@@ -12,6 +12,7 @@
 #include "MapCover.h"
 #include "Bomb.h"
 #include "Block.h"
+#include "ContentsEnums.h"
 PlayLevel::PlayLevel()
 {
 }
@@ -67,7 +68,7 @@ void PlayLevel::Loading()
 		Map* Actor = CreateActor<Map>();
 	}
 	{
-		Player* Actor = CreateActor<Player>();
+		Player* Actor = CreateActor<Player>(CrazyRenderOrder::Player);
 	}
 	{
 		MapCover* Actor = CreateActor< MapCover>();
@@ -76,24 +77,28 @@ void PlayLevel::Loading()
 		Block* Actor = CreateActor< Block>();
 	}
 
-	if (false == GameEngineInput::IsKey("PlayerOff"))
-	{
-		GameEngineInput::CreateKey("PlayerOff", 'R');
+	//if (false == GameEngineInput::IsKey("PlayerOff"))
+	//{
+	//	GameEngineInput::CreateKey("PlayerOff", 'R');
+	//}
+
+	if (false == GameEngineInput::IsKey("CollisionRender")) {
+		GameEngineInput::CreateKey("CollisionRender", 'R');
 	}
-
-
 	
 }
 
 void PlayLevel::Update(float _DeltaTime)
 {
-	if (GameEngineInput::IsDown("PlayerOff"))
-	{
-		Player::MainPlayer->OnOffSwtich();
-		// Player::MainPlayer->Death()p;
+	//if (GameEngineInput::IsDown("PlayerOff"))
+	//{
+	//	Player::MainPlayer->OnOffSwtich();
+	//	// Player::MainPlayer->Death()p;
+	//}
+
+	if (GameEngineInput::IsDown("CollisionRender")) {
+		DebugRenderSwitch();
 	}
-
-
 
 	
 

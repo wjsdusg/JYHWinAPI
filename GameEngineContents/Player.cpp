@@ -9,6 +9,8 @@
 #include "BombPower.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineTileMap.h>
+#include <GameEngineCore/GameEngineCollision.h>
+#include "Block.h"
 Player* Player::MainPlayer;
 
 Player::Player() 
@@ -32,6 +34,8 @@ void Player::Start()
 	NewGameEngineTileMap->SetPos(float4(20, 40));
 	NewGameEngineTileMap->CreateTileMap(15, 13, 1, 0, float4{ 40,40 });
 	
+	BodyCollision = CreateCollision(CrazyRenderOrder::Player);
+	BodyCollision->SetScale(float4(50, 50));
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -71,14 +75,15 @@ bool Player::Movecalculation(float4 _Pos)
 	{
 		MsgAssert("충돌용 맵 이미지가 없습니다.");
 	}
-
-
 	bool Check = true;
 
 	if (RGB(0, 0, 0) == ColImage->GetPixelColor(_Pos, RGB(0, 0, 0)))
 	{
 		Check = false;
 		
+	}
+	if (Block::OwnerBlock->IsBlock(GetPos())) {
+		Check = false;
 	}
 
 	return Check;

@@ -98,6 +98,7 @@ void Player::MoveUpdate(float _Time)
 
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{
+		
 		if (true == Movecalculation(GetPos()+=float4::Left * MoveSpeed * _Time)) {
 			SetMove(float4::Left * MoveSpeed * _Time);
 		}

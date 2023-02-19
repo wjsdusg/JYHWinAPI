@@ -49,6 +49,7 @@ private:
 
 	GameEngineRender* AnimationRender = nullptr;
 	GameEngineTileMap* NewGameEngineTileMap = nullptr;
+	GameEngineCollision* BodyCollision = nullptr;
 
 	void DirCheck(const std::string_view& _AnimationName);
 
@@ -66,6 +67,7 @@ private:
 	void MoveEnd();
 
 	bool Movecalculation(float4 _Pos);
+
 
 };
 

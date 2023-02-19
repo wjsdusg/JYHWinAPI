@@ -43,6 +43,7 @@ public:
 	{
 		ObjectUpdate = true;
 	}
+	
 	void Off()
 	{
 		ObjectUpdate = false;

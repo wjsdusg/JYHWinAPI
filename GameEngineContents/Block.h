@@ -3,8 +3,10 @@
 
 // Ό³Έν :
 class GameEngineTileMap;
+class Player;
 class Block : public GameEngineActor
 {
+	friend Player;
 public:
 	// constrcuter destructer
 	Block();
@@ -15,7 +17,7 @@ public:
 	Block(Block&& _Other) noexcept = delete;
 	Block& operator=(const Block& _Other) = delete;
 	Block& operator=(Block&& _Other) noexcept = delete;
-
+	bool IsBlock(float4 _Pos);
 protected:
 	void Start() override;
 
@@ -25,4 +27,5 @@ private:
 	int XTileNum = MapSize.x / TileSize;
 	int YTileNum = MapSize.y / TileSize;
 	GameEngineTileMap* NewGameEngineTileMap;
+	static Block* OwnerBlock;
 };

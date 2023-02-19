@@ -193,7 +193,14 @@ public:
 		Return.z = z / _Value.z;
 		return Return;
 	}
-
+	float4 operator /(const float _Value) const
+	{
+		float4 Return;
+		Return.x = x / _Value;
+		Return.y = y / _Value;
+		Return.z = z / _Value;
+		return Return;
+	}
 	float4 operator -() const
 	{
 		return { -x, -y, -z, 1.0f };
