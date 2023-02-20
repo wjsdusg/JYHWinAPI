@@ -25,6 +25,7 @@ protected:
 private:
 	int* PlusPosPtr = nullptr;
 	int PlusPos = 40;
+
 	GameEngineRender* AnimationRender[4] = {};
 
 	std::vector<float> _FrameTime;

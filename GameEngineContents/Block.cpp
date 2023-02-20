@@ -31,9 +31,22 @@ void Block::Start()
 	
 }
 
-bool Block::IsBlock(float4 _Pos) {
+bool Block::IsBlock(float4 _Pos) 
+{
 	
-	bool check = NewGameEngineTileMap->GetTile(0, _Pos)->IsUpdate();
+	float4 Pos = NewGameEngineTileMap->GetIndex(_Pos);
+	if (false == NewGameEngineTileMap->IsValidIndex(0, Pos.iy(), Pos.ix()))
+	{
+		return true;
+	}
+
+	GameEngineRender* TilePtr = NewGameEngineTileMap->GetTile(0, _Pos);
+	if (nullptr == TilePtr)
+	{
+		return true;
+	}
+
+	bool check = TilePtr->IsUpdate();
 	return check;
 
 

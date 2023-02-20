@@ -11,6 +11,7 @@
 #include <GameEngineCore/GameEngineTileMap.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include "Block.h"
+#include "DropItem.h"
 Player* Player::MainPlayer;
 
 Player::Player() 
@@ -74,19 +75,19 @@ bool Player::Movecalculation(float4 _Pos)
 	if (nullptr == ColImage)
 	{
 		MsgAssert("충돌용 맵 이미지가 없습니다.");
+		return false;
 	}
-	bool Check = true;
+	
 
 	if (RGB(0, 0, 0) == ColImage->GetPixelColor(_Pos, RGB(0, 0, 0)))
 	{
-		Check = false;
-		
+		return false;
 	}
-	if (Block::OwnerBlock->IsBlock(GetPos())) {
-		Check = false;
+	if (true == Block::OwnerBlock->IsBlock(_Pos)) {
+		return false;
 	}
 
-	return Check;
+	return true;
 	
 }
 
@@ -102,6 +103,15 @@ void Player::Update(float _DeltaTime)
 			for (size_t i = 0; i < Collision.size(); i++)
 			{
 				GameEngineActor* ColActor = Collision[i]->GetActor();
+				DropItem* Drop = dynamic_cast<DropItem*>(ColActor);
+
+				if (nullptr == Drop)
+				{
+					continue;
+				}
+
+				// Drop->GetItemType();
+				
 				ColActor->Death();
 			}
 		}
