@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/NumberRenderObject.h>
 class Bomb;
+class GameEngineTileMap;
 class BombPower : public GameEngineActor
 {
 	friend Bomb;
@@ -28,6 +29,6 @@ private:
 
 	std::vector<float> _FrameTime;
 	//int PlusPos = 80;
-
+	GameEngineTileMap* NewGameEngineTileMap;
 };
 

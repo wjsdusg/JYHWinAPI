@@ -13,6 +13,9 @@
 #include "Bomb.h"
 #include "Block.h"
 #include "ContentsEnums.h"
+#include "DropItem.h"
+#include "SpeedItem.h"
+#include "BombItem.h"
 PlayLevel::PlayLevel()
 {
 }
@@ -60,6 +63,14 @@ void PlayLevel::Loading()
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Block1.BMP"));
 		Image->Cut(1, 1);
 	}
+	{
+		GameEngineImage* Image1 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ballon.BMP"));
+		Image1->Cut(2, 1);
+		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("skate.BMP"));
+		Image2->Cut(2, 1);
+		GameEngineImage* Image3 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("power_max.BMP"));
+		Image3->Cut(2, 1);
+	}
 	// 액터 생성
 	{
 		BackGround* Actor = CreateActor<BackGround>();
@@ -75,6 +86,14 @@ void PlayLevel::Loading()
 	}
 	{
 		Block* Actor = CreateActor< Block>();
+	}
+	{
+		DropItem* Actor = CreateActor<BombItem>(CrazyRenderOrder::DropItem);
+		Actor->SetPos(float4(200, 200));
+	}
+	{
+		DropItem* Actor = CreateActor<SpeedItem>(CrazyRenderOrder::DropItem);
+		Actor->SetPos(float4(240, 200));
 	}
 
 	//if (false == GameEngineInput::IsKey("PlayerOff"))

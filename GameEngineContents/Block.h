@@ -4,9 +4,11 @@
 // Ό³Έν :
 class GameEngineTileMap;
 class Player;
+class BombPower;
 class Block : public GameEngineActor
 {
 	friend Player;
+	friend BombPower;
 public:
 	// constrcuter destructer
 	Block();
@@ -24,8 +26,8 @@ protected:
 private:
 	float4 MapSize = { 600,520 };
 	int TileSize = 40;
-	int XTileNum = MapSize.x / TileSize;
-	int YTileNum = MapSize.y / TileSize;
-	GameEngineTileMap* NewGameEngineTileMap;
+	int XTileNum = static_cast<int>(MapSize.x / TileSize);
+	int YTileNum = static_cast<int>(MapSize.y / TileSize);
+	GameEngineTileMap* NewGameEngineTileMap=nullptr;
 	static Block* OwnerBlock;
 };

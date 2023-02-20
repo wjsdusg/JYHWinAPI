@@ -1,7 +1,11 @@
 #include "BombPower.h"
+#include <GameEngineCore/GameEngineTileMap.h>
+#include <GameEngineCore/GameEngineLevel.h>
 #include "ContentsEnums.h"
 #include "Player.h"
 #include <vector>
+#include "Block.h"
+
 BombPower::BombPower()
 {
 	
@@ -17,6 +21,9 @@ BombPower::~BombPower()
 void BombPower::Start() {
 
 	
+	NewGameEngineTileMap = GetLevel()->CreateActor<GameEngineTileMap>();
+	NewGameEngineTileMap->SetPos(float4(20, 40));
+	NewGameEngineTileMap->CreateTileMap(15, 13, 1, 0, float4{ 40,40 });
 	
 	_FrameTime.push_back(0.3f);
 	_FrameTime.push_back(0.1f);
@@ -36,8 +43,13 @@ void BombPower::Start() {
 		else if(i< Player::PBombPower) {
 			AnimationRender[0]->ChangeAnimation("BombUping");
 		}
-		float4 MovePosition0 = float4::Up * static_cast<float>(PlusPos*i);
-		MovePosition0 += GetPos();
+		float4 MovePosition0 = float4::Up * static_cast<float>(PlusPos * i);
+		MovePosition0 = MovePosition0 + GetPos();
+
+		int a = 0;
+		if (Block::OwnerBlock->IsBlock(MovePosition0)) {
+			break;
+		}
 		AnimationRender[0]->SetPosition(MovePosition0);
 
 

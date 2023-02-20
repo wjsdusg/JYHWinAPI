@@ -35,7 +35,7 @@ void Player::Start()
 	NewGameEngineTileMap->CreateTileMap(15, 13, 1, 0, float4{ 40,40 });
 	
 	BodyCollision = CreateCollision(CrazyRenderOrder::Player);
-	BodyCollision->SetScale(float4(50, 50));
+	BodyCollision->SetScale(float4(40, 40));
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -93,15 +93,25 @@ bool Player::Movecalculation(float4 _Pos)
 void Player::Update(float _DeltaTime) 
 {
 	UpdateState(_DeltaTime);
-	
-	if (GameEngineInput::IsDown("Space")&&BombCount>0) {
+	if (BodyCollision != nullptr) {
 
-		
+		std::vector<GameEngineCollision*> Collision;
+	
+		if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::DropItem), .TargetColType = CT_Point , .ThisColType = CT_CirCle }, Collision)) {
+
+			for (size_t i = 0; i < Collision.size(); i++)
+			{
+				GameEngineActor* ColActor = Collision[i]->GetActor();
+				ColActor->Death();
+			}
+		}
+
+	}
+	
+	if (GameEngineInput::IsDown("Space")&&BombCount>0) {		
 			Bomb* NewBomb2 = GetLevel()->CreateActor<Bomb>();
 			NewBomb2->SetPos(NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()));
 			BombCount--;
-		
-
 	}
 }
 

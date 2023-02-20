@@ -6,6 +6,7 @@ enum class CrazyRenderOrder
 	Map,
 	MapCover,
 	Block,
+	DropItem,
 	Item=500,
 	Player=1000,
 };

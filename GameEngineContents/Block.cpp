@@ -25,7 +25,7 @@ void Block::Start()
 	NewGameEngineTileMap->SetTileFrame(0, 0,0, 0);
 
 	NewGameEngineTileMap->SetTileFrame(0, 1,0, 0);
-//	NewGameEngineTileMap->SetTileFrame(0, 3, 6, 0);
+	NewGameEngineTileMap->SetTileFrame(0, 3, 6, 0);
 	//MapSize.x += 20.0f;
 	//MapSize.y += 40.0f;
 	
