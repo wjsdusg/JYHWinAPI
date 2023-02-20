@@ -44,7 +44,7 @@ void BombPower::Start() {
 			AnimationRender[0]->ChangeAnimation("BombUping");
 		}
 		float4 MovePosition0 = float4::Up * static_cast<float>(PlusPos * i);
-		MovePosition0 = MovePosition0 + GetPos();
+		MovePosition0 += GetPos();
 
 		int a = 0;
 		if (Block::OwnerBlock->IsBlock(MovePosition0)) {
