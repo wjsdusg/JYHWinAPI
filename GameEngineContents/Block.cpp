@@ -22,7 +22,7 @@ void Block::Start()
 	NewGameEngineTileMap->SetPos(float4(20, 40));
 	NewGameEngineTileMap->CreateTileMap(XTileNum, YTileNum, 3, static_cast<int>(CrazyRenderOrder::Block), float4(40, 40));
 	NewGameEngineTileMap->SetFloorSetting(0, "Block1.bmp");
-	NewGameEngineTileMap->SetTileFrame(0, 0,0, 0);
+	//NewGameEngineTileMap->SetTileFrame(0, 0,0, 0);
 
 	NewGameEngineTileMap->SetTileFrame(0, 1,0, 0);
 	NewGameEngineTileMap->SetTileFrame(0, 3, 6, 0);
@@ -34,8 +34,10 @@ void Block::Start()
 bool Block::IsBlock(float4 _Pos) 
 {
 	
+	_Pos; // += NewGameEngineTileMap->GetPos()
+	
 	float4 Pos = NewGameEngineTileMap->GetIndex(_Pos);
-	if (false == NewGameEngineTileMap->IsValidIndex(0, Pos.iy(), Pos.ix()))
+	if (false == NewGameEngineTileMap->IsValidIndex(0, Pos.y, Pos.x))
 	{
 		return true;
 	}

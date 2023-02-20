@@ -30,6 +30,8 @@ private:
 
 	std::vector<float> _FrameTime;
 	//int PlusPos = 80;
-	GameEngineTileMap* NewGameEngineTileMap;
+	GameEngineTileMap* NewGameEngineTileMap=nullptr;
+
+	void BombAnimation();
 };
 

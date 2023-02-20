@@ -120,6 +120,7 @@ void Player::Update(float _DeltaTime)
 	
 	if (GameEngineInput::IsDown("Space")&&BombCount>0) {		
 			Bomb* NewBomb2 = GetLevel()->CreateActor<Bomb>();
+			
 			NewBomb2->SetPos(NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()));
 			BombCount--;
 	}

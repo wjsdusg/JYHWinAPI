@@ -31,28 +31,9 @@ void BombPower::Start() {
 	_FrameTime.push_back(0.1f);
 	_FrameTime.push_back(0.1f);
 	_FrameTime.push_back(0.1f);
-
+	//SetPos(float4(200, 200));
 	// for (int i = 1; i <= Player::PBombPower; i++) {
-	for (int bombPowerIndex = 1; bombPowerIndex <= 5; bombPowerIndex++) {
 
-		for (size_t i = 0; i < 4; i++)
-		{
-			float4 CheckPos = GetPos() + (ArrBombDir[i] * 40.0f * bombPowerIndex);
-
-			if (true == Block::OwnerBlock->IsBlock(CheckPos))
-			{
-				continue;
-			}
-
-
-
-			GameEngineRender* NewRender = CreateRender(CrazyRenderOrder::Item);
-			NewRender->CreateAnimation({ .AnimationName = "BombUpEnd",.ImageName = "unit_bombwaterAll.BMP",.Start = 8,.End = 11,.FrameTime = _FrameTime });
-			NewRender->CreateAnimation({ .AnimationName = "BombUping",.ImageName = "unit_bombwaterAll.BMP",.Start = 24,.End = 27,.FrameTime = _FrameTime });
-			NewRender->SetScale(float4{ 45.0f,45.0f });
-			NewRender->ChangeAnimation("BombUping");
-			NewRender->SetPosition(ArrBombDir[i] * 40.0f * bombPowerIndex);
-		}
 
 		//AnimationRender[0] = CreateRender(CrazyRenderOrder::Item);
 		//AnimationRender[0]->CreateAnimation({ .AnimationName = "BombUpEnd",.ImageName = "unit_bombwaterAll.BMP",.Start = 8,.End = 11,.FrameTime = _FrameTime });
@@ -95,18 +76,45 @@ void BombPower::Start() {
 		//float4 MovePosition1 = float4::Down * static_cast<float>(PlusPos*i);
 		//MovePosition1 += GetPos();
 		//AnimationRender[1]->SetPosition(MovePosition1);
-
-	}
+		
+	//}
 	
 
 }
 
 void BombPower::Update(float _DelataTime) {
 	
-	
+
 	if (GetLiveTime() >= 0.5f) {
 	Death();
 	}
 		
 	
+}
+
+void BombPower::BombAnimation() {
+	bool check[4] = { false };
+	for (int bombPowerIndex = 1; bombPowerIndex <= 1; bombPowerIndex++) {
+
+		for (size_t i = 0; i < 4; i++)
+		{
+			
+			float4 CheckPos = GetPos() + (ArrBombDir[i] * 40.0f * static_cast<float>(bombPowerIndex));
+
+			if (true == Block::OwnerBlock->IsBlock(CheckPos))
+			{
+				check[i] = true;
+				continue;
+			}
+			if (true == check[i]) {
+				continue;
+			}
+			GameEngineRender* NewRender = CreateRender(CrazyRenderOrder::Item);
+			NewRender->CreateAnimation({ .AnimationName = "BombUpEnd",.ImageName = "unit_bombwaterAll.BMP",.Start = 8,.End = 11,.FrameTime = _FrameTime });
+			NewRender->CreateAnimation({ .AnimationName = "BombUping",.ImageName = "unit_bombwaterAll.BMP",.Start = 24,.End = 27,.FrameTime = _FrameTime });
+			NewRender->SetScale(float4{ 45.0f,45.0f });
+			NewRender->ChangeAnimation("BombUping");
+			NewRender->SetPosition(ArrBombDir[i] * 40.0f * static_cast<float>(bombPowerIndex));
+		}
+	}
 }

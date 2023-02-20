@@ -44,15 +44,13 @@ void Bomb::Update(float _DeltaTime)
 		AnimationRender->ChangeAnimation("BombEnd");
 
 		
-			BombPower* NewBombPower = GetLevel()->CreateActor<BombPower>();
-			//내가만든 주소값
-			
-			//NewBombPower->PlusPosPtr = PlusPosPtr;
-
-			PlusPos *=num;
+			BombPower* NewBombPower = GetLevel()->CreateActor<BombPower>();				
+		
 			NewBombPower->SetPos(GetPos());
+			
+			PlusPos *=num;
 			NewBombPower->PlusPos = PlusPos;
-
+			NewBombPower->BombAnimation();
 			//PlusPos *= num;
 			
 			num++;

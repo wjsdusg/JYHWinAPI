@@ -42,7 +42,7 @@ public:
 
     GameEngineRender* GetTile(int _ZIndex, float4 _Pos);
 
-    bool IsValidIndex(int _Z, int _Y, int _X);
+    bool IsValidIndex(float _Z, float _Y, float _X);
 
     float4 GetIndex(float4 _Pos);
 
