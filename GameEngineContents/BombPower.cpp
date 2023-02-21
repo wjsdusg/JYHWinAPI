@@ -107,7 +107,10 @@ void BombPower::BombAnimation() {
 					Block::OwnerBlock->NewGameEngineTileMap->GetTile(0, CheckPos)->Death();
 				}
 				check[i] = true;
-				
+				continue;
+			}
+			if (true == Block::OwnerBlock->IsMapOut(CheckPos)) {
+				check[i] = true;
 				continue;
 			}
 			if (true == check[i]) {

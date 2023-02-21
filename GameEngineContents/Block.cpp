@@ -26,6 +26,7 @@ void Block::Start()
 
 	NewGameEngineTileMap->SetTileFrame(0, 1,0, 0);
 	NewGameEngineTileMap->SetTileFrame(0, 3, 6, 0);
+	NewGameEngineTileMap->SetTileFrame(0, 5, 6, 0);
 	//MapSize.x += 20.0f;
 	//MapSize.y += 40.0f;
 	
@@ -34,18 +35,13 @@ void Block::Start()
 bool Block::IsBlock(float4 _Pos) 
 {
 	
-	_Pos; // += NewGameEngineTileMap->GetPos()
+	 // += NewGameEngineTileMap->GetPos()
 	
-	float4 Pos = NewGameEngineTileMap->GetIndex(_Pos);
-	if (false == NewGameEngineTileMap->IsValidIndex(0, Pos.y, Pos.x))
-	{
-		return true;
-	}
-
+	
 	GameEngineRender* TilePtr = NewGameEngineTileMap->GetTile(0, _Pos);
 	if (nullptr == TilePtr)
 	{
-		return true;
+		return false;
 	}
 
 	bool check = TilePtr->IsUpdate();
@@ -53,4 +49,13 @@ bool Block::IsBlock(float4 _Pos)
 
 
 	//return NewGameEngineTileMap->GetTile(0, float4(1, 0))->IsUpdate();
+}
+
+bool Block::IsMapOut(float4 _Pos) {
+	float4 Pos = NewGameEngineTileMap->GetIndex(_Pos);
+	if (false == NewGameEngineTileMap->IsValidIndex(0, Pos.y, Pos.x))
+	{
+		return true;
+	}
+	return false;
 }

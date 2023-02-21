@@ -20,6 +20,7 @@ public:
 	Block& operator=(const Block& _Other) = delete;
 	Block& operator=(Block&& _Other) noexcept = delete;
 	bool IsBlock(float4 _Pos);
+	bool IsMapOut(float4 _Pos);
 protected:
 	void Start() override;
 
