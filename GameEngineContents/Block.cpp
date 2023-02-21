@@ -22,6 +22,7 @@ void Block::Start()
 	NewGameEngineTileMap->SetPos(float4(20, 40));
 	NewGameEngineTileMap->CreateTileMap(XTileNum, YTileNum, 3, static_cast<int>(CrazyRenderOrder::Block), float4(40, 40));
 	NewGameEngineTileMap->SetFloorSetting(0, "Block1.bmp");
+	NewGameEngineTileMap->SetFloorSetting(1, "Block2.bmp");
 	//NewGameEngineTileMap->SetTileFrame(0, 0,0, 0);
 
 
