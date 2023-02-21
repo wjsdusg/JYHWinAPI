@@ -22,7 +22,7 @@ Player::~Player()
 {
 }
 
-int Player::BombCount = 6;
+int Player::BombCount = 2;
 int Player::PBombPower = 2;
 
 void Player::Start()
@@ -102,7 +102,7 @@ void Player::Update(float _DeltaTime)
 
 			for (size_t i = 0; i < Collision.size(); i++)
 			{
-				GameEngineActor* ColActor = Collision[i]->GetActor();
+				GameEngineActor* ColActor = Collision[i]->GetActor();  //DropItem을상속하는 Item
 				DropItem* Drop = dynamic_cast<DropItem*>(ColActor);
 
 				if (nullptr == Drop)
@@ -110,8 +110,14 @@ void Player::Update(float _DeltaTime)
 					continue;
 				}
 
-				// Drop->GetItemType();
-				
+				ItemType NewItemType = Drop->GetItemType();
+
+				if (NewItemType == ItemType::Bomb) {
+					this->BombCount++;
+				}
+				if (NewItemType == ItemType::Skate) {
+					this->MoveSpeed += 20;
+				}
 				ColActor->Death();
 			}
 		}

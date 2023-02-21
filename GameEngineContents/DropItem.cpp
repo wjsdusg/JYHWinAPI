@@ -1,10 +1,11 @@
 #include "DropItem.h"
 
 #include <GameEngineCore/GameEngineCollision.h>
-
+#include <GameEngineBase/GameEngineDebug.h>
 #include "ContentsEnums.h"
 #include "Player.h"
-
+#include "BombItem.h"
+#include "SpeedItem.h"
 DropItem::DropItem()
 {
 
@@ -15,7 +16,19 @@ DropItem::~DropItem()
 {
 }
 
+ItemType DropItem::GetItemType() {
+	BombItem* NewBobmItem = dynamic_cast<BombItem*>(this);
+	if (nullptr != NewBobmItem) {
+		return ItemType::Bomb;
+	}
+	SpeedItem* NewSkateItem = dynamic_cast<SpeedItem*>(this);
+	if (nullptr != NewSkateItem) {
+		return ItemType::Skate;
+	}
 
+	return ItemType::Max;
+
+}
 
 void DropItem::Start() {
 

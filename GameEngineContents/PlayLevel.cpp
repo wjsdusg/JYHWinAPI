@@ -95,7 +95,7 @@ void PlayLevel::Loading()
 
 		// 아이템이 몇개 배치될지 결정한다음
 		Actor->ItemCountInsert(ItemType::Skate, 1);
-		Actor->ItemCountInsert(ItemType::BombMax, 1);
+		Actor->ItemCountInsert(ItemType::PowerMax, 1);
 		Actor->ItemCountInsert(ItemType::Bomb, 1);
 
 		// 아이템을 진짜 배치한다.

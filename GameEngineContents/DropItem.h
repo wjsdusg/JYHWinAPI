@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include "ContentsEnums.h"
 
 // Ό³Έν :
 class Player;
@@ -19,7 +19,7 @@ public:
 	DropItem(DropItem&& _Other) noexcept = delete;
 	DropItem& operator=(const DropItem& _Other) = delete;
 	DropItem& operator=(DropItem&& _Other) noexcept = delete;
-
+	ItemType GetItemType();
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

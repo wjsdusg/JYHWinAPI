@@ -10,3 +10,11 @@ enum class CrazyRenderOrder
 	Item=500,
 	Player=1000,
 };
+
+enum class ItemType
+{
+	Skate,
+	Bomb,
+	PowerMax,
+	Max
+};

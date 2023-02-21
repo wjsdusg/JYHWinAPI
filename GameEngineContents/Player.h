@@ -39,7 +39,7 @@ private:
 	
 	
 	
-	float AccTime = 0.0f;
+	
 	int StartFrame = 0;
 	int* BombCountptr = &BombCount;
 	float MoveSpeed = 200.0f;

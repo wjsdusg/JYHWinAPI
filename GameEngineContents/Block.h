@@ -1,14 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 #include <map>
-
-enum class ItemType
-{
-	Skate,
-	Bomb,
-	BombMax,
-	Max
-};
+#include "ContentsEnums.h"
 
 // Ό³Έν :
 class GameEngineTileMap;
@@ -38,6 +31,7 @@ public:
 
 	GameEngineTileMap* GetTileMap() 
 	{
+		
 		return NewGameEngineTileMap;
 	}
 
