@@ -6,6 +6,7 @@
 #include "ContentsEnums.h"
 #include "Player.h"
 #include "BombPower.h"
+#include <GameEngineCore/GameEngineCollision.h>
 Bomb::Bomb()
 {
 	
@@ -20,8 +21,10 @@ Bomb::~Bomb()
 
 void Bomb::Start() {
 	
+			BodyCollision = CreateCollision(CrazyRenderOrder::Bomb);
+			BodyCollision->SetScale(float4(40, 40));
 		
-		
+
 			AnimationRender = CreateRender(CrazyRenderOrder::Item);
 			AnimationRender->SetPosition(GetPos());
 			AnimationRender->CreateAnimation({ .AnimationName = "Bomb",.ImageName = "Bomb.BMP",.Start = 0,.End = 3,.InterTime = 0.2f });
@@ -38,7 +41,7 @@ void Bomb::Update(float _DeltaTime)
 	Playerbombcount = Player::MainPlayer->BombCountptr;
 	
 	
-	if (GetLiveTime() >= 4.5)
+	if (GetLiveTime() >= 4.5||true==BombDeath)
 	{
 		
 		AnimationRender->ChangeAnimation("BombEnd");
@@ -60,6 +63,10 @@ void Bomb::Update(float _DeltaTime)
 			
 			num++;
 
+			if (true == BombDeath) {
+				*Playerbombcount += 1;
+				Death();
+			}
 			
 		
 		

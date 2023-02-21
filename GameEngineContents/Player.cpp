@@ -116,8 +116,12 @@ void Player::Update(float _DeltaTime)
 					this->BombCount++;
 				}
 				if (NewItemType == ItemType::Skate) {
-					this->MoveSpeed += 20;
+					this->MoveSpeed += 20.f;
 				}
+				if (NewItemType == ItemType::PowerMax) {
+					this->PBombPower = 7;
+				}
+
 				ColActor->Death();
 			}
 		}

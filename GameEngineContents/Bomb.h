@@ -1,15 +1,12 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
-enum class BombState
-{
-	IDLE,
-	Pung,
-};
+
 
 // Ό³Έν :
 class Player;
 class BombPower;
+
 class Bomb : public GameEngineActor
 {
 	friend Player;
@@ -38,6 +35,12 @@ private:
 	int* PlusPosPtr = &PlusPos;
 	GameEngineRender* AnimationRender = nullptr;	
 	bool BombAnimationCheck = true;
-	
+	GameEngineCollision* BodyCollision = nullptr;
+	bool BombDeath = false;
+
+	void BobmDie() {
+		BombDeath = true;
+
+	}
 };
 

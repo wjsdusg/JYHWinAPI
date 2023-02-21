@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "BombItem.h"
 #include "SpeedItem.h"
+#include "MaxPower.h"
 DropItem::DropItem()
 {
 
@@ -25,7 +26,10 @@ ItemType DropItem::GetItemType() {
 	if (nullptr != NewSkateItem) {
 		return ItemType::Skate;
 	}
-
+	MaxPower* NewMaxPower = dynamic_cast<MaxPower*>(this);
+	if (nullptr != NewMaxPower) {
+		return ItemType::PowerMax;
+	}
 	return ItemType::Max;
 
 }

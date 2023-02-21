@@ -41,6 +41,9 @@
     <ClInclude Include="DropItem.h">
       <Filter>Item\Owner</Filter>
     </ClInclude>
+    <ClInclude Include="MaxPower.h">
+      <Filter>Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp" />
@@ -82,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="DropItem.cpp">
       <Filter>Item\Owner</Filter>
+    </ClCompile>
+    <ClCompile Include="MaxPower.cpp">
+      <Filter>Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

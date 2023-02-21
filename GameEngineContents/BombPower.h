@@ -30,9 +30,9 @@ private:
 
 	std::vector<float> _FrameTime;
 	//int PlusPos = 80;
-	GameEngineTileMap* NewGameEngineTileMap=nullptr;
+	
 
 	void BombAnimation();
-	
+	GameEngineCollision* BodyCollision = nullptr;
 };
 

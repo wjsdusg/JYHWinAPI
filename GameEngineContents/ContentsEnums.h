@@ -8,6 +8,8 @@ enum class CrazyRenderOrder
 	Block,
 	DropItem,
 	Item=500,
+	Bomb,
+	BombPower,
 	Player=1000,
 };
 
