@@ -20,3 +20,11 @@ enum class ItemType
 	PowerMax,
 	Max
 };
+enum class BlockType
+{
+	Block1,
+	Block2,
+	WoodBlock,
+	TownBush,
+	Wood3Block
+};
