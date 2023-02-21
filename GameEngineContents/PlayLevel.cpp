@@ -4,6 +4,7 @@
 #include <GameEngineBase/GameEngineDirectory.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineResources.h>
+#include <GameEngineCore/GameEngineTileMap.h>
 
 // 나랑 같은 등급의 헤더들
 #include "Player.h"
@@ -86,6 +87,20 @@ void PlayLevel::Loading()
 	}
 	{
 		Block* Actor = CreateActor< Block>();
+
+		// 맵이 먼저 만들어지고
+		Actor->GetTileMap()->SetTileFrame(0, 1, 0, 0);
+		Actor->GetTileMap()->SetTileFrame(0, 3, 6, 0);
+		Actor->GetTileMap()->SetTileFrame(0, 5, 6, 0);
+
+		// 아이템이 몇개 배치될지 결정한다음
+		Actor->ItemCountInsert(ItemType::Skate, 1);
+		Actor->ItemCountInsert(ItemType::BombMax, 1);
+		Actor->ItemCountInsert(ItemType::Bomb, 1);
+
+		// 아이템을 진짜 배치한다.
+		Actor->ItemCreate();
+
 	}
 	{
 		DropItem* Actor = CreateActor<BombItem>(CrazyRenderOrder::DropItem);

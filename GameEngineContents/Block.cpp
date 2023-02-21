@@ -24,12 +24,21 @@ void Block::Start()
 	NewGameEngineTileMap->SetFloorSetting(0, "Block1.bmp");
 	//NewGameEngineTileMap->SetTileFrame(0, 0,0, 0);
 
-	NewGameEngineTileMap->SetTileFrame(0, 1,0, 0);
-	NewGameEngineTileMap->SetTileFrame(0, 3, 6, 0);
-	NewGameEngineTileMap->SetTileFrame(0, 5, 6, 0);
+
 	//MapSize.x += 20.0f;
 	//MapSize.y += 40.0f;
 	
+}
+
+void Block::ItemCountInsert(ItemType _Type, int _Count)
+{
+	ItemCounts[_Type] = _Count;
+}
+
+// 이걸 호출하는 순간 블록에 맞춰서 아이템을 만든다.
+void Block::ItemCreate()
+{
+
 }
 
 bool Block::IsBlock(float4 _Pos) 
