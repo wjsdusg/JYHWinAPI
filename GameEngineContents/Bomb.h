@@ -37,7 +37,7 @@ private:
 	int PlusPos = 40;
 	int* PlusPosPtr = &PlusPos;
 	GameEngineRender* AnimationRender = nullptr;	
-	
+	bool BombAnimationCheck = true;
 	
 };
 

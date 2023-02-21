@@ -48,9 +48,14 @@ void Bomb::Update(float _DeltaTime)
 		
 			NewBombPower->SetPos(GetPos());
 			
-			PlusPos *=num;
-			NewBombPower->PlusPos = PlusPos;
-			NewBombPower->BombAnimation();
+			/*PlusPos *=num;
+			NewBombPower->PlusPos = PlusPos;*/
+			if (BombAnimationCheck == true) {
+				NewBombPower->BombAnimation();
+			}
+			
+
+			 BombAnimationCheck = false;
 			//PlusPos *= num;
 			
 			num++;

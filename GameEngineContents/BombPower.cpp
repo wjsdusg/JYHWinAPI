@@ -94,7 +94,7 @@ void BombPower::Update(float _DelataTime) {
 
 void BombPower::BombAnimation() {
 	bool check[4] = { false };
-	for (int bombPowerIndex = 1; bombPowerIndex <= 1; bombPowerIndex++) {
+	for (int bombPowerIndex = 1; bombPowerIndex <= 5; bombPowerIndex++) {
 
 		for (size_t i = 0; i < 4; i++)
 		{
@@ -103,7 +103,11 @@ void BombPower::BombAnimation() {
 
 			if (true == Block::OwnerBlock->IsBlock(CheckPos))
 			{
+				if (check[i] == false) {
+					Block::OwnerBlock->NewGameEngineTileMap->GetTile(0, CheckPos)->Death();
+				}
 				check[i] = true;
+				
 				continue;
 			}
 			if (true == check[i]) {
