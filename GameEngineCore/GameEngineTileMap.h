@@ -1,14 +1,25 @@
 #pragma once
 #include <GameEngineBase/GameEngineMath.h>
 #include "GameEngineActor.h"
+#include <set> // <= Value 없는 맵
 
 // 제약사항
 // 이 액터는 무조건 0,0,0
 // 각층을 세팅할때는 무조건 cutting된 이미지만 들어올수 있다.
 
-struct FloorInfo
+class TileIndex 
 {
+public:
+    union 
+    {
+        struct
+        {
+            int X;
+            int Y;
+        };
 
+        __int64 Key;
+    };
 };
 
 // 설명 :
@@ -46,6 +57,8 @@ public:
 
     float4 GetIndex(float4 _Pos);
 
+    std::vector<TileIndex> GetAllTileIndex(int _ZIndex);
+
 protected:
 
 private:
@@ -58,5 +71,7 @@ private:
 
     std::vector<std::string_view> FloorImageName;
     std::vector<std::vector<std::vector<GameEngineRender*>>> TileRenders;
+
+    std::vector<std::set<__int64>> TileIndexSet;
 };
 
