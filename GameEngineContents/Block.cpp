@@ -4,6 +4,12 @@
 #include <GameEngineCore/GameEngineTileMap.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include "ContentsEnums.h"
+
+#include "SpeedItem.h"
+#include "MaxPower.h"
+#include "BombItem.h"
+
+
 Block::Block()
 {
 }
@@ -42,7 +48,37 @@ void Block::ItemCountInsert(ItemType _Type, int _Count)
 // 이걸 호출하는 순간 블록에 맞춰서 아이템을 만든다.
 void Block::ItemCreate()
 {
+	std::vector<TileIndex> AllTileIndex = NewGameEngineTileMap->GetAllTileIndex(static_cast<int>(BlockType::Block1));
 
+
+	for (size_t i = 0; i < 200; i++)
+	{
+	}
+
+	// int ItemCreateCount;
+
+	for (std::pair<ItemType, int> ItemTypePair : ItemCounts)
+	{
+		for (size_t i = 0; i < ItemTypePair.second; i++)
+		{
+			ItemType Type = ItemTypePair.first;
+
+			switch (Type)
+			{
+			case ItemType::Skate:
+				break;
+			case ItemType::Bomb:
+				break;
+			case ItemType::PowerMax:
+				break;
+			case ItemType::Max:
+				break;
+			default:
+				break;
+			}
+		}
+
+	}
 }
 
 bool Block::IsBlock(float4 _Pos) 

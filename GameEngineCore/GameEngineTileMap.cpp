@@ -20,6 +20,7 @@ void GameEngineTileMap::CreateTileMap(int _X, int _Y, int _Z, int _Order, float4
 
     TileRenders.resize(_Z);
     FloorImageName.resize(_Z);
+    TileIndexSet.resize(_Z);
 
     X = _X;
     Y = _Y;
@@ -108,12 +109,33 @@ void GameEngineTileMap::SetTileFrame(int _ZIndex, int _X, int _Y, int _ImageFram
     // ĳĪ
     GameEngineRender* TileRender = FloorRenders[_Y][_X];
 
-    // operator[]
+    TileIndex Index;
+    Index.X = _X;
+    Index.Y = _Y;
+    
+    TileIndexSet[_ZIndex].insert(Index.Key);
 
     TileRender->On();
     TileRender->SetFrame(_ImageFrame);
 
     return;
+}
+
+std::vector<TileIndex> GameEngineTileMap::GetAllTileIndex(int _ZIndex)
+{
+    std::set<__int64>& Index = TileIndexSet[_ZIndex];
+
+    std::vector<TileIndex> NewTest;
+
+    for (__int64 Key : Index)
+    {
+        TileIndex Index;
+        Index.Key = Key;
+
+        NewTest.push_back(Index);
+    }
+
+    return NewTest;
 }
 
 float4 GameEngineTileMap::ConvertIndexToTilePosition(float4 _Pos)
