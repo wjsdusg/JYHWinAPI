@@ -22,6 +22,11 @@ public:
 	Bomb& operator=(const Bomb& _Other) = delete;
 	Bomb& operator=(Bomb&& _Other) noexcept = delete;
 	
+	GameEngineCollision* GetBlockCollision() 
+	{
+		return BlockCollision;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -36,6 +41,7 @@ private:
 	GameEngineRender* AnimationRender = nullptr;	
 	bool BombAnimationCheck = true;
 	GameEngineCollision* BodyCollision = nullptr;
+	GameEngineCollision* BlockCollision = nullptr;
 	bool BombDeath = false;
 
 	void BobmDie() {

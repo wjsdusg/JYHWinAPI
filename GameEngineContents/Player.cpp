@@ -96,8 +96,19 @@ bool Player::Movecalculation(float4 _Pos)
 
 			for (size_t i = 0; i < Collision.size(); i++)
 			{
+				if (nullptr != NewBomb2 && NewBomb2->GetBlockCollision() == Collision[i])
+				{
+					continue;
+				}
+
 				return false;
-							
+			}
+		}
+		else 
+		{
+			if (nullptr != NewBomb2)
+			{
+				NewBomb2 = nullptr;
 			}
 		}
 
@@ -145,9 +156,9 @@ void Player::Update(float _DeltaTime)
 
 	}
 	
-	if (GameEngineInput::IsDown("Space")&&BombCount>0) {		
-			Bomb* NewBomb2 = GetLevel()->CreateActor<Bomb>();
-			
+	if (GameEngineInput::IsDown("Space")&&BombCount>0 && nullptr == NewBomb2)
+	{		
+			NewBomb2 = GetLevel()->CreateActor<Bomb>();
 			NewBomb2->SetPos(NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()));
 			BombCount--;
 	}

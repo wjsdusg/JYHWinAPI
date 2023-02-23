@@ -68,6 +68,6 @@ private:
 
 	bool Movecalculation(float4 _Pos);
 
-
+	Bomb* NewBomb2;
 };
 
