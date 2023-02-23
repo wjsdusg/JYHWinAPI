@@ -23,7 +23,8 @@ void Bomb::Start() {
 	
 			BodyCollision = CreateCollision(CrazyRenderOrder::Bomb);
 			BodyCollision->SetScale(float4(40, 40));
-		
+			
+			//BodyCollision = CreateCollision(CrazyRenderOrder::BombtoPlayer);
 
 			AnimationRender = CreateRender(CrazyRenderOrder::Item);
 			AnimationRender->SetPosition(GetPos());
@@ -41,6 +42,8 @@ void Bomb::Update(float _DeltaTime)
 	Playerbombcount = Player::MainPlayer->BombCountptr;
 	
 	
+	
+	//if (Player::MainPlayer->BodyCollision->GetPosition() - this->GetPos() > float4{ 20.f })
 	if (GetLiveTime() >= 4.5||true==BombDeath)
 	{
 		

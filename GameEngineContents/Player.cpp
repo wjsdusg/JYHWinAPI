@@ -87,6 +87,22 @@ bool Player::Movecalculation(float4 _Pos)
 		return false;
 	}
 
+
+	if (BodyCollision != nullptr) {
+
+		std::vector<GameEngineCollision*> Collision;
+
+		if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::BombtoPlayer), .TargetColType = CT_CirCle , .ThisColType = CT_CirCle }, Collision)) {
+
+			for (size_t i = 0; i < Collision.size(); i++)
+			{
+				return false;
+							
+			}
+		}
+
+	}
+
 	return true;
 	
 }
@@ -94,6 +110,7 @@ bool Player::Movecalculation(float4 _Pos)
 void Player::Update(float _DeltaTime) 
 {
 	UpdateState(_DeltaTime);
+
 	if (BodyCollision != nullptr) {
 
 		std::vector<GameEngineCollision*> Collision;
@@ -116,7 +133,7 @@ void Player::Update(float _DeltaTime)
 					this->BombCount++;
 				}
 				if (NewItemType == ItemType::Skate) {
-					this->MoveSpeed += 20.f;
+					this->MoveSpeed += 10.f;
 				}
 				if (NewItemType == ItemType::PowerMax) {
 					this->PBombPower = 7;

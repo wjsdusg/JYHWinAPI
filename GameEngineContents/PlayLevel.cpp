@@ -97,7 +97,7 @@ void PlayLevel::Loading()
 	{
 		Block* Actor = CreateActor< Block>();
 
-		// 맵이 먼저 만들어지고
+		
 		//1
 		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 0, 0, 0);
 		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 2, 0, 0);
@@ -114,11 +114,8 @@ void PlayLevel::Loading()
 		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 5,1 , 0);
 		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block2), 6,1 , 0);
 		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block2), 8,1 , 0);
-		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1),14,1, 0);         /*  static_cast<int>(BlockType::Block1)
-		                                                        static_cast<int>(BlockType::Block2)
-		                                                        static_cast<int>(BlockType::WoodBlock)
-		                                                        static_cast<int>(BlockType::TownBush)
-		                                                        static_cast<int>(BlockType::Wood3Block)*/
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1),14,1, 0);        
+		                                                      
 		//3
 		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 0, 2, 0);
 		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block2), 3, 2, 0);

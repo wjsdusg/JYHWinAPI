@@ -10,6 +10,7 @@ enum class CrazyRenderOrder
 	Item=500,
 	Bomb,
 	BombPower,
+	BombtoPlayer,
 	Player=1000,
 };
 

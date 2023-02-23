@@ -42,7 +42,7 @@ private:
 	
 	int StartFrame = 0;
 	int* BombCountptr = &BombCount;
-	float MoveSpeed = 200.0f;
+	float MoveSpeed = 140.0f;
 	std::string DirString = "Right_";
 	PlayerState StateValue = PlayerState::IDLE;
 	float4 MoveDir = float4::Zero;
