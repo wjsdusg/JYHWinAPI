@@ -87,7 +87,6 @@ bool Player::Movecalculation(float4 _Pos)
 		return false;
 	}
 
-
 	if (BodyCollision != nullptr) {
 
 		std::vector<GameEngineCollision*> Collision;
@@ -112,6 +111,17 @@ bool Player::Movecalculation(float4 _Pos)
 			}
 		}
 
+	}
+	if (nullptr != NewBomb2)
+	{
+		float4 LenPos = NewBomb2->GetPos() - _Pos;
+
+		if (Len > LenPos.Size())
+		{
+			return false;
+		}
+
+		Len = LenPos.Size();
 	}
 
 	return true;
@@ -159,7 +169,11 @@ void Player::Update(float _DeltaTime)
 	if (GameEngineInput::IsDown("Space")&&BombCount>0 && nullptr == NewBomb2)
 	{		
 			NewBomb2 = GetLevel()->CreateActor<Bomb>();
+
 			NewBomb2->SetPos(NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()));
+			
+			NewBombPos = NewBomb2->GetPos();
+			Len = (GetPos() - NewBombPos).Size();
 			BombCount--;
 	}
 }
