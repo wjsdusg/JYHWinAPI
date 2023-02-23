@@ -105,13 +105,28 @@ bool Player::Movecalculation(float4 _Pos)
 		}
 		else 
 		{
+			
+
 			if (nullptr != NewBomb2)
 			{
+				NewBomb2->GetBlockCollision()->Death();
 				NewBomb2 = nullptr;
+				std::vector<GameEngineCollision*> Collision;
+
+				if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::Bomb), .TargetColType = CT_CirCle , .ThisColType = CT_CirCle }, Collision)) {
+
+					for (size_t i = 0; i < Collision.size(); i++)
+					{
+						
+						return false;
+					}
+				}
 			}
+
 		}
 
 	}
+
 	if (nullptr != NewBomb2)
 	{
 		float4 LenPos = NewBomb2->GetPos() - _Pos;

@@ -62,7 +62,7 @@ void PlayLevel::Loading()
 
 	{
 		GameEngineImage* Image1 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Block1.BMP"));
-		Image1->Cut(1, 1);
+		Image1->Cut(6, 1);
 		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Block2.BMP"));
 		Image2->Cut(1, 1);
 		GameEngineImage* Image3 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TownBush.BMP"));
@@ -101,6 +101,11 @@ void PlayLevel::Loading()
 		//1
 		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 0, 0, 0);
 		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 2, 0, 0);
+
+
+		Actor->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), 2, 0)->SetMove(float4{ 0,-5 });
+		Actor->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), 2,0)->SetScale(float4(40, 50));
+		
 		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 5, 0, 0);
 		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block2), 6, 0, 0);
 		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block2), 8, 0, 0);

@@ -42,6 +42,8 @@ public:
 
     GameEngineRender* GetTile(int _ZIndex, float4 _Pos);
 
+    GameEngineRender* GetTile(int _ZIndex, int _X, int _Y);
+
     bool IsValidIndex(int _Z, float _Y, float _X);
 
     float4 GetIndex(float4 _Pos);

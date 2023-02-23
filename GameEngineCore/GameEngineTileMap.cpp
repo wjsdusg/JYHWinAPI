@@ -208,3 +208,15 @@ GameEngineRender* GameEngineTileMap::GetTile(int _ZIndex, float4 _Pos)
 
     return TileRenders[_ZIndex][Index.iy()][Index.ix()];
 }
+
+GameEngineRender* GameEngineTileMap::GetTile(int _ZIndex, int _X,int _Y)
+{
+   
+
+    if (false == IsValidIndex(_ZIndex, _Y,_X))
+    {
+        return nullptr;
+    }
+
+    return TileRenders[_ZIndex][_Y][_X];
+}
