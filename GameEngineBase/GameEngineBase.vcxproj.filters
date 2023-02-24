@@ -20,6 +20,9 @@
     <ClCompile Include="GameEngineString.cpp">
       <Filter>String</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineRandom.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineTime.h" />
@@ -40,6 +43,9 @@
     </ClInclude>
     <ClInclude Include="GameEngineString.h">
       <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineRandom.h">
+      <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
