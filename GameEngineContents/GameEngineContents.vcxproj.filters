@@ -44,6 +44,7 @@
     <ClInclude Include="MaxPower.h">
       <Filter>Item</Filter>
     </ClInclude>
+    <ClInclude Include="ContentsValue.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp" />
@@ -89,6 +90,7 @@
     <ClCompile Include="MaxPower.cpp">
       <Filter>Item</Filter>
     </ClCompile>
+    <ClCompile Include="ContentsValue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

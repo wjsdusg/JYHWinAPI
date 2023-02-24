@@ -8,6 +8,7 @@
 #include "SpeedItem.h"
 #include "MaxPower.h"
 #include "BombItem.h"
+#include "ContentsValue.h"
 
 
 Block::Block()
@@ -26,7 +27,7 @@ void Block::Start()
 	OwnerBlock = this;
 	NewGameEngineTileMap =GetLevel()->CreateActor<GameEngineTileMap>();
 	NewGameEngineTileMap->SetPos(float4(20, 40));
-	NewGameEngineTileMap->CreateTileMap(XTileNum, YTileNum, 10, static_cast<int>(CrazyRenderOrder::Block), float4(40, 40));
+	NewGameEngineTileMap->CreateTileMap(ContentsValue::XTileNum, ContentsValue::YTileNum, 10, static_cast<int>(CrazyRenderOrder::Block), float4(40, 40));
 	NewGameEngineTileMap->SetFloorSetting(static_cast<int>(BlockType::Block1), "Block1.bmp");
 	NewGameEngineTileMap->SetFloorSetting(static_cast<int>(BlockType::TownBush), "TownBush.bmp");
 	

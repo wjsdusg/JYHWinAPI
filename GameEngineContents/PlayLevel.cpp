@@ -97,6 +97,7 @@ void PlayLevel::Loading()
 	{
 		Block* Actor = CreateActor< Block>();
 
+		Bomb::BombMapInit();
 		
 		//1
 		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 0, 0, 0);

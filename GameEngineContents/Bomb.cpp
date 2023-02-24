@@ -6,17 +6,50 @@
 #include "ContentsEnums.h"
 #include "Player.h"
 #include "BombPower.h"
+#include "Block.h"
+#include <GameEngineCore/GameEngineTileMap.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include "ContentsValue.h"
+
+std::vector<std::vector<Bomb*>> Bomb::AllBomb;
+
 Bomb::Bomb()
 {
-
-
 }
 
 Bomb::~Bomb()
 {
+	float4 Index = Block::OwnerBlock->GetTileMap()->GetIndex(GetPos());
+	AllBomb[Index.iy()][Index.ix()] = nullptr;
 }
 
+void Bomb::BombMapInit()
+{
+	int _X = ContentsValue::XTileNum;
+	int _Y = ContentsValue::YTileNum;
+
+	AllBomb.resize(_Y);
+	for (size_t y = 0; y < AllBomb.size(); y++)
+	{
+		AllBomb[y].resize(_X);
+
+		for (size_t x = 0; x < AllBomb[y].size(); x++)
+		{
+			AllBomb[y][x] = nullptr;
+		}
+	}
+}
+
+bool Bomb::IsBomb(const float4& _Pos)
+{
+	float4 Index = Block::OwnerBlock->GetTileMap()->GetIndex(_Pos);
+	return IsBomb(Index.ix(), Index.iy());
+}
+
+bool Bomb::IsBomb(int _X, int _Y)
+{
+	return AllBomb[_Y][_X] != nullptr;
+}
 
 
 void Bomb::Start() {
@@ -83,3 +116,10 @@ void Bomb::Update(float _DeltaTime)
 
 }
 
+void Bomb::InitBomb(float4 _Pos)
+{
+	SetPos(_Pos);
+
+	float4 Index = Block::OwnerBlock->GetTileMap()->GetIndex(_Pos);
+	AllBomb[Index.iy()][Index.ix()] = this;
+}

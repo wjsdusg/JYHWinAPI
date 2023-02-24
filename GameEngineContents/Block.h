@@ -11,6 +11,13 @@ class Block : public GameEngineActor
 {
 	friend Player;
 	friend BombPower;
+
+	// LevelStartø°º≠ ¿Ã OwnerBlock¿ª ≤æº” ±≥√§«ÿ¡‡æﬂ «—¥Ÿ.
+// ∞∆¡§ ±Ó∏‘¿ª∞Õ ∞∞¥Ÿ.
+public:
+	static Block* OwnerBlock;
+
+
 public:
 	// constrcuter destructer
 	Block();
@@ -39,15 +46,8 @@ protected:
 	void Start() override;
 
 private:
-	float4 MapSize = { 600,520 };
-	int TileSize = 40;
-	int XTileNum = static_cast<int>(MapSize.x / TileSize);
-	int YTileNum = static_cast<int>(MapSize.y / TileSize);
 	GameEngineTileMap* NewGameEngineTileMap=nullptr;
 	std::map<ItemType, int> ItemCounts;
 
 
-	// LevelStartø°º≠ ¿Ã OwnerBlock¿ª ≤æº” ±≥√§«ÿ¡‡æﬂ «—¥Ÿ.
-	// ∞∆¡§ ±Ó∏‘¿ª∞Õ ∞∞¥Ÿ.
-	static Block* OwnerBlock;
 };

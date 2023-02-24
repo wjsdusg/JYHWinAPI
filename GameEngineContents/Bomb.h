@@ -11,6 +11,14 @@ class Bomb : public GameEngineActor
 {
 	friend Player;
 	friend BombPower;
+
+	static std::vector<std::vector<Bomb*>> AllBomb;
+
+public:
+	static bool IsBomb(const float4& _Pos);
+	static bool IsBomb(int _X, int _Y);
+	static void BombMapInit();
+
 public:
 	
 	Bomb();
@@ -26,6 +34,8 @@ public:
 	{
 		return BlockCollision;
 	}
+
+	void InitBomb(float4 _Pos);
 
 protected:
 	void Start() override;

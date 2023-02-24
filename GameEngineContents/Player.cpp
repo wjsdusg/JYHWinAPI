@@ -87,44 +87,9 @@ bool Player::Movecalculation(float4 _Pos)
 		return false;
 	}
 
-	if (BodyCollision != nullptr) {
-
-		std::vector<GameEngineCollision*> Collision;
-
-		if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::BombtoPlayer), .TargetColType = CT_CirCle , .ThisColType = CT_CirCle }, Collision)) {
-
-			for (size_t i = 0; i < Collision.size(); i++)
-			{
-				if (nullptr != NewBomb2 && NewBomb2->GetBlockCollision() == Collision[i])
-				{
-					continue;
-				}
-
-				return false;
-			}
-		}
-		else 
-		{
-			
-
-			if (nullptr != NewBomb2)
-			{
-				NewBomb2->GetBlockCollision()->Death();
-				NewBomb2 = nullptr;
-				std::vector<GameEngineCollision*> Collision;
-
-				if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::Bomb), .TargetColType = CT_CirCle , .ThisColType = CT_CirCle }, Collision)) {
-
-					for (size_t i = 0; i < Collision.size(); i++)
-					{
-						
-						return false;
-					}
-				}
-			}
-
-		}
-
+	if (true == Bomb::IsBomb(_Pos))
+	{
+		return false;
 	}
 
 	if (nullptr != NewBomb2)
@@ -185,7 +150,7 @@ void Player::Update(float _DeltaTime)
 	{		
 			NewBomb2 = GetLevel()->CreateActor<Bomb>();
 
-			NewBomb2->SetPos(NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()));
+			NewBomb2->InitBomb(NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()));
 			
 			NewBombPos = NewBomb2->GetPos();
 			Len = (GetPos() - NewBombPos).Size();
