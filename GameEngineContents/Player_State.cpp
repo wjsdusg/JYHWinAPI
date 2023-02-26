@@ -66,6 +66,7 @@ void Player::IdleStart()
 }
 void Player::IdleUpdate(float _Time) 
 {
+	Movecalculation(GetPos());
 	if (GameEngineInput::IsPress("LeftMove") || GameEngineInput::IsPress("RightMove")|| GameEngineInput::IsPress("UpMove")|| GameEngineInput::IsPress("DownMove"))
 	{
 		ChangeState(PlayerState::MOVE);

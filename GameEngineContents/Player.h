@@ -8,6 +8,31 @@ enum class PlayerState
 	MOVE,
 };
 
+class PlayerCollisionData
+{
+public:
+	float4 Position;
+	float4 Scale;
+
+	float Left() const
+	{
+		return Position.x - Scale.hx();
+	}
+	float Right() const
+	{
+		return Position.x + Scale.hx();
+	}
+	float Top() const
+	{
+		return Position.y - Scale.hy();
+	}
+	float Bot() const
+	{
+		return Position.y + Scale.hy();
+	}
+};
+
+
 // Ό³Έν :
 class Bomb;
 class GameEngineTileMap;
@@ -48,7 +73,7 @@ private:
 	float4 MoveDir = float4::Zero;
 
 	GameEngineRender* AnimationRender = nullptr;
-	GameEngineTileMap* NewGameEngineTileMap = nullptr;
+	
 	GameEngineCollision* BodyCollision = nullptr;
 
 	void DirCheck(const std::string_view& _AnimationName);
@@ -67,9 +92,10 @@ private:
 	void MoveEnd();
 
 	bool Movecalculation(float4 _Pos);
-
+	bool CollisionRectToRect(const PlayerCollisionData& _Left, const PlayerCollisionData& _Right);
 	float Len;
-	float4 NewBombPos;
-	Bomb* NewBomb2;
+	float4 NewBombPos = {0,0};
+	Bomb* NewBomb;
+	PlayerCollisionData NewPlayerCollisionData;
 };
 

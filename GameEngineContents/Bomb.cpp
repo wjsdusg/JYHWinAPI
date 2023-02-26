@@ -19,6 +19,7 @@ Bomb::Bomb()
 
 Bomb::~Bomb()
 {
+	float4 pos = GetPos();
 	float4 Index = Block::OwnerBlock->GetTileMap()->GetIndex(GetPos());
 	AllBomb[Index.iy()][Index.ix()] = nullptr;
 }

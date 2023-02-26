@@ -31,9 +31,7 @@ void Player::Start()
 
 	SetMove(GameEngineWindow::GetScreenSize().half()-float4{200,0});
 
-	NewGameEngineTileMap = GetLevel()->CreateActor<GameEngineTileMap>();
-	NewGameEngineTileMap->SetPos(float4(20, 40));
-	NewGameEngineTileMap->CreateTileMap(15, 13, 1, 0, float4{ 40,40 });
+
 	
 	BodyCollision = CreateCollision(CrazyRenderOrder::Player);
 	BodyCollision->SetScale(float4(40, 40));
@@ -70,7 +68,9 @@ void Player::Start()
 
 bool Player::Movecalculation(float4 _Pos)
 {
-	
+	NewPlayerCollisionData.Position = GetPos();
+	NewPlayerCollisionData.Scale = float4{ 40,40 };
+
 	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Camp_ColMap.BMP");
 	if (nullptr == ColImage)
 	{
@@ -86,15 +86,40 @@ bool Player::Movecalculation(float4 _Pos)
 	if (true == Block::OwnerBlock->IsBlock(_Pos)) {
 		return false;
 	}
-
-	if (true == Bomb::IsBomb(_Pos))
-	{
+	if (true == Block::OwnerBlock->IsMapOut(_Pos)) {
 		return false;
 	}
 
-	if (nullptr != NewBomb2)
+	if (true == Bomb::IsBomb(_Pos))
 	{
-		float4 LenPos = NewBomb2->GetPos() - _Pos;
+		if (NewBomb != nullptr) {
+			PlayerCollisionData BombData;
+			BombData.Position = NewBomb->GetPos();
+			BombData.Scale = NewBomb->AnimationRender->GetScale();
+			if (true == CollisionRectToRect(BombData, NewPlayerCollisionData)) {
+				return true;
+			}
+
+		}
+	
+
+		
+		/*
+		else if (false == CollisionRectToRect(BombData, NewPlayerCollisionData)) {
+			return false;
+		}
+		if (NewBomb == nullptr) {
+			return false;
+		}*/
+		return false;
+	}
+	else {
+		NewBomb = nullptr;
+	}
+	
+	/*if (nullptr != NewBomb)
+	{
+		float4 LenPos = NewBomb->GetPos() - _Pos;
 
 		if (Len > LenPos.Size())
 		{
@@ -102,7 +127,7 @@ bool Player::Movecalculation(float4 _Pos)
 		}
 
 		Len = LenPos.Size();
-	}
+	}*/
 
 	return true;
 	
@@ -146,13 +171,15 @@ void Player::Update(float _DeltaTime)
 
 	}
 	
-	if (GameEngineInput::IsDown("Space")&&BombCount>0 && nullptr == NewBomb2)
+	if (GameEngineInput::IsDown("Space")&&BombCount>0 && nullptr == NewBomb)
 	{		
-			NewBomb2 = GetLevel()->CreateActor<Bomb>();
+			NewBomb = GetLevel()->CreateActor<Bomb>();
 
-			NewBomb2->InitBomb(NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()));
+			NewBomb->InitBomb(Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(GetPos()));
 			
-			NewBombPos = NewBomb2->GetPos();
+			//NewBomb->InitBomb(NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()));
+			
+			NewBombPos = NewBomb->GetPos();
 			Len = (GetPos() - NewBombPos).Size();
 			BombCount--;
 	}
@@ -197,6 +224,48 @@ void Player::Render(float _DeltaTime)
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
 		);
+	std::string Text = "PlayerPos : ";
+	Text += GetPos().ToString();
+	GameEngineLevel::DebugTextPush(Text);
 
+	if (NewBomb != nullptr) {
+		
+		std::string Text2 = "BombPos : ";
+		Text2 += NewBomb->GetPos().ToString();
+		GameEngineLevel::DebugTextPush(Text2);
+
+	}
+	
 	// 디버깅용.
+}
+
+bool Player::CollisionRectToRect(const PlayerCollisionData& _Left, const PlayerCollisionData& _Right)
+{
+	//둘이 감싸고있으면 true
+ 
+		//왼쪽바텀이 오른쪽 탑보다  
+
+	float a = _Left.Bot();
+	float b = _Right.Top();
+	if (a < b)
+	{
+		return false;
+	}
+
+	if (_Left.Top() > _Right.Bot())
+	{
+		return false;
+	}
+
+	if (_Left.Left() > _Right.Right())
+	{
+		return false;
+	}
+
+	if (_Left.Right() < _Right.Left())
+	{
+		return false;
+	}
+
+	return true;
 }
