@@ -5,9 +5,9 @@
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineLevel.h>
-
+#include <GameEngineCore/GameEngineTileMap.h>
 #include "ContentsEnums.h"
-
+#include "Block.h"
 
 // State
 void Player::ChangeState(PlayerState _State) 
@@ -67,6 +67,9 @@ void Player::IdleStart()
 void Player::IdleUpdate(float _Time) 
 {
 	Movecalculation(GetPos());
+	if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true) {
+		AnimationRender->ChangeAnimation("BlankMode");
+	}
 	if (GameEngineInput::IsPress("LeftMove") || GameEngineInput::IsPress("RightMove")|| GameEngineInput::IsPress("UpMove")|| GameEngineInput::IsPress("DownMove"))
 	{
 		ChangeState(PlayerState::MOVE);
@@ -101,6 +104,7 @@ void Player::MoveUpdate(float _Time)
 	{
 		
 		if (true == Movecalculation(GetPos()+(float4::Left * MoveSpeed * _Time))) {
+
 			SetMove(float4::Left * MoveSpeed * _Time);
 		}
 		
@@ -117,6 +121,7 @@ void Player::MoveUpdate(float _Time)
 		}
 		
 	}
+
 	else if (true == GameEngineInput::IsPress("DownMove")) {
 		if (true == Movecalculation(GetPos() + (float4::Down * MoveSpeed * _Time))) {
 			SetMove(float4::Down * MoveSpeed * _Time);
@@ -126,6 +131,9 @@ void Player::MoveUpdate(float _Time)
 
 
 	DirCheck("Move");
+	if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true) {
+		AnimationRender->ChangeAnimation("BlankMode");
+	}
 }
 void Player::MoveEnd() {
 

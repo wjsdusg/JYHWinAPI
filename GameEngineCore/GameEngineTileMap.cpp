@@ -48,6 +48,7 @@ void GameEngineTileMap::CreateTileMap(int _X, int _Y, int _Z, int _Order, float4
                 Render->SetOrder(_Order + _Z);
                 Render->Off();
                 TileRenders[z][y][x] = Render;
+                
             }
         }
     }
@@ -137,6 +138,7 @@ std::vector<TileIndex> GameEngineTileMap::GetAllTileIndex(int _ZIndex)
 
     return NewTest;
 }
+
 
 float4 GameEngineTileMap::ConvertIndexToTilePosition(float4 _Pos)
 {
@@ -242,3 +244,4 @@ GameEngineRender* GameEngineTileMap::GetTile(int _ZIndex, int _X,int _Y)
 
     return TileRenders[_ZIndex][_Y][_X];
 }
+

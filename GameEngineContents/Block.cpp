@@ -27,10 +27,11 @@ void Block::Start()
 	OwnerBlock = this;
 	NewGameEngineTileMap =GetLevel()->CreateActor<GameEngineTileMap>();
 	NewGameEngineTileMap->SetPos(float4(20, 40));
-	NewGameEngineTileMap->CreateTileMap(ContentsValue::XTileNum, ContentsValue::YTileNum, 10, static_cast<int>(CrazyRenderOrder::Block), float4(40, 40));
+	NewGameEngineTileMap->CreateTileMap(ContentsValue::XTileNum, ContentsValue::YTileNum, static_cast<int>(BlockType::TownBush)+1, static_cast<int>(CrazyRenderOrder::Block), float4(40, 40));
 	NewGameEngineTileMap->SetFloorSetting(static_cast<int>(BlockType::Block1), "Block1.bmp");
 	NewGameEngineTileMap->SetFloorSetting(static_cast<int>(BlockType::TownBush), "TownBush.bmp");
-	
+
+	//NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::TownBush), float4{ 1,1 })->SetOrder(1100);
 	//NewGameEngineTileMap->SetTileFrame(0, 0,0, 0);
 
 
@@ -85,15 +86,20 @@ bool Block::IsBlock(float4 _Pos)
 	
 	 // += NewGameEngineTileMap->GetPos()
 	
-	
-	GameEngineRender* TilePtr = NewGameEngineTileMap->GetTile(0, _Pos);
-	if (nullptr == TilePtr)
-	{
-		return false;
+	for (int i = 0; i < 4; i++) {
+		GameEngineRender* TilePtr = NewGameEngineTileMap->GetTile(i, _Pos);
+		if (nullptr != TilePtr)
+		{
+			bool check = TilePtr->IsUpdate();
+			if (true == check) {
+				return true;
+			}
+		}
 	}
+	
 
-	bool check = TilePtr->IsUpdate();
-	return check;
+	
+	return false;
 
 
 	//return NewGameEngineTileMap->GetTile(0, float4(1, 0))->IsUpdate();

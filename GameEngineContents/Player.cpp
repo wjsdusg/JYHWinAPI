@@ -61,6 +61,7 @@ void Player::Start()
 
 		AnimationRender->CreateAnimation({ .AnimationName = "Down_Idle",  .ImageName = "WaitBazzi.bmp", .Start = 0, .End = 2, .InterTime = 0.4f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Down_Move",  .ImageName = "BazziMoveAll.bmp", .Start = 8, .End = 11 });
+		AnimationRender->CreateAnimation({ .AnimationName = "BlankMode",  .ImageName = "blank.bmp", .Start = 0, .End = 0 });
 	}
 
 	ChangeState(PlayerState::IDLE);
@@ -83,9 +84,16 @@ bool Player::Movecalculation(float4 _Pos)
 	{
 		return false;
 	}
-	if (true == Block::OwnerBlock->IsBlock(_Pos)) {
+
+	if (true == Block::OwnerBlock->IsBlock(_Pos)  ) {
+		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), _Pos)->IsUpdate() == true) {
+			Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), _Pos)->SetOrder(100);
+			
+			return true;
+		}
 		return false;
 	}
+
 	if (true == Block::OwnerBlock->IsMapOut(_Pos)) {
 		return false;
 	}
@@ -101,16 +109,7 @@ bool Player::Movecalculation(float4 _Pos)
 			}
 
 		}
-	
-
-		
-		/*
-		else if (false == CollisionRectToRect(BombData, NewPlayerCollisionData)) {
-			return false;
-		}
-		if (NewBomb == nullptr) {
-			return false;
-		}*/
+					
 		return false;
 	}
 	else {

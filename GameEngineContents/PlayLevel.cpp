@@ -41,7 +41,10 @@ void PlayLevel::Loading()
 		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("WaitBazzi.BMP"));
 		Image2->Cut(3, 1);
 	}
-	
+	{
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("blank.BMP"));
+		Image->Cut(1, 1);
+	}
 	
 	
 	{
@@ -98,69 +101,69 @@ void PlayLevel::Loading()
 		Block* Actor = CreateActor< Block>();
 
 		Bomb::BombMapInit();
-	//	
-	//	//1
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 0, 0, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 2, 0, 0);
-	//	Actor->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), 2, 0)->SetMove(float4{ 0,-5 });
-	//	Actor->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), 2,0)->SetScale(float4(40, 50));
-	//	
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 5, 0, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 6, 0, 2);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 8, 0, 2);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 9, 0, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush),11, 0, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1),13, 0, 0);
-	//	//2
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 2,1 , 1);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 3,1 , 2);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 4,1 , 2);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 5,1 , 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 6,1 , 2);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 8,1 , 2);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1),14,1, 0);        
-	//	                                                      
-	//	//3
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 0, 2, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 3, 2, 2);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 6, 2, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 8, 2, 2);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 9, 2, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 12, 2, 1);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 14, 2, 0);
-	//	//4
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 2, 3, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 1, 3, 1);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 5, 3, 1);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 6, 3, 2);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 8, 3, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 9, 3, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 10, 3, 1);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 11, 3, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 12, 3, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 13, 3, 0);
-	//	//5
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 0, 4, 1);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 1, 4, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 3, 4, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 4, 4, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 5, 4, 2);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 6, 4, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 8, 4, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 9, 4, 2);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 11, 4, 5);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 12, 4, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 13, 4, 2);
-	//	//6
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 2, 5, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 4, 5, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 5, 5, 2);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 6, 5, 2);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 8, 5, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 9, 5, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 10, 5, 0);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 12, 5, 3);
-	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 14, 5, 0);
+		
+		//1
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 0, 0, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 2, 0, 0);
+		Actor->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), 2, 0)->SetMove(float4{ 0,-5 });
+		Actor->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), 2,0)->SetScale(float4(40, 50));
+		
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 5, 0, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 6, 0, 2);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 8, 0, 2);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 9, 0, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush),11, 0, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1),13, 0, 0);
+		//2
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 2,1 , 1);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 3,1 , 2);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 4,1 , 2);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 5,1 , 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 6,1 , 2);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 8,1 , 2);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1),14,1, 0);        
+		                                                      
+		//3
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 0, 2, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 3, 2, 2);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 6, 2, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 8, 2, 2);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 9, 2, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 12, 2, 1);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 14, 2, 0);
+		//4
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 2, 3, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 1, 3, 1);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 5, 3, 1);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 6, 3, 2);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 8, 3, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 9, 3, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 10, 3, 1);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 11, 3, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 12, 3, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 13, 3, 0);
+		//5
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 0, 4, 1);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 1, 4, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 3, 4, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 4, 4, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 5, 4, 2);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 6, 4, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 8, 4, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 9, 4, 2);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 11, 4, 5);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 12, 4, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 13, 4, 2);
+		//6
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 2, 5, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 4, 5, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 5, 5, 2);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 6, 5, 2);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 8, 5, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 9, 5, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 10, 5, 0);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 12, 5, 3);
+		Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 14, 5, 0);
 	//	//7
 	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 1, 6, 0);
 	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 3, 6, 5);

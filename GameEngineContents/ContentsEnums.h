@@ -7,11 +7,11 @@ enum class CrazyRenderOrder
 	MapCover,
 	Block,
 	DropItem,
-	Item=500,
+	Item=50,
 	Bomb,
 	BombPower,
 	BombtoPlayer,
-	Player=1000,
+	Player=70,
 };
 
 enum class ItemType
@@ -27,5 +27,5 @@ enum class BlockType
 	Block2,
 	WoodBlock,
 	TownBush,
-	Wood3Block
+	
 };
