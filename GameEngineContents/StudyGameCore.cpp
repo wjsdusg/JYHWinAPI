@@ -3,6 +3,7 @@
 
 #include "PlayLevel.h"
 #include "TitleLevel.h"
+#include "Block.h"
 
 
 StudyGameCore StudyGameCore::Core;
@@ -35,5 +36,5 @@ void StudyGameCore::Update()
 }
 void StudyGameCore::End() 
 {
-	
+	Block::OwnerBlock = nullptr;
 }

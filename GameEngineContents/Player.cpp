@@ -14,11 +14,11 @@
 #include "DropItem.h"
 Player* Player::MainPlayer;
 
-Player::Player() 
+Player::Player()
 {
 }
 
-Player::~Player() 
+Player::~Player()
 {
 }
 
@@ -29,10 +29,10 @@ void Player::Start()
 {
 	MainPlayer = this;
 
-	SetMove(GameEngineWindow::GetScreenSize().half()-float4{200,0});
+	SetMove(GameEngineWindow::GetScreenSize().half() - float4{ 200,0 });
 
 
-	
+
 	BodyCollision = CreateCollision(CrazyRenderOrder::Player);
 	BodyCollision->SetScale(float4(40, 40));
 
@@ -46,16 +46,16 @@ void Player::Start()
 	}
 
 	{
-		
+
 		AnimationRender = CreateRender(CrazyRenderOrder::Player);
 		AnimationRender->SetScale({ 160, 160 });
 
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "WaitBazzi.bmp", .Start = 0, .End = 2, .InterTime = 0.4f});
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "WaitBazzi.bmp", .Start = 0, .End = 2, .InterTime = 0.4f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "BazziMoveAll.bmp", .Start = 0, .End = 3 });
 
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "WaitBazzi.bmp", .Start = 0, .End = 2, .InterTime = 0.4f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "BazziMoveAll.bmp", .Start = 4, .End = 7 });
-	
+
 		AnimationRender->CreateAnimation({ .AnimationName = "Up_Idle",  .ImageName = "WaitBazzi.bmp", .Start = 0, .End = 2, .InterTime = 0.4f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Up_Move",  .ImageName = "BazziMoveAll.bmp", .Start = 12, .End = 15 });
 
@@ -78,17 +78,17 @@ bool Player::Movecalculation(float4 _Pos)
 		MsgAssert("충돌용 맵 이미지가 없습니다.");
 		return false;
 	}
-	
+
 
 	if (RGB(0, 0, 0) == ColImage->GetPixelColor(_Pos, RGB(0, 0, 0)))
 	{
 		return false;
 	}
 
-	if (true == Block::OwnerBlock->IsBlock(_Pos)  ) {
+	if (true == Block::OwnerBlock->IsBlock(_Pos)) {
 		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), _Pos)->IsUpdate() == true) {
 			Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), _Pos)->SetOrder(100);
-			
+
 			return true;
 		}
 		return false;
@@ -100,22 +100,26 @@ bool Player::Movecalculation(float4 _Pos)
 
 	if (true == Bomb::IsBomb(_Pos))
 	{
-		if (NewBomb != nullptr) {
+		if (NewBomb != nullptr) 
+		{
 			PlayerCollisionData BombData;
 			BombData.Position = NewBomb->GetPos();
 			BombData.Scale = NewBomb->AnimationRender->GetScale();
 			if (true == CollisionRectToRect(BombData, NewPlayerCollisionData)) {
 				return true;
 			}
-
+			if (false == NewBomb->IsUpdate())
+			{
+				NewBomb = nullptr;
+			}
 		}
-					
+
 		return false;
 	}
 	else {
 		NewBomb = nullptr;
 	}
-	
+
 	/*if (nullptr != NewBomb)
 	{
 		float4 LenPos = NewBomb->GetPos() - _Pos;
@@ -129,17 +133,17 @@ bool Player::Movecalculation(float4 _Pos)
 	}*/
 
 	return true;
-	
+
 }
 
-void Player::Update(float _DeltaTime) 
+void Player::Update(float _DeltaTime)
 {
 	UpdateState(_DeltaTime);
 
 	if (BodyCollision != nullptr) {
 
 		std::vector<GameEngineCollision*> Collision;
-	
+
 		if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::DropItem), .TargetColType = CT_Point , .ThisColType = CT_CirCle }, Collision)) {
 
 			for (size_t i = 0; i < Collision.size(); i++)
@@ -169,18 +173,18 @@ void Player::Update(float _DeltaTime)
 		}
 
 	}
-	
-	if (GameEngineInput::IsDown("Space")&&BombCount>0 && nullptr == NewBomb)
-	{		
-			NewBomb = GetLevel()->CreateActor<Bomb>();
 
-			NewBomb->InitBomb(Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(GetPos()));
-			
-			//NewBomb->InitBomb(NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()));
-			
-			NewBombPos = NewBomb->GetPos();
-			Len = (GetPos() - NewBombPos).Size();
-			BombCount--;
+	if (GameEngineInput::IsDown("Space") && BombCount > 0 && nullptr == NewBomb)
+	{
+		NewBomb = GetLevel()->CreateActor<Bomb>();
+
+		NewBomb->InitBomb(Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(GetPos()));
+
+		//NewBomb->InitBomb(NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()));
+
+		NewBombPos = NewBomb->GetPos();
+		Len = (GetPos() - NewBombPos).Size();
+		BombCount--;
 	}
 }
 
@@ -193,7 +197,7 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 	{
 		DirString = "Left_";
 	}
-	else if(GameEngineInput::IsPress("RightMove"))
+	else if (GameEngineInput::IsPress("RightMove"))
 	{
 		DirString = "Right_";
 	}
@@ -204,7 +208,7 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 		DirString = "Down_";
 	}
 
-	
+
 
 	if (PrevDirString != DirString)
 	{
@@ -217,31 +221,31 @@ void Player::Render(float _DeltaTime)
 	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
 	float4 ActorPos = GetPos();
 
-	Rectangle(DoubleDC, 
+	Rectangle(DoubleDC,
 		ActorPos.ix() - 5,
 		ActorPos.iy() - 5,
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
-		);
+	);
 	std::string Text = "PlayerPos : ";
 	Text += GetPos().ToString();
 	GameEngineLevel::DebugTextPush(Text);
 
 	if (NewBomb != nullptr) {
-		
+
 		std::string Text2 = "BombPos : ";
 		Text2 += NewBomb->GetPos().ToString();
 		GameEngineLevel::DebugTextPush(Text2);
 
 	}
-	
+
 	// 디버깅용.
 }
 
 bool Player::CollisionRectToRect(const PlayerCollisionData& _Left, const PlayerCollisionData& _Right)
 {
 	//둘이 감싸고있으면 true
- 
+
 		//왼쪽바텀이 오른쪽 탑보다  
 
 	float a = _Left.Bot();
