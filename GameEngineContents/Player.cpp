@@ -36,6 +36,13 @@ void Player::Start()
 	BodyCollision = CreateCollision(CrazyRenderOrder::Player);
 	BodyCollision->SetScale(float4(40, 40));
 
+	
+
+	
+	
+	
+	
+
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
 		GameEngineInput::CreateKey("LeftMove", 'A');
@@ -48,20 +55,21 @@ void Player::Start()
 	{
 
 		AnimationRender = CreateRender(CrazyRenderOrder::Player);
-		AnimationRender->SetScale({ 160, 160 });
+		AnimationRender->SetScale({ 56, 64 });
 
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "WaitBazzi.bmp", .Start = 0, .End = 2, .InterTime = 0.4f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "BazziMoveAll.bmp", .Start = 0, .End = 3 });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "right.bmp", .Start = 0, .End = 0 });
+		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "right.bmp", .Start = 0, .End = 5 });
 
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "WaitBazzi.bmp", .Start = 0, .End = 2, .InterTime = 0.4f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "BazziMoveAll.bmp", .Start = 4, .End = 7 });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "left.bmp", .Start = 0, .End = 0, });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "left.bmp", .Start = 0, .End = 5 });
 
-		AnimationRender->CreateAnimation({ .AnimationName = "Up_Idle",  .ImageName = "WaitBazzi.bmp", .Start = 0, .End = 2, .InterTime = 0.4f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Up_Move",  .ImageName = "BazziMoveAll.bmp", .Start = 12, .End = 15 });
+		AnimationRender->CreateAnimation({ .AnimationName = "Up_Idle",  .ImageName = "up.bmp", .Start = 0, .End = 0 });
+		AnimationRender->CreateAnimation({ .AnimationName = "Up_Move",  .ImageName = "up.bmp", .Start = 0, .End = 7 });
 
-		AnimationRender->CreateAnimation({ .AnimationName = "Down_Idle",  .ImageName = "WaitBazzi.bmp", .Start = 0, .End = 2, .InterTime = 0.4f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Down_Move",  .ImageName = "BazziMoveAll.bmp", .Start = 8, .End = 11 });
+		AnimationRender->CreateAnimation({ .AnimationName = "Down_Idle",  .ImageName = "down.bmp", .Start = 0, .End = 0 });
+		AnimationRender->CreateAnimation({ .AnimationName = "Down_Move",  .ImageName = "down.bmp", .Start = 0, .End = 7 });
 		AnimationRender->CreateAnimation({ .AnimationName = "BlankMode",  .ImageName = "blank.bmp", .Start = 0, .End = 0 });
+		AnimationRender->CreateAnimation({ .AnimationName = "Wait",  .ImageName = "wait.bmp", .Start = 0, .End = 0 });
 	}
 
 	ChangeState(PlayerState::IDLE);
@@ -69,8 +77,29 @@ void Player::Start()
 
 bool Player::Movecalculation(float4 _Pos)
 {
-	NewPlayerCollisionData.Position = GetPos();
+	NewPlayerCollisionData.Position = _Pos;
 	NewPlayerCollisionData.Scale = float4{ 40,40 };
+	for (int i = 0; i < 4; i++) {
+		switch (i)
+		{
+		case 0:
+			CollisionDiretion[0] = NewPlayerCollisionData.LeftPos();
+			
+			break;
+		case 1:
+			CollisionDiretion[1]=  NewPlayerCollisionData.RightPos();
+			break;	
+		case 2:
+			CollisionDiretion[2] = NewPlayerCollisionData.TopPos();
+			break;
+		case 3:
+			CollisionDiretion[3] = NewPlayerCollisionData.DownPos();
+			break;
+		default:
+			break;
+		}
+		
+	}
 
 	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Camp_ColMap.BMP");
 	if (nullptr == ColImage)
@@ -79,24 +108,40 @@ bool Player::Movecalculation(float4 _Pos)
 		return false;
 	}
 
-
-	if (RGB(0, 0, 0) == ColImage->GetPixelColor(_Pos, RGB(0, 0, 0)))
-	{
-		return false;
-	}
-
-	if (true == Block::OwnerBlock->IsBlock(_Pos)) {
-		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), _Pos)->IsUpdate() == true) {
-			Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), _Pos)->SetOrder(100);
-
-			return true;
+	for (int i = 0; i < 4; i++) {
+		if (RGB(0, 0, 0) == ColImage->GetPixelColor(CollisionDiretion[i], RGB(0, 0, 0)))
+		{
+			return false;
 		}
-		return false;
 	}
+	
 
 	if (true == Block::OwnerBlock->IsMapOut(_Pos)) {
 		return false;
 	}
+
+	for (int i = 0; i < 4; i++) {
+		if (true == Block::OwnerBlock->IsBlock(CollisionDiretion[i])) {
+
+			if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), CollisionDiretion[i])->IsUpdate() == true) {
+				Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), CollisionDiretion[i])->SetOrder(100);
+
+				return true;
+			}
+
+			if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), CollisionDiretion[i])->GetFrame() == 1) {
+				WoodBlockCheck = true;
+
+				return true;
+			}
+
+			return false;
+		}
+	}
+
+	
+
+	
 
 	if (true == Bomb::IsBomb(_Pos))
 	{
@@ -106,6 +151,7 @@ bool Player::Movecalculation(float4 _Pos)
 			BombData.Position = NewBomb->GetPos();
 			BombData.Scale = NewBomb->AnimationRender->GetScale();
 			if (true == CollisionRectToRect(BombData, NewPlayerCollisionData)) {
+				
 				return true;
 			}
 			if (false == NewBomb->IsUpdate())
@@ -115,6 +161,7 @@ bool Player::Movecalculation(float4 _Pos)
 		}
 
 		return false;
+
 	}
 	else {
 		NewBomb = nullptr;

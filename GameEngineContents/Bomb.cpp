@@ -19,12 +19,7 @@ Bomb::Bomb()
 
 Bomb::~Bomb()
 {
-	float4 pos = GetPos();
-	if (nullptr != Block::OwnerBlock)
-	{
-		float4 Index = Block::OwnerBlock->GetTileMap()->GetIndex(GetPos());
-		AllBomb[Index.iy()][Index.ix()] = nullptr;
-	}
+	
 }
 
 void Bomb::BombMapInit()
@@ -104,6 +99,14 @@ void Bomb::Update(float _DeltaTime)
 		if (true == BombDeath) {
 			*Playerbombcount += 1;
 			Off();
+			if (nullptr != Block::OwnerBlock)
+			{
+
+				float4 Index = Block::OwnerBlock->GetTileMap()->GetIndex(GetPos());
+				AllBomb[Index.iy()][Index.ix()] = nullptr;
+
+			}
+			
 			// Death();
 		}
 
@@ -116,10 +119,17 @@ void Bomb::Update(float _DeltaTime)
 
 		*Playerbombcount += 1;
 		Off();
+		if (nullptr != Block::OwnerBlock)
+		{
+
+			float4 Index = Block::OwnerBlock->GetTileMap()->GetIndex(GetPos());
+			AllBomb[Index.iy()][Index.ix()] = nullptr;
+
+		}
 		// Death();
 
 	}
-
+	
 }
 
 void Bomb::InitBomb(float4 _Pos)

@@ -66,6 +66,8 @@ void Player::IdleStart()
 }
 void Player::IdleUpdate(float _Time) 
 {
+	WaitTime += _Time;
+	GetLiveTime();
 	Movecalculation(GetPos());
 	if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true) {
 		AnimationRender->ChangeAnimation("BlankMode");
@@ -75,9 +77,13 @@ void Player::IdleUpdate(float _Time)
 		ChangeState(PlayerState::MOVE);
 		return; // 보통 스테이트를 체인지하면 아래 코드를 실행되면 
 	}
+	if (WaitTime >= 3.f) {
+		AnimationRender->ChangeAnimation("wait");
+		NewPlayerDiretion = PlayerDirection::Down;
+	}
 }
 void Player::IdleEnd() {
-
+	WaitTime = 0.f;
 }
 
 void Player::MoveStart() 
@@ -107,32 +113,36 @@ void Player::MoveUpdate(float _Time)
 
 			SetMove(float4::Left * MoveSpeed * _Time);
 		}
+		NewPlayerDiretion = PlayerDirection::Left;
 		
 	} else if (true == GameEngineInput::IsPress("RightMove"))
 	{
 		if (true == Movecalculation(GetPos() + (float4::Right * MoveSpeed * _Time))) {
 			SetMove(float4::Right * MoveSpeed * _Time);
 		}
-		
+		NewPlayerDiretion = PlayerDirection::Right;
 	}
 	else if (true == GameEngineInput::IsPress("UpMove")) {
 		if (true == Movecalculation(GetPos() + (float4::Up * MoveSpeed * _Time))) {
 			SetMove(float4::Up * MoveSpeed * _Time);
 		}
-		
+		NewPlayerDiretion = PlayerDirection::Up;
 	}
 
 	else if (true == GameEngineInput::IsPress("DownMove")) {
 		if (true == Movecalculation(GetPos() + (float4::Down * MoveSpeed * _Time))) {
 			SetMove(float4::Down * MoveSpeed * _Time);
 		}
-		
+		NewPlayerDiretion = PlayerDirection::Down;
 	}
 
 
 	DirCheck("Move");
 	if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true) {
 		AnimationRender->ChangeAnimation("BlankMode");
+	}
+	if (true == WoodBlockCheck) {
+
 	}
 }
 void Player::MoveEnd() {

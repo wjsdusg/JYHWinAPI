@@ -16,7 +16,7 @@ class Block : public GameEngineActor
 // ∞∆¡§ ±Ó∏‘¿ª∞Õ ∞∞¥Ÿ.
 public:
 	static Block* OwnerBlock;
-
+	void  AllBlockDestroy();
 
 public:
 	// constrcuter destructer
@@ -42,6 +42,7 @@ public:
 		return NewGameEngineTileMap;
 	}
 
+	
 protected:
 	void Start() override;
 

@@ -8,6 +8,15 @@ enum class PlayerState
 	MOVE,
 };
 
+enum class PlayerDirection
+{
+	Up,
+	Down,
+	Right,
+	Left
+
+};
+
 class PlayerCollisionData
 {
 public:
@@ -29,6 +38,32 @@ public:
 	float Bot() const
 	{
 		return Position.y + Scale.hy();
+	}
+	float4 LeftPos() const
+	{
+		float4 _NewPos = Position;
+		_NewPos.x -= Scale.hx();
+		return _NewPos;
+	}
+	float4 RightPos() const
+	{
+		float4 _NewPos = Position;
+		_NewPos.x += Scale.hx();
+		return _NewPos;
+	}
+	float4 TopPos() const
+	{
+		float4 _NewPos = Position;
+		
+		
+		return _NewPos;
+	}
+	float4 DownPos() const
+	{
+		float4 _NewPos = Position;
+		_NewPos.y += Scale.hy();
+		_NewPos.y += 20;
+		return _NewPos;
 	}
 };
 
@@ -97,5 +132,10 @@ private:
 	float4 NewBombPos = {0,0};
 	Bomb* NewBomb;
 	PlayerCollisionData NewPlayerCollisionData;
+	bool WoodBlockCheck = false;
+	PlayerDirection NewPlayerDiretion = PlayerDirection::Down;
+	float WaitTime = 0.f;
+
+	float4 CollisionDiretion[4];
 };
 

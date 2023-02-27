@@ -48,7 +48,7 @@ void Block::ItemCountInsert(ItemType _Type, int _Count)
 
 // 이걸 호출하는 순간 블록에 맞춰서 아이템을 만든다.
 void Block::ItemCreate()
-{
+{   //전체타일개수
 	std::vector<TileIndex> AllTileIndex = NewGameEngineTileMap->GetAllTileIndex(static_cast<int>(BlockType::Block1));
 
 	for (size_t i = 0; i < 200; i++)
@@ -144,3 +144,15 @@ bool Block::IsMapOut(float4 _Pos) {
 	}
 	return false;
 }
+
+void Block::AllBlockDestroy() {
+	   
+		std::vector<TileIndex> AllTileIndex = Block::NewGameEngineTileMap->GetAllTileIndex(static_cast<int>(BlockType::Block1));
+		for (int i = 0; i < AllTileIndex.size(); i++) {
+			int x = AllTileIndex[i].X;
+			int y = AllTileIndex[i].Y;
+			Block::NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::Block1), x, y)->Death();
+		}
+
+}
+	
