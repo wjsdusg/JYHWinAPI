@@ -232,13 +232,13 @@ void PlayLevel::Loading()
 	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::TownBush), 12, 12, 0);
 	//	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 14, 12, 0);
 	//	
-	//	// 아이템이 몇개 배치될지 결정한다음
-	//	Actor->ItemCountInsert(ItemType::Skate, 1);
-	//	Actor->ItemCountInsert(ItemType::PowerMax, 1);
-	//	Actor->ItemCountInsert(ItemType::Bomb, 1);
+		// 아이템이 몇개 배치될지 결정한다음
+		Actor->ItemCountInsert(ItemType::Skate, 1);
+		Actor->ItemCountInsert(ItemType::PowerMax, 1);
+		Actor->ItemCountInsert(ItemType::Bomb, 1);
 
-	//	// 아이템을 진짜 배치한다.
-	//	Actor->ItemCreate();
+		// 아이템을 진짜 배치한다.
+		Actor->ItemCreate();
 
 	//}
 	

@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineTileMap.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineBase/GameEngineRandom.h>
 #include "ContentsEnums.h"
 
 #include "SpeedItem.h"
@@ -50,12 +51,17 @@ void Block::ItemCreate()
 {
 	std::vector<TileIndex> AllTileIndex = NewGameEngineTileMap->GetAllTileIndex(static_cast<int>(BlockType::Block1));
 
-
 	for (size_t i = 0; i < 200; i++)
 	{
+		int Left = GameEngineRandom::MainRandom.RandomInt(0, AllTileIndex.size() - 1);
+		int Right = GameEngineRandom::MainRandom.RandomInt(0, AllTileIndex.size() - 1);
+
+		TileIndex Index = AllTileIndex[Left];
+		AllTileIndex[Left] = AllTileIndex[Right];
+		AllTileIndex[Right] = Index;
 	}
 
-	// int ItemCreateCount;
+	int Count = 0;
 
 	for (std::pair<ItemType, int> ItemTypePair : ItemCounts)
 	{
@@ -66,15 +72,40 @@ void Block::ItemCreate()
 			switch (Type)
 			{
 			case ItemType::Skate:
+			{
+				TileIndex Index = AllTileIndex[Count];
+				SpeedItem* Item = GetLevel()->CreateActor<SpeedItem>();
+				float4 CreatePos = Block::NewGameEngineTileMap->ConvertIndexToTilePosition(Index.X, Index.Y);
+				Item->SetPos(CreatePos);
 				break;
+			}
 			case ItemType::Bomb:
+			{
+				TileIndex Index = AllTileIndex[Count];
+				BombItem* Item = GetLevel()->CreateActor<BombItem>();
+				float4 CreatePos = Block::NewGameEngineTileMap->ConvertIndexToTilePosition(Index.X, Index.Y);
+				Item->SetPos(CreatePos);
 				break;
+			}
 			case ItemType::PowerMax:
+			{
+				TileIndex Index = AllTileIndex[Count];
+				MaxPower* Item = GetLevel()->CreateActor<MaxPower>();
+				float4 CreatePos = Block::NewGameEngineTileMap->ConvertIndexToTilePosition(Index.X, Index.Y);
+				Item->SetPos(CreatePos);
 				break;
+			}
 			case ItemType::Max:
 				break;
 			default:
 				break;
+			}
+
+			Count++;
+
+			if (Count >= AllTileIndex.size())
+			{
+				return;
 			}
 		}
 
