@@ -36,12 +36,12 @@ void Player::Start()
 	BodyCollision = CreateCollision(CrazyRenderOrder::Player);
 	BodyCollision->SetScale(float4(40, 40));
 
-	
 
-	
-	
-	
-	
+
+
+
+
+
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -79,26 +79,26 @@ bool Player::Movecalculation(float4 _Pos)
 {
 	NewPlayerCollisionData.Position = _Pos;
 	NewPlayerCollisionData.Scale = float4{ 40,40 };
-	
-		switch (NewPlayerDiretion)
-		{
-		case PlayerDirection::Left:
-			CollisionDiretion = NewPlayerCollisionData.LeftPos();
-			
-			break;
-		case PlayerDirection::Right:
-			CollisionDiretion =  NewPlayerCollisionData.RightPos();
-			break;	
-		case PlayerDirection::Up:
-			CollisionDiretion = NewPlayerCollisionData.TopPos();
-			break;
-		case PlayerDirection::Down:
-			CollisionDiretion = NewPlayerCollisionData.DownPos();
-			break;
-		default:
-			break;
-		
-		
+
+	switch (NewPlayerDiretion)
+	{
+	case PlayerDirection::Left:
+		CollisionDiretion = NewPlayerCollisionData.LeftPos();
+
+		break;
+	case PlayerDirection::Right:
+		CollisionDiretion = NewPlayerCollisionData.RightPos();
+		break;
+	case PlayerDirection::Up:
+		CollisionDiretion = NewPlayerCollisionData.TopPos();
+		break;
+	case PlayerDirection::Down:
+		CollisionDiretion = NewPlayerCollisionData.DownPos();
+		break;
+	default:
+		break;
+
+
 	}
 
 	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Camp_ColMap.BMP");
@@ -108,50 +108,45 @@ bool Player::Movecalculation(float4 _Pos)
 		return false;
 	}
 
-	
-		if (RGB(0, 0, 0) == ColImage->GetPixelColor(CollisionDiretion, RGB(0, 0, 0)))
-		{
-			return false;
-		}
-	
-	
+
+	if (RGB(0, 0, 0) == ColImage->GetPixelColor(CollisionDiretion, RGB(0, 0, 0)))
+	{
+		return false;
+	}
+
+
 
 	if (true == Block::OwnerBlock->IsMapOut(_Pos)) {
 		return false;
 	}
 
-	
-		if (true == Block::OwnerBlock->IsBlock(CollisionDiretion)) {
 
-			if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), CollisionDiretion)->IsUpdate() == true) {
-				Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), CollisionDiretion)->SetOrder(100);
+	if (true == Block::OwnerBlock->IsBlock(CollisionDiretion)) {
 
-				return true;
-			}
+		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), CollisionDiretion)->IsUpdate() == true) {
+			Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), CollisionDiretion)->SetOrder(100);
 
-			if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), CollisionDiretion)->GetFrame() == 1) {
-				WoodBlockCheck = true;
-
-				return true;
-			}
-
-			return false;
+			return true;
 		}
-	
 
-	
+		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), CollisionDiretion)->GetFrame() == 1) {
+			WoodBlockCheck = true;
 
-	
+			return true;
+		}
+
+		return false;
+	}
 
 	if (true == Bomb::IsBomb(_Pos))
 	{
-		if (NewBomb != nullptr) 
+		if (NewBomb != nullptr)
 		{
 			PlayerCollisionData BombData;
 			BombData.Position = NewBomb->GetPos();
 			BombData.Scale = NewBomb->AnimationRender->GetScale();
 			if (true == CollisionRectToRect(BombData, NewPlayerCollisionData)) {
-				
+
 				return true;
 			}
 			if (false == NewBomb->IsUpdate())
@@ -227,8 +222,6 @@ void Player::Update(float _DeltaTime)
 		float4 BombPos = GetPos();
 		BombPos.y += 20.f;
 		NewBomb->InitBomb(Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(BombPos));
-
-		//NewBomb->InitBomb(NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()));
 
 		NewBombPos = NewBomb->GetPos();
 		Len = (GetPos() - NewBombPos).Size();
