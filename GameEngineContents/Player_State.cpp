@@ -108,32 +108,35 @@ void Player::MoveUpdate(float _Time)
 
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{
-		
+		NewPlayerDiretion = PlayerDirection::Left;
 		if (true == Movecalculation(GetPos()+(float4::Left * MoveSpeed * _Time))) {
 
 			SetMove(float4::Left * MoveSpeed * _Time);
 		}
-		NewPlayerDiretion = PlayerDirection::Left;
+		
 		
 	} else if (true == GameEngineInput::IsPress("RightMove"))
 	{
+		NewPlayerDiretion = PlayerDirection::Right;
 		if (true == Movecalculation(GetPos() + (float4::Right * MoveSpeed * _Time))) {
 			SetMove(float4::Right * MoveSpeed * _Time);
 		}
-		NewPlayerDiretion = PlayerDirection::Right;
+		
 	}
 	else if (true == GameEngineInput::IsPress("UpMove")) {
+		NewPlayerDiretion = PlayerDirection::Up;
 		if (true == Movecalculation(GetPos() + (float4::Up * MoveSpeed * _Time))) {
 			SetMove(float4::Up * MoveSpeed * _Time);
 		}
-		NewPlayerDiretion = PlayerDirection::Up;
+		
 	}
 
 	else if (true == GameEngineInput::IsPress("DownMove")) {
+		NewPlayerDiretion = PlayerDirection::Down;
 		if (true == Movecalculation(GetPos() + (float4::Down * MoveSpeed * _Time))) {
 			SetMove(float4::Down * MoveSpeed * _Time);
 		}
-		NewPlayerDiretion = PlayerDirection::Down;
+		
 	}
 
 

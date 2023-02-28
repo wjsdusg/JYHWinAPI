@@ -79,25 +79,25 @@ bool Player::Movecalculation(float4 _Pos)
 {
 	NewPlayerCollisionData.Position = _Pos;
 	NewPlayerCollisionData.Scale = float4{ 40,40 };
-	for (int i = 0; i < 4; i++) {
-		switch (i)
+	
+		switch (NewPlayerDiretion)
 		{
-		case 0:
-			CollisionDiretion[0] = NewPlayerCollisionData.LeftPos();
+		case PlayerDirection::Left:
+			CollisionDiretion = NewPlayerCollisionData.LeftPos();
 			
 			break;
-		case 1:
-			CollisionDiretion[1]=  NewPlayerCollisionData.RightPos();
+		case PlayerDirection::Right:
+			CollisionDiretion =  NewPlayerCollisionData.RightPos();
 			break;	
-		case 2:
-			CollisionDiretion[2] = NewPlayerCollisionData.TopPos();
+		case PlayerDirection::Up:
+			CollisionDiretion = NewPlayerCollisionData.TopPos();
 			break;
-		case 3:
-			CollisionDiretion[3] = NewPlayerCollisionData.DownPos();
+		case PlayerDirection::Down:
+			CollisionDiretion = NewPlayerCollisionData.DownPos();
 			break;
 		default:
 			break;
-		}
+		
 		
 	}
 
@@ -108,28 +108,28 @@ bool Player::Movecalculation(float4 _Pos)
 		return false;
 	}
 
-	for (int i = 0; i < 4; i++) {
-		if (RGB(0, 0, 0) == ColImage->GetPixelColor(CollisionDiretion[i], RGB(0, 0, 0)))
+	
+		if (RGB(0, 0, 0) == ColImage->GetPixelColor(CollisionDiretion, RGB(0, 0, 0)))
 		{
 			return false;
 		}
-	}
+	
 	
 
 	if (true == Block::OwnerBlock->IsMapOut(_Pos)) {
 		return false;
 	}
 
-	for (int i = 0; i < 4; i++) {
-		if (true == Block::OwnerBlock->IsBlock(CollisionDiretion[i])) {
+	
+		if (true == Block::OwnerBlock->IsBlock(CollisionDiretion)) {
 
-			if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), CollisionDiretion[i])->IsUpdate() == true) {
-				Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), CollisionDiretion[i])->SetOrder(100);
+			if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), CollisionDiretion)->IsUpdate() == true) {
+				Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), CollisionDiretion)->SetOrder(100);
 
 				return true;
 			}
 
-			if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), CollisionDiretion[i])->GetFrame() == 1) {
+			if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), CollisionDiretion)->GetFrame() == 1) {
 				WoodBlockCheck = true;
 
 				return true;
@@ -137,7 +137,7 @@ bool Player::Movecalculation(float4 _Pos)
 
 			return false;
 		}
-	}
+	
 
 	
 
@@ -224,8 +224,9 @@ void Player::Update(float _DeltaTime)
 	if (GameEngineInput::IsDown("Space") && BombCount > 0 && nullptr == NewBomb)
 	{
 		NewBomb = GetLevel()->CreateActor<Bomb>();
-
-		NewBomb->InitBomb(Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(GetPos()));
+		float4 BombPos = GetPos();
+		BombPos.y += 20.f;
+		NewBomb->InitBomb(Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(BombPos));
 
 		//NewBomb->InitBomb(NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()));
 

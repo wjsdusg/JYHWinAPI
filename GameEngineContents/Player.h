@@ -13,7 +13,8 @@ enum class PlayerDirection
 	Up,
 	Down,
 	Right,
-	Left
+	Left,
+	Max
 
 };
 
@@ -43,12 +44,14 @@ public:
 	{
 		float4 _NewPos = Position;
 		_NewPos.x -= Scale.hx();
+		_NewPos.y += 20;
 		return _NewPos;
 	}
 	float4 RightPos() const
 	{
 		float4 _NewPos = Position;
 		_NewPos.x += Scale.hx();
+		_NewPos.y += 20;
 		return _NewPos;
 	}
 	float4 TopPos() const
@@ -136,6 +139,6 @@ private:
 	PlayerDirection NewPlayerDiretion = PlayerDirection::Down;
 	float WaitTime = 0.f;
 
-	float4 CollisionDiretion[4];
+	float4 CollisionDiretion;
 };
 

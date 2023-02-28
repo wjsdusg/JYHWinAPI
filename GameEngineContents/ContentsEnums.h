@@ -24,7 +24,6 @@ enum class ItemType
 enum class BlockType
 {
 	Block1,
-	Block2,
 	WoodBlock,
 	TownBush,
 	
