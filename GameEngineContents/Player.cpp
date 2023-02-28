@@ -12,6 +12,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include "Block.h"
 #include "DropItem.h"
+#include "ContentsValue.h"
 Player* Player::MainPlayer;
 
 Player::Player()
@@ -31,17 +32,8 @@ void Player::Start()
 
 	SetMove(GameEngineWindow::GetScreenSize().half() - float4{ 200,0 });
 
-
-
 	BodyCollision = CreateCollision(CrazyRenderOrder::Player);
 	BodyCollision->SetScale(float4(40, 40));
-
-
-
-
-
-
-
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -55,7 +47,7 @@ void Player::Start()
 	{
 
 		AnimationRender = CreateRender(CrazyRenderOrder::Player);
-		AnimationRender->SetScale({ 56, 64 });
+		AnimationRender->SetScale({ 50, 60 });
 
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "right.bmp", .Start = 0, .End = 0 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "right.bmp", .Start = 0, .End = 5 });
@@ -125,47 +117,58 @@ bool Player::Movecalculation(float4 _Pos)
 		}
 		//나무블록확인
 		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), CollisionDiretion)->GetFrame() == 1) {
-			
 			// 밀었는데 
 			WoodRender = Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), CollisionDiretion);
 			
 			WoodStartPos = WoodRender->GetPosition();
 			WoodTagetPos = WoodRender->GetPosition();
-
-			WoodBlockCheck = true;
-			float4 WoodPos = { 0.f,0.f };
-			switch (NewPlayerDiretion)
-			{
+		
+			if (WoodBlockCheck == false) {
 				
-			case PlayerDirection::Left:
-				// 40.0f이라는 상수를 쓰는건 
-				WoodPos = CollisionDiretion;
-				WoodPos.x -= 40.f;
-				WoodTagetPos += float4::Left * 40.0f;
-				break;
-			case PlayerDirection::Right:
-				WoodPos = CollisionDiretion;
-				WoodPos.x += 40.f;
-				WoodTagetPos += float4::Right * 40.0f;
-				break;
-			case PlayerDirection::Up:
-				WoodPos = CollisionDiretion;
-				WoodPos.y -= 40.f;
-				WoodTagetPos += float4::Up * 40.0f;
-				break;
-			case PlayerDirection::Down:
-				WoodPos = CollisionDiretion;
-				WoodPos.y += 40.f;
-				WoodTagetPos += float4::Down * 40.0f;
-				break;
-			default:
-				break;
+				WoodBlockCheck = true;
+				float4 WoodPos = { 0.f,0.f };
+				switch (NewPlayerDiretion)
+				{
+
+				case PlayerDirection::Left:
+
+					WoodPos = CollisionDiretion;
+					WoodPos.x -= ContentsValue::TileSize;
+					WoodTagetPos += float4::Left * ContentsValue::TileSize;
+					break;
+				case PlayerDirection::Right:
+					WoodPos = CollisionDiretion;
+					WoodPos.x += ContentsValue::TileSize;
+					WoodTagetPos += float4::Right * ContentsValue::TileSize;
+					break;
+				case PlayerDirection::Up:
+					WoodPos = CollisionDiretion;
+					WoodPos.y -= ContentsValue::TileSize;
+					WoodTagetPos += float4::Up * ContentsValue::TileSize;
+					break;
+				case PlayerDirection::Down:
+					WoodPos = CollisionDiretion;
+					WoodPos.y += ContentsValue::TileSize;
+					WoodTagetPos += float4::Down * ContentsValue::TileSize;
+					break;
+				default:
+					break;
+				}
+				
+				if (true == Block::OwnerBlock->IsBlock(WoodPos)) {
+					WoodBlockCheck = false;
+					return false;
+				}
+
+				Block::OwnerBlock->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), WoodTagetPos, 1);
+				GameEngineRender* NewRender = Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), WoodRender->GetPosition());
+				NewRender->SetPosition(WoodRender->GetPosition());
+				WoodRender->Off();
+				WoodRender = NewRender;
+				return true;
 			}
-			if (true == Block::OwnerBlock->IsBlock(WoodPos)) {
-				return false;
 			}
-			return true;
-		}
+			
 
 		return false;
 	}
@@ -278,7 +281,7 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 void Player::Render(float _DeltaTime)
 {
 	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
-	float4 ActorPos = GetPos();
+	float4 ActorPos = CollisionDiretion;
 
 	Rectangle(DoubleDC,
 		ActorPos.ix() - 5,
@@ -286,8 +289,8 @@ void Player::Render(float _DeltaTime)
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
 	);
-	std::string Text = "PlayerPos : ";
-	Text += GetPos().ToString();
+	std::string Text = "PlayerCollisonPos : ";
+	Text += CollisionDiretion.ToString();
 	GameEngineLevel::DebugTextPush(Text);
 
 	if (NewBomb != nullptr) {
@@ -297,7 +300,9 @@ void Player::Render(float _DeltaTime)
 		GameEngineLevel::DebugTextPush(Text2);
 
 	}
-
+	std::string Text3 = "WoodBlockCheck : ";
+	Text3 += WoodBlockCheck;
+	GameEngineLevel::DebugTextPush(Text3);
 	// 디버깅용.
 }
 

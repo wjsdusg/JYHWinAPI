@@ -35,7 +35,7 @@ void Block::Start()
 	
 }
 
-void Block::Update(float DeltaTIme) {
+void Block::Update(float DeltaTime) {
 
 	if (Player::MainPlayer->WoodBlockCheck == true) {
 		//플레이어한테 위치를 받는다.
@@ -43,7 +43,14 @@ void Block::Update(float DeltaTIme) {
 		//목표위치까지 일정시간으로 움직인다.
 
 		// float4::Left;
-		MoveWoodBlock(Player::MainPlayer->WoodRender, Player::MainPlayer->WoodStartPos, Player::MainPlayer->WoodTagetPos, DeltaTIme);
+		
+		if (false == (Player::MainPlayer->WoodRender->GetPosition() == Player::MainPlayer->WoodTagetPos)) {
+			MoveWoodBlock(Player::MainPlayer->WoodRender, Player::MainPlayer->WoodStartPos, Player::MainPlayer->WoodTagetPos, DeltaTime);
+		}
+		/*else if(true== (Player::MainPlayer->WoodRender->GetPosition() == Player::MainPlayer->WoodTagetPos)) {
+			Player::MainPlayer->WoodBlockCheck = false;
+		}*/
+		
 	}
 }
 void Block::ItemCountInsert(ItemType _Type, int _Count)
@@ -124,6 +131,9 @@ bool Block::IsBlock(float4 _Pos)
 	
 	for (int i = 0; i < static_cast<int>(BlockType::Max); i++) {
 		GameEngineRender* TilePtr = NewGameEngineTileMap->GetTile(i, _Pos);
+		if (static_cast<int>(BlockType::TownBush) == i) {
+			continue;
+		}
 		if (nullptr != TilePtr)
 		{
 			bool check = TilePtr->IsUpdate();
@@ -176,6 +186,8 @@ void  Block::MoveWoodBlock(GameEngineRender* _GameEngineRender, float4 StartPos,
 	float4 Pos = float4::LerpClamp(StartPos, TargetPos, BlockMoveTime);
 
 	_GameEngineRender->SetPosition(Pos);
+	if (BlockMoveTime >= 1) {
+		Player::MainPlayer->WoodBlockCheck = false;
+	}
 
-	// _GameEngineRender->SetMove(TargetPos* 100.0f * _DeltaTime);
 }
