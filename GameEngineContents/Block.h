@@ -41,11 +41,11 @@ public:
 		
 		return NewGameEngineTileMap;
 	}
-
+	void MoveWoodBlock(GameEngineRender* _GameEngineRender, float4 TargetPos, float _DeltaTime);
 	
 protected:
 	void Start() override;
-
+	void Update(float DeltaTime) override;
 private:
 	GameEngineTileMap* NewGameEngineTileMap=nullptr;
 	std::map<ItemType, int> ItemCounts;

@@ -79,6 +79,7 @@ bool Player::Movecalculation(float4 _Pos)
 {
 	NewPlayerCollisionData.Position = _Pos;
 	NewPlayerCollisionData.Scale = float4{ 40,40 };
+	
 
 	switch (NewPlayerDiretion)
 	{
@@ -97,8 +98,6 @@ bool Player::Movecalculation(float4 _Pos)
 		break;
 	default:
 		break;
-
-
 	}
 
 	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Camp_ColMap.BMP");
@@ -108,18 +107,14 @@ bool Player::Movecalculation(float4 _Pos)
 		return false;
 	}
 
-
 	if (RGB(0, 0, 0) == ColImage->GetPixelColor(CollisionDiretion, RGB(0, 0, 0)))
 	{
 		return false;
 	}
 
-
-
 	if (true == Block::OwnerBlock->IsMapOut(_Pos)) {
 		return false;
 	}
-
 
 	if (true == Block::OwnerBlock->IsBlock(CollisionDiretion)) {
 
@@ -128,10 +123,43 @@ bool Player::Movecalculation(float4 _Pos)
 
 			return true;
 		}
-
+		//나무블록확인
 		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), CollisionDiretion)->GetFrame() == 1) {
+			
+			WoodRender = Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), CollisionDiretion);
+			
 			WoodBlockCheck = true;
+			float4 WoodPos = { 0.f,0.f };
+			switch (NewPlayerDiretion)
+			{
+				
+			case PlayerDirection::Left:
 
+				WoodPos = CollisionDiretion;
+				WoodPos.x -= 40.f;
+				WoodTagetPos = WoodPos;
+				break;
+			case PlayerDirection::Right:
+				WoodPos = CollisionDiretion;
+				WoodPos.x += 40.f;
+				WoodTagetPos = WoodPos;
+				break;
+			case PlayerDirection::Up:
+				WoodPos = CollisionDiretion;
+				WoodPos.y -= 40.f;
+				WoodTagetPos = WoodPos;
+				break;
+			case PlayerDirection::Down:
+				WoodPos = CollisionDiretion;
+				WoodPos.y += 40.f;
+				WoodTagetPos = WoodPos;
+				break;
+			default:
+				break;
+			}
+			if (true == Block::OwnerBlock->IsBlock(WoodPos)) {
+				return false;
+			}
 			return true;
 		}
 
@@ -154,25 +182,11 @@ bool Player::Movecalculation(float4 _Pos)
 				NewBomb = nullptr;
 			}
 		}
-
 		return false;
-
 	}
 	else {
 		NewBomb = nullptr;
 	}
-
-	/*if (nullptr != NewBomb)
-	{
-		float4 LenPos = NewBomb->GetPos() - _Pos;
-
-		if (Len > LenPos.Size())
-		{
-			return false;
-		}
-
-		Len = LenPos.Size();
-	}*/
 
 	return true;
 
@@ -224,7 +238,7 @@ void Player::Update(float _DeltaTime)
 		NewBomb->InitBomb(Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(BombPos));
 
 		NewBombPos = NewBomb->GetPos();
-		Len = (GetPos() - NewBombPos).Size();
+		//Len = (GetPos() - NewBombPos).Size();
 		BombCount--;
 	}
 }

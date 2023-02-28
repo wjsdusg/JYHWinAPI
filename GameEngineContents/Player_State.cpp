@@ -25,6 +25,9 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::MOVE:
 		MoveStart();
 		break;
+	case PlayerState::PUSH:
+		//PushStart();
+		break;
 	default:
 		break;
 	}
@@ -36,6 +39,9 @@ void Player::ChangeState(PlayerState _State)
 		break;
 	case PlayerState::MOVE:
 		MoveEnd();
+		break;
+	case PlayerState::PUSH:
+		//PushEnd();
 		break;
 	default:
 		break;
@@ -52,6 +58,9 @@ void Player::UpdateState(float _Time)
 		break;
 	case PlayerState::MOVE:
 		MoveUpdate(_Time);
+		break;
+	case PlayerState::PUSH:
+		//PushUpdate(_Time);
 		break;
 	default:
 		break;

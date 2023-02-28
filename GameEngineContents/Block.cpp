@@ -5,7 +5,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineRandom.h>
 #include "ContentsEnums.h"
-
+#include "Player.h"
 #include "SpeedItem.h"
 #include "MaxPower.h"
 #include "BombItem.h"
@@ -28,19 +28,22 @@ void Block::Start()
 	OwnerBlock = this;
 	NewGameEngineTileMap =GetLevel()->CreateActor<GameEngineTileMap>();
 	NewGameEngineTileMap->SetPos(float4(20, 40));
-	NewGameEngineTileMap->CreateTileMap(ContentsValue::XTileNum, ContentsValue::YTileNum, static_cast<int>(BlockType::TownBush)+1, static_cast<int>(CrazyRenderOrder::Block), float4(40, 40));
+	NewGameEngineTileMap->CreateTileMap(ContentsValue::XTileNum, ContentsValue::YTileNum, static_cast<int>(BlockType::Max), static_cast<int>(CrazyRenderOrder::Block), float4(40, 40));
 	NewGameEngineTileMap->SetFloorSetting(static_cast<int>(BlockType::Block1), "Block1.bmp");
 	NewGameEngineTileMap->SetFloorSetting(static_cast<int>(BlockType::TownBush), "TownBush.bmp");
 
-	//NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::TownBush), float4{ 1,1 })->SetOrder(1100);
-	//NewGameEngineTileMap->SetTileFrame(0, 0,0, 0);
-
-
-	//MapSize.x += 20.0f;
-	//MapSize.y += 40.0f;
 	
 }
 
+void Block::Update(float DeltaTIme) {
+
+	if (Player::MainPlayer->WoodBlockCheck == true) {
+		//플레이어한테 위치를 받는다.
+		// 렌더,목표위치를받는다
+		//목표위치까지 일정시간으로 움직인다.
+		MoveWoodBlock(Player::MainPlayer->WoodRender, Player::MainPlayer->WoodTagetPos,DeltaTIme);
+	}
+}
 void Block::ItemCountInsert(ItemType _Type, int _Count)
 {
 	ItemCounts[_Type] = _Count;
@@ -53,8 +56,8 @@ void Block::ItemCreate()
 
 	for (size_t i = 0; i < 200; i++)
 	{
-		int Left = GameEngineRandom::MainRandom.RandomInt(0, AllTileIndex.size() - 1);
-		int Right = GameEngineRandom::MainRandom.RandomInt(0, AllTileIndex.size() - 1);
+		int Left = static_cast<int>(GameEngineRandom::MainRandom.RandomInt(0, AllTileIndex.size() - 1));
+		int Right = static_cast<int>(GameEngineRandom::MainRandom.RandomInt(0, AllTileIndex.size() - 1));
 
 		TileIndex Index = AllTileIndex[Left];
 		AllTileIndex[Left] = AllTileIndex[Right];
@@ -117,7 +120,7 @@ bool Block::IsBlock(float4 _Pos)
 	
 	 // += NewGameEngineTileMap->GetPos()
 	
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < static_cast<int>(BlockType::Max); i++) {
 		GameEngineRender* TilePtr = NewGameEngineTileMap->GetTile(i, _Pos);
 		if (nullptr != TilePtr)
 		{
@@ -156,3 +159,7 @@ void Block::AllBlockDestroy() {
 
 }
 	
+void  Block::MoveWoodBlock(GameEngineRender* _GameEngineRender,float4 TargetPos,float _DeltaTime) {
+	_GameEngineRender->GetPosition();
+	_GameEngineRender->SetMove(TargetPos* _DeltaTime);
+}

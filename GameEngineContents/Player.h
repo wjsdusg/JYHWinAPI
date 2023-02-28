@@ -6,6 +6,8 @@ enum class PlayerState
 {
 	IDLE,
 	MOVE,
+	PUSH,
+
 };
 
 enum class PlayerDirection
@@ -79,6 +81,7 @@ class Player : public GameEngineActor
 	friend Bomb;
 	friend BombPower;
 public:
+	
 	static Player* MainPlayer;
 	static int BombCount;
 	static int PBombPower;
@@ -91,7 +94,10 @@ public:
 	Player(Player&& _Other) noexcept = delete;
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
-
+	
+	bool WoodBlockCheck = false;
+	GameEngineRender* WoodRender = nullptr;
+	float4 WoodTagetPos = { 0.f,0.f };
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -128,17 +134,22 @@ private:
 	void MoveStart();
 	void MoveUpdate(float _Time);
 	void MoveEnd();
+	
+	//void PushStart();
+	//void PushUpdate(float _Time);
+	//void PushEnd();
 
 	bool Movecalculation(float4 _Pos);
 	bool CollisionRectToRect(const PlayerCollisionData& _Left, const PlayerCollisionData& _Right);
-	float Len;
+	
 	float4 NewBombPos = {0,0};
-	Bomb* NewBomb;
+	Bomb* NewBomb=nullptr;
 	PlayerCollisionData NewPlayerCollisionData;
-	bool WoodBlockCheck = false;
+	
 	PlayerDirection NewPlayerDiretion = PlayerDirection::Down;
 	float WaitTime = 0.f;
 
 	float4 CollisionDiretion;
+
 };
 
