@@ -41,7 +41,9 @@ void Block::Update(float DeltaTIme) {
 		//플레이어한테 위치를 받는다.
 		// 렌더,목표위치를받는다
 		//목표위치까지 일정시간으로 움직인다.
-		MoveWoodBlock(Player::MainPlayer->WoodRender, Player::MainPlayer->WoodTagetPos,DeltaTIme);
+
+		// float4::Left;
+		MoveWoodBlock(Player::MainPlayer->WoodRender, Player::MainPlayer->WoodStartPos, Player::MainPlayer->WoodTagetPos, DeltaTIme);
 	}
 }
 void Block::ItemCountInsert(ItemType _Type, int _Count)
@@ -56,8 +58,8 @@ void Block::ItemCreate()
 
 	for (size_t i = 0; i < 200; i++)
 	{
-		int Left = static_cast<int>(GameEngineRandom::MainRandom.RandomInt(0, AllTileIndex.size() - 1));
-		int Right = static_cast<int>(GameEngineRandom::MainRandom.RandomInt(0, AllTileIndex.size() - 1));
+		int Left = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(AllTileIndex.size() - 1));
+		int Right = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(AllTileIndex.size() - 1));
 
 		TileIndex Index = AllTileIndex[Left];
 		AllTileIndex[Left] = AllTileIndex[Right];
@@ -159,7 +161,21 @@ void Block::AllBlockDestroy() {
 
 }
 	
-void  Block::MoveWoodBlock(GameEngineRender* _GameEngineRender,float4 TargetPos,float _DeltaTime) {
-	_GameEngineRender->GetPosition();
-	_GameEngineRender->SetMove(TargetPos* _DeltaTime);
+void  Block::MoveWoodBlock(GameEngineRender* _GameEngineRender, float4 StartPos, float4 TargetPos,float _DeltaTime)
+{
+	// lerp를 사용하는 최선으로 보인다.
+
+	// Lerp = (목적ㅈ)
+
+	//              0, 0     100, 0
+	// float4::Lerp(시작위치, 끝위치, 0~1.0f)
+	// float4::Lerp(시작위치, 끝위치, 0.5f)
+
+	BlockMoveTime += _DeltaTime;
+
+	float4 Pos = float4::LerpClamp(StartPos, TargetPos, BlockMoveTime);
+
+	_GameEngineRender->SetPosition(Pos);
+
+	// _GameEngineRender->SetMove(TargetPos* 100.0f * _DeltaTime);
 }

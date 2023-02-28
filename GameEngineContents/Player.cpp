@@ -126,33 +126,37 @@ bool Player::Movecalculation(float4 _Pos)
 		//나무블록확인
 		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), CollisionDiretion)->GetFrame() == 1) {
 			
+			// 밀었는데 
 			WoodRender = Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), CollisionDiretion);
 			
+			WoodStartPos = WoodRender->GetPosition();
+			WoodTagetPos = WoodRender->GetPosition();
+
 			WoodBlockCheck = true;
 			float4 WoodPos = { 0.f,0.f };
 			switch (NewPlayerDiretion)
 			{
 				
 			case PlayerDirection::Left:
-
+				// 40.0f이라는 상수를 쓰는건 
 				WoodPos = CollisionDiretion;
 				WoodPos.x -= 40.f;
-				WoodTagetPos = WoodPos;
+				WoodTagetPos += float4::Left * 40.0f;
 				break;
 			case PlayerDirection::Right:
 				WoodPos = CollisionDiretion;
 				WoodPos.x += 40.f;
-				WoodTagetPos = WoodPos;
+				WoodTagetPos += float4::Right * 40.0f;
 				break;
 			case PlayerDirection::Up:
 				WoodPos = CollisionDiretion;
 				WoodPos.y -= 40.f;
-				WoodTagetPos = WoodPos;
+				WoodTagetPos += float4::Up * 40.0f;
 				break;
 			case PlayerDirection::Down:
 				WoodPos = CollisionDiretion;
 				WoodPos.y += 40.f;
-				WoodTagetPos = WoodPos;
+				WoodTagetPos += float4::Down * 40.0f;
 				break;
 			default:
 				break;

@@ -98,6 +98,8 @@ public:
 	bool WoodBlockCheck = false;
 	GameEngineRender* WoodRender = nullptr;
 	float4 WoodTagetPos = { 0.f,0.f };
+	float4 WoodStartPos = { 0.f,0.f };
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
