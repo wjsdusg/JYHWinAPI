@@ -71,22 +71,25 @@ bool Player::Movecalculation(float4 _Pos)
 {
 	NewPlayerCollisionData.Position = _Pos;
 	NewPlayerCollisionData.Scale = float4{ 40,40 };
-	
-	
+
+	float4 MoveDir;
 
 	switch (NewPlayerDiretion)
 	{
 	case PlayerDirection::Left:
+		MoveDir = float4::Left;
 		CollisionDiretion = NewPlayerCollisionData.LeftPos();
-
 		break;
 	case PlayerDirection::Right:
+		MoveDir = float4::Right;
 		CollisionDiretion = NewPlayerCollisionData.RightPos();
 		break;
 	case PlayerDirection::Up:
+		MoveDir = float4::Up;
 		CollisionDiretion = NewPlayerCollisionData.TopPos();
 		break;
 	case PlayerDirection::Down:
+		MoveDir = float4::Down;
 		CollisionDiretion = NewPlayerCollisionData.DownPos();
 		break;
 	default:
@@ -172,13 +175,23 @@ bool Player::Movecalculation(float4 _Pos)
 		return false;
 	}
 
-	if (true == Bomb::IsBomb(CollisionDiretion))
+
+	Bomb* FindBomb = Bomb::GetBomb(CollisionDiretion);
+
+	if (nullptr != FindBomb)
 	{
 		if (NewBomb != nullptr)
 		{
+			// 나의 미래의 위치에도 폭탄이 있다면 안된다.
+			Bomb* NextBomb = Bomb::GetBomb(GetPos() + MoveDir * 40.0f);
+			if (nullptr != NextBomb)
+			{
+				return false;
+			}
+
 			PlayerCollisionData BombData;
-			BombData.Position = NewBomb->GetPos();
-			BombData.Scale = NewBomb->AnimationRender->GetScale();
+			BombData.Position = FindBomb->GetPos();
+			BombData.Scale = FindBomb->AnimationRender->GetScale();
 			if (true == CollisionRectToRect(BombData, NewPlayerCollisionData)) {
 
 				return true;
@@ -193,6 +206,7 @@ bool Player::Movecalculation(float4 _Pos)
 	else {
 		NewBomb = nullptr;
 	}
+
 
 	return true;
 

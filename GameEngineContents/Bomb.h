@@ -15,6 +15,8 @@ class Bomb : public GameEngineActor
 	static std::vector<std::vector<Bomb*>> AllBomb;
 
 public:
+	static Bomb* GetBomb(const float4& _Pos);
+	static Bomb* GetBomb(int _X, int _Y);
 	static bool IsBomb(const float4& _Pos);
 	static bool IsBomb(int _X, int _Y);
 	static void BombMapInit();

@@ -124,7 +124,9 @@ void Player::MoveUpdate(float _Time)
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{
 		NewPlayerDiretion = PlayerDirection::Left;
-		if (true == Movecalculation(GetPos()+(float4::Left * MoveSpeed * _Time))) {
+
+		if (true == Movecalculation(GetPos()+(float4::Left * MoveSpeed * _Time))) 
+		{
 
 			SetMove(float4::Left * MoveSpeed * _Time);
 		}

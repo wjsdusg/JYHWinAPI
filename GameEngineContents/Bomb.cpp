@@ -50,6 +50,17 @@ bool Bomb::IsBomb(int _X, int _Y)
 	return AllBomb[_Y][_X] != nullptr;
 }
 
+Bomb* Bomb::GetBomb(const float4& _Pos)
+{
+	float4 Index = Block::OwnerBlock->GetTileMap()->GetIndex(_Pos);
+	return GetBomb(Index.ix(), Index.iy());
+}
+
+Bomb* Bomb::GetBomb(int _X, int _Y)
+{
+	return AllBomb[_Y][_X];
+}
+
 bool Bomb::IsBombExceptMe(Bomb* _BombPtr, const float4& _Pos) {
 	
 
