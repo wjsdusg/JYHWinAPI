@@ -77,6 +77,7 @@ void Player::IdleUpdate(float _Time)
 {
 	WaitTime += _Time;
 	GetLiveTime();
+	
 	Movecalculation(GetPos());
 	if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true) {
 		AnimationRender->ChangeAnimation("BlankMode");
@@ -89,6 +90,11 @@ void Player::IdleUpdate(float _Time)
 	if (WaitTime >= 3.f) {
 		AnimationRender->ChangeAnimation("wait");
 		NewPlayerDiretion = PlayerDirection::Down;
+		
+		Movecalculation(GetPos());
+		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true) {
+			AnimationRender->ChangeAnimation("BlankMode");
+		}
 	}
 }
 void Player::IdleEnd() {

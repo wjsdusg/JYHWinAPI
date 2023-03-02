@@ -46,14 +46,14 @@ public:
 	{
 		float4 _NewPos = Position;
 		_NewPos.x -= Scale.hx();
-		_NewPos.y += 20;
+		_NewPos.y += 10;
 		return _NewPos;
 	}
 	float4 RightPos() const
 	{
 		float4 _NewPos = Position;
 		_NewPos.x += Scale.hx();
-		_NewPos.y += 20;
+		_NewPos.y += 10;
 		return _NewPos;
 	}
 	float4 TopPos() const
@@ -67,7 +67,7 @@ public:
 	{
 		float4 _NewPos = Position;
 		_NewPos.y += Scale.hy();
-		_NewPos.y += 20;
+		_NewPos.y += 10;
 		return _NewPos;
 	}
 };

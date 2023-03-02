@@ -72,6 +72,7 @@ bool Player::Movecalculation(float4 _Pos)
 	NewPlayerCollisionData.Position = _Pos;
 	NewPlayerCollisionData.Scale = float4{ 40,40 };
 	
+	
 
 	switch (NewPlayerDiretion)
 	{
@@ -154,17 +155,15 @@ bool Player::Movecalculation(float4 _Pos)
 				default:
 					break;
 				}
-				
-				if (true == Block::OwnerBlock->IsBlock(WoodPos)) {
+
+				Block::OwnerBlock->NewGameEngineTileMap->TileIndexChange(static_cast<int>(BlockType::Block1), WoodStartPos, WoodTagetPos);
+
+				/*if (true == Block::OwnerBlock->IsBlock(WoodPos)) {
 					WoodBlockCheck = false;
 					return false;
-				}
+				}*/
 
-				Block::OwnerBlock->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), WoodTagetPos, 1);
-				GameEngineRender* NewRender = Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), WoodRender->GetPosition());
-				NewRender->SetPosition(WoodRender->GetPosition());
-				WoodRender->Off();
-				WoodRender = NewRender;
+				
 				return true;
 			}
 			}
@@ -173,7 +172,7 @@ bool Player::Movecalculation(float4 _Pos)
 		return false;
 	}
 
-	if (true == Bomb::IsBomb(_Pos))
+	if (true == Bomb::IsBomb(CollisionDiretion))
 	{
 		if (NewBomb != nullptr)
 		{
@@ -241,7 +240,7 @@ void Player::Update(float _DeltaTime)
 	{
 		NewBomb = GetLevel()->CreateActor<Bomb>();
 		float4 BombPos = GetPos();
-		BombPos.y += 20.f;
+		BombPos.y += 10.f;
 		NewBomb->InitBomb(Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(BombPos));
 
 		NewBombPos = NewBomb->GetPos();

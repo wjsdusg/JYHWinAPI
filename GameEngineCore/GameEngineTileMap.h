@@ -61,7 +61,7 @@ public:
 
     std::vector<TileIndex> GetAllTileIndex(int _ZIndex);
 
-    
+    void TileIndexChange(int _Zindex,float4 _CurIndex,float4 _TargetIndex);
 protected:
 
 private:

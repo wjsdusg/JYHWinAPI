@@ -18,7 +18,7 @@ public:
 	static bool IsBomb(const float4& _Pos);
 	static bool IsBomb(int _X, int _Y);
 	static void BombMapInit();
-
+	static bool IsBombExceptMe(Bomb* _BombPtr, const float4& _Pos);
 public:
 	
 	Bomb();
@@ -53,7 +53,7 @@ private:
 	GameEngineCollision* BodyCollision = nullptr;
 	GameEngineCollision* BlockCollision = nullptr;
 	bool BombDeath = false;
-
+	float4 Index;
 	void BobmDie() {
 		BombDeath = true;
 

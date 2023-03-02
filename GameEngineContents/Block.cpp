@@ -186,8 +186,8 @@ void  Block::MoveWoodBlock(GameEngineRender* _GameEngineRender, float4 StartPos,
 	float4 Pos = float4::LerpClamp(StartPos, TargetPos, BlockMoveTime);
 
 	_GameEngineRender->SetPosition(Pos);
-	if (BlockMoveTime >= 1) {
+	/*if (BlockMoveTime >= 1) {
 		Player::MainPlayer->WoodBlockCheck = false;
-	}
+	}*/
 
 }

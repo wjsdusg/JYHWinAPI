@@ -50,6 +50,19 @@ bool Bomb::IsBomb(int _X, int _Y)
 	return AllBomb[_Y][_X] != nullptr;
 }
 
+bool Bomb::IsBombExceptMe(Bomb* _BombPtr, const float4& _Pos) {
+	
+
+	float4 NewIndexPos=Block::OwnerBlock->GetTileMap()->GetIndex(_Pos);
+	if (_BombPtr->Index == NewIndexPos) {
+		return true;
+	}
+	else {
+		return false;
+	}
+
+	
+}
 
 void Bomb::Start() {
 
@@ -122,7 +135,7 @@ void Bomb::Update(float _DeltaTime)
 		if (nullptr != Block::OwnerBlock)
 		{
 
-			float4 Index = Block::OwnerBlock->GetTileMap()->GetIndex(GetPos());
+			//float4 Index = Block::OwnerBlock->GetTileMap()->GetIndex(GetPos());
 			AllBomb[Index.iy()][Index.ix()] = nullptr;
 
 		}
@@ -136,6 +149,6 @@ void Bomb::InitBomb(float4 _Pos)
 {
 	SetPos(_Pos);
 
-	float4 Index = Block::OwnerBlock->GetTileMap()->GetIndex(_Pos);
+	Index = Block::OwnerBlock->GetTileMap()->GetIndex(_Pos);
 	AllBomb[Index.iy()][Index.ix()] = this;
 }
