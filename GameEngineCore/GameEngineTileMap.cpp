@@ -248,11 +248,9 @@ GameEngineRender* GameEngineTileMap::GetTile(int _ZIndex, int _X,int _Y)
 void GameEngineTileMap::TileIndexChange(int _Zindex, float4 _CurIndex, float4 _TargetIndex) {
     GameEngineRender* NewgameEngineRender = nullptr;
     float4 CurIndex = GetIndex(_CurIndex);
-    GameEngineRender* CurGameEngineRender = TileRenders[_Zindex][CurIndex.iy()][CurIndex.ix()];
     float4 TargetIndex= GetIndex(_TargetIndex);
-    GameEngineRender* TargetGameEngineRender = TileRenders[_Zindex][TargetIndex.iy()][TargetIndex.ix()];
 
-    NewgameEngineRender = CurGameEngineRender;
-    CurGameEngineRender = TargetGameEngineRender;
-    TargetGameEngineRender = NewgameEngineRender;
+    GameEngineRender* TempGameEngineRender = TileRenders[_Zindex][CurIndex.iy()][CurIndex.ix()];
+    TileRenders[_Zindex][CurIndex.iy()][CurIndex.ix()] = TileRenders[_Zindex][TargetIndex.iy()][TargetIndex.ix()];
+    TileRenders[_Zindex][TargetIndex.iy()][TargetIndex.ix()] = TempGameEngineRender;
 }
