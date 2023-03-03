@@ -10,13 +10,13 @@
 #include "Player.h"
 #include "MonsterMap.h"
 #include "BackGround.h"
-#include "MapCover.h"
 #include "Bomb.h"
 #include "Block.h"
 #include "ContentsEnums.h"
 #include "DropItem.h"
 #include "SpeedItem.h"
 #include "BombItem.h"
+#include "Monster.h"
 MonsterPLevel::MonsterPLevel()
 {
 }
@@ -41,6 +41,10 @@ void MonsterPLevel::LevelChangeStart(GameEngineLevel* _PrevLevel) {
 	{
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterStage2_Back.BMP"));
 
+	} 
+	{
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Monster.BMP"));
+		Image->Cut(10, 1);
 	}
 
 	// 액터 생성
@@ -53,16 +57,18 @@ void MonsterPLevel::LevelChangeStart(GameEngineLevel* _PrevLevel) {
 	{
 		Player* Actor = CreateActor<Player>(CrazyRenderOrder::Player);
 	}
-
-	Block* Actor = CreateActor< Block>();
+	{
+		Block* Actor = CreateActor< Block>();
+	}
+	{
+		Monster* Actor = CreateActor<Monster>();
+	}
 
 	if (false == GameEngineInput::IsKey("CollisionRender")) {
 		GameEngineInput::CreateKey("CollisionRender", 'R');
 	}
 
-	if (false == GameEngineInput::IsKey("BlockDestroy")) {
-		GameEngineInput::CreateKey("BlockDestroy", 'P');
-	}
+	
 
 }
 
@@ -75,9 +81,6 @@ void MonsterPLevel::Update(float _DeltaTime)
 		DebugRenderSwitch();
 	}
 
-	if (GameEngineInput::IsDown("BlockDestroy")) {
-		Block::OwnerBlock->AllBlockDestroy();
-	}
 
 
 }

@@ -11,6 +11,7 @@ enum class CrazyRenderOrder
 	Bomb,
 	BombPower,
 	BombtoPlayer,
+	Monster,
 	Player=70,
 };
 
