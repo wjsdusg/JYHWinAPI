@@ -44,7 +44,9 @@ void MonsterPLevel::LevelChangeStart(GameEngineLevel* _PrevLevel) {
 	} 
 	{
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Monster.BMP"));
-		Image->Cut(10, 1);
+		Image->Cut(8, 1);
+		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("monsterdie.BMP"));
+		Image2->Cut(4, 1);
 	}
 
 	// 액터 생성

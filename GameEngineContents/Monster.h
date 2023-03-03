@@ -1,8 +1,24 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEnginePlatform/GameEngineImage.h>
-
+#include <GameEngineCore/GameEngineRender.h>
+#include "ContentsEnums.h"
 // Ό³Έν :
+
+enum class MonsterState
+{
+	IDLE,
+	FIGHT
+
+};
+enum class MonsterDirection {
+	Up,
+	Down,
+	Right,
+	Left,
+	Max
+
+};
 class Monster : public GameEngineActor
 {
 public:
@@ -18,8 +34,21 @@ public:
 
 protected:
 	void Start() override;
-	//void Update(float _DeltaTime) override;
-private:
+	void Update(float _DeltaTime) override;
+	GameEngineRender* AnimationRender = nullptr;
+	MonsterState NewMonsterState = MonsterState::IDLE;
+	void ChangeState(MonsterState _State);
+	void UpdateState(float _Time);
 
+	void IdleStart();
+	void IdleUpdate(float _Time);
+	void IdleEnd();
+
+	void FightStart();
+	void FightUpdate(float _Time);
+	void FightEnd();
+	bool Movecalculation(float4 _Pos);
+	float4 CollisionDiretion = { 0,0 };
+	MonsterDirection NewMonsterDirection = MonsterDirection::Max;
 };
 

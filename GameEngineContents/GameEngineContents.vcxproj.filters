@@ -48,7 +48,13 @@
     <ClInclude Include="MonsterMap.h">
       <Filter>Map</Filter>
     </ClInclude>
-    <ClInclude Include="MonsterPLevel.h" />
+    <ClInclude Include="MonsterPLevel.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="PirateMonster.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp" />
@@ -98,7 +104,15 @@
     <ClCompile Include="MonsterMap.cpp">
       <Filter>Map</Filter>
     </ClCompile>
-    <ClCompile Include="MonsterPLevel.cpp" />
+    <ClCompile Include="MonsterPLevel.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="PirateMonster.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterState.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

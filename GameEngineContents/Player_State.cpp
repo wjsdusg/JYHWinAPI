@@ -76,8 +76,7 @@ void Player::IdleStart()
 void Player::IdleUpdate(float _Time) 
 {
 	WaitTime += _Time;
-	GetLiveTime();
-	
+		
 	Movecalculation(GetPos());
 	if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true) {
 		AnimationRender->ChangeAnimation("BlankMode");

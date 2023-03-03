@@ -173,8 +173,10 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterMap.h" />
     <ClInclude Include="MonsterPLevel.h" />
+    <ClInclude Include="PirateMonster.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayLevel.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SpeedItem.h" />
     <ClInclude Include="StudyGameCore.h" />
     <ClInclude Include="TitleBack.h" />
@@ -194,6 +196,8 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterMap.cpp" />
     <ClCompile Include="MonsterPLevel.cpp" />
+    <ClCompile Include="MonsterState.cpp" />
+    <ClCompile Include="PirateMonster.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player_State.cpp" />
     <ClCompile Include="PlayLevel.cpp" />

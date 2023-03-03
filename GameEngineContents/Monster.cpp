@@ -1,8 +1,8 @@
 #include "Monster.h"
-#include <GameEngineCore/GameEngineRender.h>
-#include <GameEnginePlatform/GameEngineWindow.h>
 
-#include "ContentsEnums.h"
+#include <GameEnginePlatform/GameEngineWindow.h>
+#include "Block.h"
+
 Monster::Monster() 
 {
 }
@@ -12,12 +12,45 @@ Monster::~Monster()
 }
 
 void Monster::Start() {
-	SetMove(GameEngineWindow::GetScreenSize().half() + float4{ 200,0 });
-
-
-	GameEngineRender* AnimationRender = CreateRender(CrazyRenderOrder::Monster);
-	AnimationRender->SetScale({ 40, 40 });
-
-	AnimationRender->CreateAnimation({ .AnimationName = "Idle",  .ImageName = "Monster.bmp", .Start = 2, .End = 4 });
-	AnimationRender->ChangeAnimation("Idle");
+	
 }
+
+void Monster::Update(float _DeltaTime) {
+	
+	UpdateState(_DeltaTime);
+		
+}
+
+
+bool Monster::Movecalculation(float4 _Pos)
+{
+
+	float4 MoveDir;
+
+	switch (NewMonsterDirection)
+	{
+	case MonsterDirection::Left:
+	
+		break;
+	case MonsterDirection::Right:
+		
+		break;
+	case MonsterDirection::Up:
+		
+		break;
+	case MonsterDirection::Down:
+		
+		break;
+	default:
+		break;
+	}
+
+
+
+	if (true == Block::OwnerBlock->IsMapOut(_Pos)) {
+		return false;
+	}
+
+
+		return false;
+	}

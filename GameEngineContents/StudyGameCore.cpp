@@ -28,7 +28,7 @@ void StudyGameCore::Start()
 	
 	CreateLevel<MonsterPLevel>("MonsterPLevel");
 
-	ChangeLevel("PlayLevel");
+	ChangeLevel("MonsterPLevel");
 
 	
 }
