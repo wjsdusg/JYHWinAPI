@@ -197,13 +197,13 @@ bool GameEngineTileMap::IsValidIndex(int _Z, float _Y, float _X)
         return false;
     }
 
-    if (TileRenders[_Z].size() <= _Y)
+    if (TileRenders[_Z].size() < _Y)
     {
         // MsgAssert("Y인덱스가 오버했습니다.");
         return false;
     }
 
-    if (TileRenders[_Z][static_cast<int>(_Y)].size() <= _X)
+    if (TileRenders[_Z][static_cast<int>(_Y)].size() < _X)
     {
         // MsgAssert("X인덱스가 오버했습니다.");
         return false;

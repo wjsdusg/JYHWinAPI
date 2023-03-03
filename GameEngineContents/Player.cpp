@@ -13,6 +13,7 @@
 #include "Block.h"
 #include "DropItem.h"
 #include "ContentsValue.h"
+#include "PlayLevel.h"
 Player* Player::MainPlayer;
 
 Player::Player()
@@ -71,46 +72,50 @@ bool Player::Movecalculation(float4 _Pos)
 {
 	NewPlayerCollisionData.Position = _Pos;
 	NewPlayerCollisionData.Scale = float4{ 40,40 };
-
-	float4 MoveDir;
+	
+	
 
 	switch (NewPlayerDiretion)
 	{
 	case PlayerDirection::Left:
-		MoveDir = float4::Left;
 		CollisionDiretion = NewPlayerCollisionData.LeftPos();
+
 		break;
 	case PlayerDirection::Right:
-		MoveDir = float4::Right;
 		CollisionDiretion = NewPlayerCollisionData.RightPos();
 		break;
 	case PlayerDirection::Up:
-		MoveDir = float4::Up;
 		CollisionDiretion = NewPlayerCollisionData.TopPos();
 		break;
 	case PlayerDirection::Down:
-		MoveDir = float4::Down;
 		CollisionDiretion = NewPlayerCollisionData.DownPos();
 		break;
 	default:
 		break;
 	}
 
-	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Camp_ColMap.BMP");
-	if (nullptr == ColImage)
-	{
-		MsgAssert("충돌용 맵 이미지가 없습니다.");
+	if (true == Block::OwnerBlock->IsMapOut(CollisionDiretion)) {
 		return false;
 	}
 
-	if (RGB(0, 0, 0) == ColImage->GetPixelColor(CollisionDiretion, RGB(0, 0, 0)))
-	{
-		return false;
-	}
+	PlayLevel* NewPlayLevel = dynamic_cast<PlayLevel*>(GetLevel());
+	if (nullptr != NewPlayLevel) {
+			
+				GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Camp_ColMap.BMP");
+			if (nullptr == ColImage)
+			{
+				MsgAssert("충돌용 맵 이미지가 없습니다.");
+				return false;
+			}
 
-	if (true == Block::OwnerBlock->IsMapOut(_Pos)) {
-		return false;
+			if (RGB(0, 0, 0) == ColImage->GetPixelColor(CollisionDiretion, RGB(0, 0, 0)))
+			{
+				return false;
+			}
 	}
+	
+
+
 
 	if (true == Block::OwnerBlock->IsBlock(CollisionDiretion)) {
 
@@ -130,29 +135,24 @@ bool Player::Movecalculation(float4 _Pos)
 			if (WoodBlockCheck == false) {
 				
 				WoodBlockCheck = true;
-				float4 WoodPos = { 0.f,0.f };
+				
 				switch (NewPlayerDiretion)
 				{
 
 				case PlayerDirection::Left:
-
-					WoodPos = CollisionDiretion;
-					WoodPos.x -= ContentsValue::TileSize;
+										
 					WoodTagetPos += float4::Left * ContentsValue::TileSize;
 					break;
 				case PlayerDirection::Right:
-					WoodPos = CollisionDiretion;
-					WoodPos.x += ContentsValue::TileSize;
+				
 					WoodTagetPos += float4::Right * ContentsValue::TileSize;
 					break;
 				case PlayerDirection::Up:
-					WoodPos = CollisionDiretion;
-					WoodPos.y -= ContentsValue::TileSize;
+					
 					WoodTagetPos += float4::Up * ContentsValue::TileSize;
 					break;
 				case PlayerDirection::Down:
-					WoodPos = CollisionDiretion;
-					WoodPos.y += ContentsValue::TileSize;
+					
 					WoodTagetPos += float4::Down * ContentsValue::TileSize;
 					break;
 				default:
@@ -161,10 +161,8 @@ bool Player::Movecalculation(float4 _Pos)
 
 				Block::OwnerBlock->NewGameEngineTileMap->TileIndexChange(static_cast<int>(BlockType::Block1), WoodStartPos, WoodTagetPos);
 
-				/*if (true == Block::OwnerBlock->IsBlock(WoodPos)) {
-					WoodBlockCheck = false;
-					return false;
-				}*/
+
+				GameEngineRender* ren = WoodRender;
 
 				
 				return true;
@@ -174,24 +172,17 @@ bool Player::Movecalculation(float4 _Pos)
 
 		return false;
 	}
+	
+	
 
 
-	Bomb* FindBomb = Bomb::GetBomb(CollisionDiretion);
-
-	if (nullptr != FindBomb)
+	if (true == Bomb::IsBomb(CollisionDiretion))
 	{
 		if (NewBomb != nullptr)
 		{
-			// 나의 미래의 위치에도 폭탄이 있다면 안된다.
-			Bomb* NextBomb = Bomb::GetBomb(GetPos() + MoveDir * 40.0f);
-			if (nullptr != NextBomb)
-			{
-				return false;
-			}
-
 			PlayerCollisionData BombData;
-			BombData.Position = FindBomb->GetPos();
-			BombData.Scale = FindBomb->AnimationRender->GetScale();
+			BombData.Position = NewBomb->GetPos();
+			BombData.Scale = NewBomb->AnimationRender->GetScale();
 			if (true == CollisionRectToRect(BombData, NewPlayerCollisionData)) {
 
 				return true;
@@ -206,7 +197,6 @@ bool Player::Movecalculation(float4 _Pos)
 	else {
 		NewBomb = nullptr;
 	}
-
 
 	return true;
 
@@ -261,6 +251,7 @@ void Player::Update(float _DeltaTime)
 		//Len = (GetPos() - NewBombPos).Size();
 		BombCount--;
 	}
+	
 }
 
 void Player::DirCheck(const std::string_view& _AnimationName)

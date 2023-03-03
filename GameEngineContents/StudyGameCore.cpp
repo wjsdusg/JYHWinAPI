@@ -4,7 +4,7 @@
 #include "PlayLevel.h"
 #include "TitleLevel.h"
 #include "Block.h"
-
+#include "MonsterPLevel.h"
 
 StudyGameCore StudyGameCore::Core;
 
@@ -22,9 +22,12 @@ void StudyGameCore::Start()
 	GameEngineWindow::SettingWindowSize({ 800 , 600 });
 
 	new int();
+	
 
 	CreateLevel<PlayLevel>("PlayLevel");
 	
+	CreateLevel<MonsterPLevel>("MonsterPLevel");
+
 	ChangeLevel("PlayLevel");
 
 	

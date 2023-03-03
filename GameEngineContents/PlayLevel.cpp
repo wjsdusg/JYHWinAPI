@@ -5,7 +5,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineTileMap.h>
-
+#include <GameEngineCore/GameEngineCore.h>
 // 나랑 같은 등급의 헤더들
 #include "Player.h"
 #include "Map.h"
@@ -47,8 +47,6 @@ void PlayLevel::Loading()
 		GameEngineImage* MapImage = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Camp_Back.BMP"));
 		GameEngineImage* COlMapImage = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Camp_ColMap.BMP"));
 		GameEngineImage* CoverMapImage = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Camp_Front.BMP"));
-
-
 
 	}
 	{
@@ -320,6 +318,10 @@ void PlayLevel::Loading()
 		GameEngineInput::CreateKey("BlockDestroy", 'P');
 	}
 
+	if (false == GameEngineInput::IsKey("LevelChange")) {
+		GameEngineInput::CreateKey("LevelChange", 'O');
+	}
+
 
 
 }
@@ -335,11 +337,14 @@ void PlayLevel::Update(float _DeltaTime)
 
 	if (GameEngineInput::IsDown("CollisionRender")) {
 		DebugRenderSwitch();
-	}
+	}       
 
 	if (GameEngineInput::IsDown("BlockDestroy")) {
 		Block::OwnerBlock->AllBlockDestroy();
 	}
-
+	if (true == GameEngineInput::IsDown("LevelChange"))
+	{
+		GameEngineCore::GetInst()->ChangeLevel("MonsterPLevel");
+	}
 
 }

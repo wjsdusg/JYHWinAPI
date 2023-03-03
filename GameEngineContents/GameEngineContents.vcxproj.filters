@@ -45,6 +45,10 @@
       <Filter>Item</Filter>
     </ClInclude>
     <ClInclude Include="ContentsValue.h" />
+    <ClInclude Include="MonsterMap.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterPLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp" />
@@ -91,6 +95,10 @@
       <Filter>Item</Filter>
     </ClCompile>
     <ClCompile Include="ContentsValue.cpp" />
+    <ClCompile Include="MonsterMap.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterPLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

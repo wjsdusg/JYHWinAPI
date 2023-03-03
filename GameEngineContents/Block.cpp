@@ -37,21 +37,7 @@ void Block::Start()
 
 void Block::Update(float DeltaTime) {
 
-	if (Player::MainPlayer->WoodBlockCheck == true) {
-		//플레이어한테 위치를 받는다.
-		// 렌더,목표위치를받는다
-		//목표위치까지 일정시간으로 움직인다.
-
-		// float4::Left;
-		
-		if (false == (Player::MainPlayer->WoodRender->GetPosition() == Player::MainPlayer->WoodTagetPos)) {
-			MoveWoodBlock(Player::MainPlayer->WoodRender, Player::MainPlayer->WoodStartPos, Player::MainPlayer->WoodTagetPos, DeltaTime);
-		}
-		/*else if(true== (Player::MainPlayer->WoodRender->GetPosition() == Player::MainPlayer->WoodTagetPos)) {
-			Player::MainPlayer->WoodBlockCheck = false;
-		}*/
-		
-	}
+	
 }
 void Block::ItemCountInsert(ItemType _Type, int _Count)
 {
