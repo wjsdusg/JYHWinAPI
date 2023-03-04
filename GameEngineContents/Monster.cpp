@@ -77,7 +77,9 @@ bool Monster::Movecalculation(float4 _Pos)
 		}
 
 	}
-	
+	if (nullptr == Player::MainPlayer) {
+		ChangeState(MonsterState::IDLE);
+	}
 	if (MonsterState::FIGHT == NewMonsterState) {
 		if (GetPos().x > Player::MainPlayer->GetPos().x)
 		{

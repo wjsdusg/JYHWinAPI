@@ -76,10 +76,10 @@ void Monster::IdleUpdate(float _Time)
 		AnimationRender->ChangeAnimation("Move_Right");
 		break;
 	case MonsterDirection::Up:
-	
+		NewMonsterDirection = MonsterDirection::Left;
 		break;
 	case MonsterDirection::Down:
-		
+		NewMonsterDirection = MonsterDirection::Left;
 		break;
 	default:
 		break;
