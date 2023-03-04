@@ -58,7 +58,32 @@ void Monster::IdleStart()
 }
 void Monster::IdleUpdate(float _Time)
 {
+	switch (NewMonsterDirection)
+	{
+	case MonsterDirection::Left:
+		
+		if (true == Movecalculation(GetPos() + (float4::Left * MoveSpeed * _Time)))
+		{
+			SetMove(float4::Left * MoveSpeed * _Time);
+		}
+		AnimationRender->ChangeAnimation("Move_Left");
+		break;
+	case MonsterDirection::Right:
+		if (true == Movecalculation(GetPos() + (float4::Right * MoveSpeed * _Time)))
+		{
+			SetMove(float4::Right * MoveSpeed * _Time);
+		}
+		AnimationRender->ChangeAnimation("Move_Right");
+		break;
+	case MonsterDirection::Up:
 	
+		break;
+	case MonsterDirection::Down:
+		
+		break;
+	default:
+		break;
+	}
 }
 void Monster::IdleEnd() {
 
@@ -70,7 +95,32 @@ void Monster::FightStart()
 }
 void Monster::FightUpdate(float _Time)
 {
-	
+	switch (NewMonsterDirection)
+	{
+	case MonsterDirection::Left:
+
+		if (true == Movecalculation(GetPos() + (float4::Left * MoveSpeed * _Time)))
+		{
+			SetMove(float4::Left * MoveSpeed * _Time);
+		}
+		AnimationRender->ChangeAnimation("Move_Left");
+		break;
+	case MonsterDirection::Right:
+		if (true == Movecalculation(GetPos() + (float4::Right * MoveSpeed * _Time)))
+		{
+			SetMove(float4::Right * MoveSpeed * _Time);
+		}
+		AnimationRender->ChangeAnimation("Move_Right");
+		break;
+	case MonsterDirection::Up:
+
+		break;
+	case MonsterDirection::Down:
+
+		break;
+	default:
+		break;
+	}
 	
 }
 void Monster::FightEnd() {

@@ -17,6 +17,7 @@
 #include "SpeedItem.h"
 #include "BombItem.h"
 #include "Monster.h"
+#include "PirateMonster.h"
 MonsterPLevel::MonsterPLevel()
 {
 }
@@ -63,9 +64,11 @@ void MonsterPLevel::LevelChangeStart(GameEngineLevel* _PrevLevel) {
 		Block* Actor = CreateActor< Block>();
 	}
 	{
-		Monster* Actor = CreateActor<Monster>();
+		PirateMonster* Actor = CreateActor<PirateMonster>();
 	}
+	{
 
+	}
 	if (false == GameEngineInput::IsKey("CollisionRender")) {
 		GameEngineInput::CreateKey("CollisionRender", 'R');
 	}

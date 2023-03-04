@@ -2,7 +2,7 @@
 
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include "Block.h"
-
+#include "Player.h"
 Monster::Monster() 
 {
 }
@@ -17,7 +17,7 @@ void Monster::Start() {
 
 void Monster::Update(float _DeltaTime) {
 	
-	UpdateState(_DeltaTime);
+	
 		
 }
 
@@ -30,7 +30,7 @@ bool Monster::Movecalculation(float4 _Pos)
 	switch (NewMonsterDirection)
 	{
 	case MonsterDirection::Left:
-	
+		
 		break;
 	case MonsterDirection::Right:
 		
@@ -45,12 +45,49 @@ bool Monster::Movecalculation(float4 _Pos)
 		break;
 	}
 
+	float4 DistanceToPlayer;
 
+	DistanceToPlayer = Player::MainPlayer->GetPos() - GetPos();
+	float Distance = DistanceToPlayer.Size();
 
-	if (true == Block::OwnerBlock->IsMapOut(_Pos)) {
-		return false;
+	if (80.f > Distance) {
+		ChangeState(MonsterState::FIGHT);
+	}
+	if (MonsterState::IDLE == NewMonsterState) {
+
+		if (true == Block::OwnerBlock->IsMapOut(_Pos)) {
+			switch (NewMonsterDirection)
+			{
+			case MonsterDirection::Left:
+				NewMonsterDirection = MonsterDirection::Right;
+				break;
+			case MonsterDirection::Right:
+				NewMonsterDirection = MonsterDirection::Left;
+				break;
+			case MonsterDirection::Up:
+				NewMonsterDirection = MonsterDirection::Down;
+				break;
+			case MonsterDirection::Down:
+				NewMonsterDirection = MonsterDirection::Up;
+				break;
+			default:
+				break;
+			}
+			return false;
+		}
+
+	}
+	
+	if (MonsterState::FIGHT == NewMonsterState) {
+		if (GetPos().x > Player::MainPlayer->GetPos().x)
+		{
+			NewMonsterDirection= MonsterDirection::Left;
+		}
+		else if (GetPos().x <= Player::MainPlayer->GetPos().x)
+		{
+			NewMonsterDirection = MonsterDirection::Right;
+		}
 	}
 
-
-		return false;
+		return true;
 	}

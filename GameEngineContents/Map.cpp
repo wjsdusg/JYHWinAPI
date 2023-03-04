@@ -18,7 +18,10 @@ void Map::Start()
 		// float4 Scree = GameEngineWindow::GetScreenSize();
 
 		GameEngineRender* AnimationRender = CreateRender(CrazyRenderOrder::Map);
-		/*float4 MapSize = GameEngineWindow::GetScreenSize().half();
+		/*float4 Map
+		
+		
+= GameEngineWindow::GetScreenSize().half();
 		MapSize.x -= 80.0f;*/
 
 		AnimationRender->SetImageToScaleToImage("Camp_Back.Bmp");

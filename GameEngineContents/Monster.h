@@ -2,6 +2,7 @@
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEnginePlatform/GameEngineImage.h>
 #include <GameEngineCore/GameEngineRender.h>
+#include <GameEngineBase/GameEngineRandom.h>
 #include "ContentsEnums.h"
 // Ό³Έν :
 
@@ -14,8 +15,8 @@ enum class MonsterState
 enum class MonsterDirection {
 	Up,
 	Down,
-	Right,
 	Left,
+	Right,
 	Max
 
 };
@@ -48,6 +49,7 @@ protected:
 	void FightUpdate(float _Time);
 	void FightEnd();
 	bool Movecalculation(float4 _Pos);
+	float MoveSpeed = 300.f;
 	float4 CollisionDiretion = { 0,0 };
 	MonsterDirection NewMonsterDirection = MonsterDirection::Max;
 };

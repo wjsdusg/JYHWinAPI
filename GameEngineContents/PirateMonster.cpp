@@ -12,7 +12,9 @@ PirateMonster::~PirateMonster()
 }
 
 void PirateMonster::Start() {
-	SetMove(GameEngineWindow::GetScreenSize().half() + float4{ 200,0 });
+	NewMonsterDirection = static_cast<MonsterDirection>(GameEngineRandom::MainRandom.RandomInt(static_cast<int>(MonsterDirection::Left), static_cast<int>(MonsterDirection::Right)));
+	
+	SetPos(GameEngineWindow::GetScreenSize().half() + float4{ 200,0 });
 	AnimationRender = CreateRender(CrazyRenderOrder::Monster);
 	AnimationRender->SetScale({ 40, 40 });
 	AnimationRender->CreateAnimation({ .AnimationName = "Move_Up",  .ImageName = "Monster.bmp", .Start = 0, .End = 1,.InterTime = 0.2f });
@@ -25,13 +27,6 @@ void PirateMonster::Start() {
 
 void PirateMonster::Update(float _DeltaTime) {
 
-	/*if (GetLiveTime() >= 3.f) {
-		AnimationRender->ChangeAnimation("die");
-
-	}
-	if (GetLiveTime() >= 3.8f) {
-
-		Death();
-	}*/
+	UpdateState(_DeltaTime);
 
 }
