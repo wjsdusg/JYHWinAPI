@@ -49,7 +49,7 @@ protected:
 	void FightUpdate(float _Time);
 	void FightEnd();
 	bool Movecalculation(float4 _Pos);
-	float MoveSpeed = 300.f;
+	float MoveSpeed = 40.f;
 	float4 CollisionDiretion = { 0,0 };
 	MonsterDirection NewMonsterDirection = MonsterDirection::Max;
 };

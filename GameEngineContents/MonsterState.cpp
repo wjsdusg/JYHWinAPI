@@ -113,10 +113,18 @@ void Monster::FightUpdate(float _Time)
 		AnimationRender->ChangeAnimation("Move_Right");
 		break;
 	case MonsterDirection::Up:
-
+		if (true == Movecalculation(GetPos() + (float4::Up * MoveSpeed * _Time)))
+		{
+			SetMove(float4::Up * MoveSpeed * _Time);
+		}
+		AnimationRender->ChangeAnimation("Move_Up");
 		break;
 	case MonsterDirection::Down:
-
+		if (true == Movecalculation(GetPos() + (float4::Down * MoveSpeed * _Time)))
+		{
+			SetMove(float4::Down * MoveSpeed * _Time);
+		}
+		AnimationRender->ChangeAnimation("Move_Down");
 		break;
 	default:
 		break;

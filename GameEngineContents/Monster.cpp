@@ -87,6 +87,17 @@ bool Monster::Movecalculation(float4 _Pos)
 		{
 			NewMonsterDirection = MonsterDirection::Right;
 		}
+
+		if (20.f >= abs(GetPos().x - Player::MainPlayer->GetPos().x)) {
+			
+			if (GetPos().y <= Player::MainPlayer->GetPos().y) {
+				NewMonsterDirection = MonsterDirection::Down;
+			}
+			else if (GetPos().y > Player::MainPlayer->GetPos().y) {
+				NewMonsterDirection = MonsterDirection::Up;
+			}
+		}
+	   
 	}
 
 		return true;
