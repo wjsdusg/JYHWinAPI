@@ -6,12 +6,12 @@
 // Ό³Έν :
 class Player;
 class BombPower;
-
+class Monster;
 class Bomb : public GameEngineActor
 {
 	friend Player;
 	friend BombPower;
-
+	friend Monster;
 	static std::vector<std::vector<Bomb*>> AllBomb;
 
 public:

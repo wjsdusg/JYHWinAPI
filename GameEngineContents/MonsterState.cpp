@@ -81,7 +81,15 @@ void Monster::IdleUpdate(float _Time)
 	case MonsterDirection::Down:
 		NewMonsterDirection = MonsterDirection::Left;
 		break;
+	case MonsterDirection::Die:
+		AnimationRender->ChangeAnimation("Die");
+		DieTime += _Time;
+		if (DieTime > 0.6) {
+			Death();
+		}
+		break;
 	default:
+		
 		break;
 	}
 }
@@ -126,6 +134,12 @@ void Monster::FightUpdate(float _Time)
 		}
 		AnimationRender->ChangeAnimation("Move_Down");
 		break;
+	case MonsterDirection::Die:
+		AnimationRender->ChangeAnimation("Die");
+		DieTime += _Time;
+		if (DieTime > 0.6) {
+			Death();
+		}
 	default:
 		break;
 	}

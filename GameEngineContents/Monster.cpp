@@ -1,10 +1,13 @@
 #include "Monster.h"
 
 #include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEngineCore/GameEngineCollision.h>
 #include "Block.h"
 #include "Player.h"
+#include "Bomb.h"
 Monster::Monster() 
 {
+	
 }
 
 Monster::~Monster() 
@@ -30,16 +33,21 @@ bool Monster::Movecalculation(float4 _Pos)
 	switch (NewMonsterDirection)
 	{
 	case MonsterDirection::Left:
-		
+		CollisionDiretion = _Pos;
+		CollisionDiretion.x -= 20.f;
+
 		break;
 	case MonsterDirection::Right:
-		
+		CollisionDiretion = _Pos;
+		CollisionDiretion.x += 20.f;
 		break;
 	case MonsterDirection::Up:
-		
+		CollisionDiretion = _Pos;
+		CollisionDiretion.y -= 20.f;
 		break;
 	case MonsterDirection::Down:
-		
+		CollisionDiretion = _Pos;
+		CollisionDiretion.y += 20.f;
 		break;
 	default:
 		break;
@@ -53,9 +61,10 @@ bool Monster::Movecalculation(float4 _Pos)
 	if (80.f > Distance) {
 		ChangeState(MonsterState::FIGHT);
 	}
+
 	if (MonsterState::IDLE == NewMonsterState) {
 
-		if (true == Block::OwnerBlock->IsMapOut(_Pos)) {
+		if (true == Block::OwnerBlock->IsMapOut(CollisionDiretion)) {
 			switch (NewMonsterDirection)
 			{
 			case MonsterDirection::Left:
@@ -77,9 +86,11 @@ bool Monster::Movecalculation(float4 _Pos)
 		}
 
 	}
+
 	if (nullptr == Player::MainPlayer) {
 		ChangeState(MonsterState::IDLE);
 	}
+
 	if (MonsterState::FIGHT == NewMonsterState) {
 		if (GetPos().x > Player::MainPlayer->GetPos().x)
 		{
@@ -101,6 +112,11 @@ bool Monster::Movecalculation(float4 _Pos)
 		}
 	   
 	}
+	
+	if ( true== Bomb::IsBomb(CollisionDiretion)) {
+		return false;
+	}
+
 
 		return true;
 	}

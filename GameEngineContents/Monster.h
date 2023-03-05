@@ -17,6 +17,7 @@ enum class MonsterDirection {
 	Down,
 	Left,
 	Right,
+	Die,
 	Max
 
 };
@@ -51,6 +52,9 @@ protected:
 	bool Movecalculation(float4 _Pos);
 	float MoveSpeed = 40.f;
 	float4 CollisionDiretion = { 0,0 };
+	float DieTime = 0.f;
+	
 	MonsterDirection NewMonsterDirection = MonsterDirection::Max;
+	GameEngineCollision* BodyCollision = nullptr;
 };
 
