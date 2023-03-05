@@ -7,11 +7,12 @@
 class GameEngineTileMap;
 class Player;
 class BombPower;
+class Monster;
 class Block : public GameEngineActor
 {
 	friend Player;
 	friend BombPower;
-
+	friend Monster;
 	// LevelStart에서 이 OwnerBlock을 꼐속 교채해줘야 한다.
 // 걱정 까먹을것 같다.
 public:

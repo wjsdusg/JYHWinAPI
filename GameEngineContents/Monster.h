@@ -3,7 +3,9 @@
 #include <GameEnginePlatform/GameEngineImage.h>
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineBase/GameEngineRandom.h>
+#include <GameEngineCore/GameEngineTileMap.h>
 #include "ContentsEnums.h"
+#include "Block.h"
 // Ό³Έν :
 
 enum class MonsterState
@@ -18,6 +20,9 @@ enum class MonsterDirection {
 	Left,
 	Right,
 	Die,
+	Ice,
+	Resurrection,
+	DieIce,
 	Max
 
 };
@@ -53,8 +58,10 @@ protected:
 	float MoveSpeed = 40.f;
 	float4 CollisionDiretion = { 0,0 };
 	float DieTime = 0.f;
+	float IceDieTime = 0.f;
 	
 	MonsterDirection NewMonsterDirection = MonsterDirection::Max;
 	GameEngineCollision* BodyCollision = nullptr;
+	
 };
 

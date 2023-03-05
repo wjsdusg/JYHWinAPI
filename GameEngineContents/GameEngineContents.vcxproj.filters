@@ -55,6 +55,9 @@
       <Filter>Monster</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="IceMonster.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp" />
@@ -111,6 +114,9 @@
       <Filter>Monster</Filter>
     </ClCompile>
     <ClCompile Include="MonsterState.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="IceMonster.cpp">
       <Filter>Monster</Filter>
     </ClCompile>
   </ItemGroup>

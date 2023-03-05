@@ -88,6 +88,20 @@ void Monster::IdleUpdate(float _Time)
 			Death();
 		}
 		break;
+	case MonsterDirection::Ice:
+		DieTime += _Time;
+		if (DieTime < 0.15f) {
+			AnimationRender->ChangeAnimation("Die1");
+		}else if(DieTime>=0.15f){
+			AnimationRender->SetScale(float4{50,50});
+			AnimationRender->ChangeAnimation("Die2");
+		}
+		
+		if (DieTime > 0.6f) {
+			Death();
+		}
+
+		break;
 	default:
 		
 		break;
@@ -140,11 +154,53 @@ void Monster::FightUpdate(float _Time)
 		if (DieTime > 0.6) {
 			Death();
 		}
+		break;
+	case MonsterDirection::Ice:
+		DieTime += _Time;
+		
+		AnimationRender->ChangeAnimation("Ice");
+		if (DieTime > 0.6f) {
+			AnimationRender->ChangeAnimation("Icing");
+		
+		}
+{		
+		if (DieTime > 10.f) {
+			NewMonsterDirection = MonsterDirection::Resurrection;
+			DieTime = 0;
+		}
+		break;
+		
+	case MonsterDirection::Resurrection:
+		AnimationRender->ChangeAnimation("Resurrection");
+		DieTime+= _Time;
+		if (DieTime > 0.6f) {
+			NewMonsterDirection = MonsterDirection::Left;
+			ChangeState(MonsterState::IDLE);
+			DieTime = 0;
+		}
+		
+		break;
+	case MonsterDirection::DieIce:
+		IceDieTime += _Time;
+		if (IceDieTime < 0.2f) {
+			AnimationRender->ChangeAnimation("Die1");
+		}
+		if (IceDieTime >= 0.2f) {
+			AnimationRender->SetScale(float4{ 50,50 });
+			AnimationRender->ChangeAnimation("Die2");
+		}
+
+		if (IceDieTime > 0.8f) {
+			Death();
+		}
+		break;
 	default:
 		break;
 	}
 	
 }
-void Monster::FightEnd() {
+	
+}
 
+void Monster::FightEnd() {
 }

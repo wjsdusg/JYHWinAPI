@@ -18,6 +18,7 @@
 #include "BombItem.h"
 #include "Monster.h"
 #include "PirateMonster.h"
+#include "IceMonster.h"
 MonsterPLevel::MonsterPLevel()
 {
 }
@@ -49,7 +50,12 @@ void MonsterPLevel::LevelChangeStart(GameEngineLevel* _PrevLevel) {
 		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("monsterdie.BMP"));
 		Image2->Cut(4, 1);
 	}
-
+	{
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("iceMonster.BMP"));
+		Image->Cut(15, 1);
+		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("iceMonsterDie.BMP"));
+		Image2->Cut(3, 1);
+	}
 	// 액터 생성
 	{
 		BackGround* Actor = CreateActor<BackGround>();
@@ -64,7 +70,10 @@ void MonsterPLevel::LevelChangeStart(GameEngineLevel* _PrevLevel) {
 		Block* Actor = CreateActor< Block>();
 	}
 	{
-		PirateMonster* Actor = CreateActor<PirateMonster>();
+		for (int i = 0; i < 3; i++) {
+			IceMonster* Actor = CreateActor<IceMonster>();
+		}
+		
 	}
 	{
 

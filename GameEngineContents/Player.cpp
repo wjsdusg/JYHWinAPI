@@ -145,22 +145,22 @@ bool Player::Movecalculation(float4 _Pos)
 
 					WoodPos = CollisionDiretion;
 					WoodPos.x -= ContentsValue::TileSize;
-					WoodTagetPos += float4::Left * ContentsValue::TileSize;
+					WoodTagetPos += float4::Left * static_cast<float>(ContentsValue::TileSize);
 					break;
 				case PlayerDirection::Right:
 					WoodPos = CollisionDiretion;
 					WoodPos.x += ContentsValue::TileSize;
-					WoodTagetPos += float4::Right * ContentsValue::TileSize;
+					WoodTagetPos += float4::Right * static_cast<float>(ContentsValue::TileSize);
 					break;
 				case PlayerDirection::Up:
 					WoodPos = CollisionDiretion;
 					WoodPos.y -= ContentsValue::TileSize;
-					WoodTagetPos += float4::Up * ContentsValue::TileSize;
+					WoodTagetPos += float4::Up * static_cast<float>(ContentsValue::TileSize);
 					break;
 				case PlayerDirection::Down:
 					WoodPos = CollisionDiretion;
 					WoodPos.y += ContentsValue::TileSize;
-					WoodTagetPos += float4::Down * ContentsValue::TileSize;
+					WoodTagetPos += float4::Down * static_cast<float>(ContentsValue::TileSize);
 					break;
 				default:
 					break;
@@ -310,19 +310,10 @@ void Player::Render(float _DeltaTime)
 		ActorPos.iy() + 5
 	);
 	std::string Text = "PlayerCollisonPos : ";
-	Text += CollisionDiretion.ToString();
-	GameEngineLevel::DebugTextPush(Text);
+	/*Text += CollisionDiretion.ToString();
+	GameEngineLevel::DebugTextPush(Text);*/
 
-	if (NewBomb != nullptr) {
-
-		std::string Text2 = "BombPos : ";
-		Text2 += NewBomb->GetPos().ToString();
-		GameEngineLevel::DebugTextPush(Text2);
-
-	}
-	std::string Text3 = "WoodBlockCheck : ";
-	Text3 += WoodBlockCheck;
-	GameEngineLevel::DebugTextPush(Text3);
+	
 	// µð¹ö±ë¿ë.
 }
 
