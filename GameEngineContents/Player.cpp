@@ -187,8 +187,7 @@ bool Player::Movecalculation(float4 _Pos)
 
 	if (nullptr != FindBomb)
 	{
-		if (NewBomb != nullptr)
-		{
+		
 			// 나의 미래의 위치에도 폭탄이 있다면 안된다.
 			Bomb* NextBomb = Bomb::GetBomb(GetPos() + MoveDir * 40.0f);
 			if (nullptr != NextBomb)
@@ -203,16 +202,11 @@ bool Player::Movecalculation(float4 _Pos)
 
 				return true;
 			}
-			if (false == NewBomb->IsUpdate())
-			{
-				NewBomb = nullptr;
-			}
-		}
+			
+		
 		return false;
 	}
-	else {
-		NewBomb = nullptr;
-	}
+
 
 
 	return true;
@@ -256,15 +250,15 @@ void Player::Update(float _DeltaTime)
 		}
 
 	}
-
-	if (GameEngineInput::IsDown("Space") && BombCount > 0 && nullptr == NewBomb)
+	float4 BombPos = GetPos();
+	BombPos.y += 10.f;
+	if (GameEngineInput::IsDown("Space") && BombCount > 0 && nullptr == Bomb::GetBomb(BombPos))
 	{
-		NewBomb = GetLevel()->CreateActor<Bomb>();
-		float4 BombPos = GetPos();
-		BombPos.y += 10.f;
+		
+		Bomb* NewBomb = GetLevel()->CreateActor<Bomb>();
+	
 		NewBomb->InitBomb(Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(BombPos));
 
-		NewBombPos = NewBomb->GetPos();
 		//Len = (GetPos() - NewBombPos).Size();
 		BombCount--;
 	}

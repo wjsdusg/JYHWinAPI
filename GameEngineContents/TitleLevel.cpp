@@ -25,12 +25,20 @@ void TitleLevel::Loading()
 
 	// 이미지 로드
 	{
-		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleBack.BMP"));
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("login_scene.BMP"));
 	}
 
+	{
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Button_Start_1.BMP"));
+		Image->Cut(1, 1);
+	}
+	{
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Button_Start_2.BMP"));
+		Image->Cut(1, 1);
+	}
 	if (false == GameEngineInput::IsKey("LevelChange"))
 	{
-		GameEngineInput::CreateKey("LevelChange", 'P');
+		GameEngineInput::CreateKey("LevelChange", 'O');
 	}
 
 	CreateActor<TitleBack>();
@@ -38,10 +46,8 @@ void TitleLevel::Loading()
 }
 void TitleLevel::Update(float _DeltaTime)
 {
-	// if (true == GameEngineInput::IsDown("LevelChange"))
-	if (true == GameEngineInput::IsAnyKey())
-	{
+	
+	if (GameEngineInput::IsDown("LevelChange")) {
 		GameEngineCore::GetInst()->ChangeLevel("PlayLevel");
 	}
-	int a = 0;
 }

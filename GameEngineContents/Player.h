@@ -144,8 +144,7 @@ private:
 	bool Movecalculation(float4 _Pos);
 	bool CollisionRectToRect(const PlayerCollisionData& _Left, const PlayerCollisionData& _Right);
 	
-	float4 NewBombPos = {0,0};
-	Bomb* NewBomb=nullptr;
+	
 	PlayerCollisionData NewPlayerCollisionData;
 	
 	PlayerDirection NewPlayerDiretion = PlayerDirection::Down;

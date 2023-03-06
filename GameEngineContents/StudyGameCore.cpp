@@ -23,12 +23,13 @@ void StudyGameCore::Start()
 
 	new int();
 	
+    CreateLevel<TitleLevel>("TitleLevel");
 
 	CreateLevel<PlayLevel>("PlayLevel");
 	
 	CreateLevel<MonsterPLevel>("MonsterPLevel");
 
-	ChangeLevel("MonsterPLevel");
+	ChangeLevel("TitleLevel");
 
 	
 }
