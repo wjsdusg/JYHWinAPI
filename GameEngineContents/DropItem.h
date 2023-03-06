@@ -1,14 +1,15 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include <GameEngineCore/GameEngineRender.h>
 #include "ContentsEnums.h"
 
 // Ό³Έν :
 class Player;
-class BombPower;
+
 class DropItem : public GameEngineActor
 {
 	friend Player;
-	friend BombPower;
+
 public:
 
 	DropItem();

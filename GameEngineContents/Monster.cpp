@@ -58,7 +58,7 @@ bool Monster::Movecalculation(float4 _Pos)
 	DistanceToPlayer = Player::MainPlayer->GetPos() - GetPos();
 	float Distance = DistanceToPlayer.Size();
 
-	if (80.f > Distance) {
+	if (140.f > Distance) {
 		ChangeState(MonsterState::FIGHT);
 	}
 

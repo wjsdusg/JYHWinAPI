@@ -55,6 +55,11 @@ public:
 
     GameEngineRender* GetTile(int _ZIndex, int _X, int _Y);
 
+    void RemoveTile(int _ZIndex, float4 _Pos);
+
+    void RemoveTile(int _ZIndex, int _X, int _Y);
+
+
     bool IsValidIndex(int _Z, float _Y, float _X);
 
     float4 GetIndex(float4 _Pos);

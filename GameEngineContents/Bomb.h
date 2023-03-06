@@ -1,16 +1,20 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+enum class BombState {
+	IDLE,
+	FIRE,
+	MAX
+};
 
 
 // Ό³Έν :
 class Player;
-class BombPower;
+
 class Monster;
 class Bomb : public GameEngineActor
 {
 	friend Player;
-	friend BombPower;
+
 	friend Monster;
 	static std::vector<std::vector<Bomb*>> AllBomb;
 
@@ -60,5 +64,11 @@ private:
 		BombDeath = true;
 
 	}
+	void UpdateState(float _Time);
+	void IdleUpdate(float _Time);
+	void FireUpdate(float _Time);
+	BombState NewBombState = BombState::IDLE;
+	float ActTime = 0.f;
+	bool Cycle = true;
 };
 

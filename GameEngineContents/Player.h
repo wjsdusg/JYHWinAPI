@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include "BombPower.h"
+
 
 enum class PlayerState
 {
@@ -79,7 +79,7 @@ class GameEngineTileMap;
 class Player : public GameEngineActor
 {
 	friend Bomb;
-	friend BombPower;
+	
 public:
 	
 	static Player* MainPlayer;

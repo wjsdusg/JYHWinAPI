@@ -233,6 +233,8 @@ GameEngineRender* GameEngineTileMap::GetTile(int _ZIndex, float4 _Pos)
     return TileRenders[_ZIndex][Index.iy()][Index.ix()];
 }
 
+
+
 GameEngineRender* GameEngineTileMap::GetTile(int _ZIndex, int _X,int _Y)
 {
    
@@ -243,6 +245,32 @@ GameEngineRender* GameEngineTileMap::GetTile(int _ZIndex, int _X,int _Y)
     }
 
     return TileRenders[_ZIndex][_Y][_X];
+}
+
+
+
+void GameEngineTileMap::RemoveTile(int _ZIndex, float4 _Pos)
+{
+    float4 Index = GetIndex(_Pos);
+
+    if (false == IsValidIndex(_ZIndex, Index.y, Index.x))
+    {
+        return;
+    }
+
+    TileRenders[_ZIndex][Index.iy()][Index.ix()] = nullptr;
+}
+
+
+
+void GameEngineTileMap::RemoveTile(int _ZIndex, int _X, int _Y)
+{
+    if (false == IsValidIndex(_ZIndex, _Y, _X))
+    {
+        return;
+    }
+
+     TileRenders[_ZIndex][_Y][_X] = nullptr;
 }
 
 void GameEngineTileMap::TileIndexChange(int _Zindex, float4 _CurIndex, float4 _TargetIndex) {

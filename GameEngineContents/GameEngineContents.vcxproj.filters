@@ -26,9 +26,6 @@
     <ClInclude Include="Monster.h">
       <Filter>Monster</Filter>
     </ClInclude>
-    <ClInclude Include="BombPower.h">
-      <Filter>Bomb</Filter>
-    </ClInclude>
     <ClInclude Include="Block.h">
       <Filter>Map</Filter>
     </ClInclude>
@@ -83,9 +80,6 @@
       <Filter>Monster</Filter>
     </ClCompile>
     <ClCompile Include="Bomb.cpp">
-      <Filter>Bomb</Filter>
-    </ClCompile>
-    <ClCompile Include="BombPower.cpp">
       <Filter>Bomb</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">

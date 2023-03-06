@@ -117,9 +117,9 @@ bool Block::IsBlock(float4 _Pos)
 	
 	for (int i = 0; i < static_cast<int>(BlockType::Max); i++) {
 		GameEngineRender* TilePtr = NewGameEngineTileMap->GetTile(i, _Pos);
-		if (static_cast<int>(BlockType::TownBush) == i) {
+		/*if (static_cast<int>(BlockType::TownBush) == i) {
 			continue;
-		}
+		}*/
 		if (nullptr != TilePtr)
 		{
 			bool check = TilePtr->IsUpdate();

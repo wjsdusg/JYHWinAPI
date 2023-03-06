@@ -163,7 +163,6 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="BombItem.h" />
-    <ClInclude Include="BombPower.h" />
     <ClInclude Include="ContentsEnums.h" />
     <ClInclude Include="ContentsValue.h" />
     <ClInclude Include="DropItem.h" />
@@ -188,7 +187,6 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="BombItem.cpp" />
-    <ClCompile Include="BombPower.cpp" />
     <ClCompile Include="ContentsValue.cpp" />
     <ClCompile Include="DropItem.cpp" />
     <ClCompile Include="IceMonster.cpp" />

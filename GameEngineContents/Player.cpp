@@ -6,7 +6,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include "ContentsEnums.h"
 #include "Bomb.h"
-#include "BombPower.h"
+
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineTileMap.h>
 #include <GameEngineCore/GameEngineCollision.h>

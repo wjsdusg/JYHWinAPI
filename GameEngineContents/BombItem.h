@@ -4,11 +4,11 @@
 
 // Ό³Έν :
 class Player;
-class BombPower;
+
 class BombItem : public DropItem
 {
 	friend Player;
-	friend BombPower;
+	
 public:
 
 	BombItem();

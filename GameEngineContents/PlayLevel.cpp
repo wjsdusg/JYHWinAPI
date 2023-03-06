@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineTileMap.h>
 #include <GameEngineCore/GameEngineCore.h>
+#include <GameEngineCore/GameEngineRender.h>
 // 나랑 같은 등급의 헤더들
 #include "Player.h"
 #include "Map.h"
