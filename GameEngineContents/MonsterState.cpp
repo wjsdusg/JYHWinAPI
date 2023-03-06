@@ -95,7 +95,7 @@ void Monster::IdleUpdate(float _Time)
 		if (DieTime > 0.6f) {
 			AnimationRender->ChangeAnimation("Icing");
 		}
-		if (DieTime > 10.f) {
+		if (DieTime > 6.f) {
 			NewMonsterDirection = MonsterDirection::Resurrection;
 			DieTime = 0;
 		}

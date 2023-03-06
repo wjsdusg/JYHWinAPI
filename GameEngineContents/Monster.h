@@ -59,7 +59,8 @@ protected:
 	float4 CollisionDiretion = { 0,0 };
 	float DieTime = 0.f;
 	float IceDieTime = 0.f;
-	
+	float UpTime = 0.f;
+	bool IsUptime = false;
 	MonsterDirection NewMonsterDirection = MonsterDirection::Max;
 	GameEngineCollision* BodyCollision = nullptr;
 	

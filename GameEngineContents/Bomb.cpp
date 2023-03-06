@@ -98,11 +98,11 @@ void Bomb::Update(float _DeltaTime)
 
 
 	//if (Player::MainPlayer->BodyCollision->GetPosition() - this->GetPos() > float4{ 20.f })
-	if (GetLiveTime() >= 4.5 || true == BombDeath)
+	if (GetLiveTime() >= 4.3 || true == BombDeath)
 	{
 
 		AnimationRender->ChangeAnimation("BombEnd");
-
+		
 
 		BombPower* NewBombPower = GetLevel()->CreateActor<BombPower>();
 
@@ -114,7 +114,7 @@ void Bomb::Update(float _DeltaTime)
 			NewBombPower->BombAnimation();
 		}
 
-
+		
 		BombAnimationCheck = false;
 		//PlusPos *= num;
 
@@ -150,7 +150,7 @@ void Bomb::Update(float _DeltaTime)
 			AllBomb[Index.iy()][Index.ix()] = nullptr;
 
 		}
-		// Death();
+		 Death();
 
 	}
 	

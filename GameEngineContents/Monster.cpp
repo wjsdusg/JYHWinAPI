@@ -21,7 +21,7 @@ void Monster::Start() {
 void Monster::Update(float _DeltaTime) {
 	
 	
-		
+
 }
 
 
@@ -114,9 +114,15 @@ bool Monster::Movecalculation(float4 _Pos)
 	}
 	
 	if ( true== Bomb::IsBomb(CollisionDiretion)) {
+		NewMonsterDirection = MonsterDirection::Up;
+		IsUptime = true;
 		return false;
 	}
+	if (true == IsUptime) {
+		NewMonsterDirection = MonsterDirection::Up;
+	}
 
+	
 
 		return true;
 	}

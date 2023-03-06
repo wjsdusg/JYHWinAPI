@@ -46,7 +46,7 @@ void BombPower::Update(float _DelataTime) {
 
 void BombPower::BombAnimation() {
 	bool check[4] = { false };
-	for (int bombPowerIndex = 1; bombPowerIndex <= 1; bombPowerIndex++) {
+	for (int bombPowerIndex = 1; bombPowerIndex <= Player::MainPlayer->BombPowerCount; bombPowerIndex++) {
 
 		for (size_t i = 0; i < 4; i++)
 		{

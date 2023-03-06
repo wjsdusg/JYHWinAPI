@@ -38,8 +38,16 @@ void IceMonster::Start() {
 }
 
 void IceMonster::Update(float _DeltaTime) {
+	if (true == IsUptime) {
+		UpTime += _DeltaTime;
+	}
+	if (1.f < UpTime) {
+		IsUptime = false;
+		UpTime = 0.f;
+	}
 
 	UpdateState(_DeltaTime);
+
 	float4 s = BodyCollision->GetPosition();
 	std::vector<GameEngineCollision*> Collision;
 	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::BombPower) }, Collision)) {

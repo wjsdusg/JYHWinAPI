@@ -25,7 +25,7 @@ protected:
 private:
 	static int num;
 	
-	float4 MonstersPos[3] = {float4{600,200} ,float4{500,300},float4{400,400} };
+	float4 MonstersPos[3] = {float4{100,100} ,float4{200,160},float4{400,400} };
 	Block* Block = Block::OwnerBlock;
 	
 };

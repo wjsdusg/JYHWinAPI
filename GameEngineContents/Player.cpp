@@ -24,8 +24,7 @@ Player::~Player()
 {
 }
 
-int Player::BombCount = 2;
-int Player::PBombPower = 2;
+
 
 void Player::Start()
 {
@@ -236,13 +235,15 @@ void Player::Update(float _DeltaTime)
 				ItemType NewItemType = Drop->GetItemType();
 
 				if (NewItemType == ItemType::Bomb) {
-					this->BombCount++;
+					BombCountUp();
 				}
 				if (NewItemType == ItemType::Skate) {
-					this->MoveSpeed += 10.f;
+					SpeedUp();
 				}
 				if (NewItemType == ItemType::PowerMax) {
-					this->PBombPower = 7;
+					for (int i = 0; i < 7; i++) {
+						BombPowerCountUp();
+				}
 				}
 
 				ColActor->Death();
@@ -340,4 +341,28 @@ bool Player::CollisionRectToRect(const PlayerCollisionData& _Left, const PlayerC
 	}
 
 	return true;
+}
+
+void Player::SpeedUp()
+{
+	MoveSpeed += 20.f;
+	if (MoveSpeed >= 220.f) {
+		MoveSpeed = 220.f;
+	}
+}
+
+void Player::BombCountUp()
+{
+	BombCount += 1;
+	if (BombCount >= 7) {
+		BombCount = 7;
+	}
+}
+void Player::BombPowerCountUp()
+{
+	BombPowerCount += 1;
+	if (BombPowerCount >= 7) 
+	{
+		BombPowerCount = 7;
+	}
 }

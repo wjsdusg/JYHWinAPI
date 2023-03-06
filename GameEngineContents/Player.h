@@ -83,8 +83,7 @@ class Player : public GameEngineActor
 public:
 	
 	static Player* MainPlayer;
-	static int BombCount;
-	static int PBombPower;
+
 	// constrcuter destructer
 	Player();
 	~Player();
@@ -114,6 +113,11 @@ private:
 	int StartFrame = 0;
 	int* BombCountptr = &BombCount;
 	float MoveSpeed = 140.0f;
+	int BombCount = 2;
+	int BombPowerCount = 7;
+	void SpeedUp();
+	void BombCountUp();
+	void BombPowerCountUp();
 	std::string DirString = "Right_";
 	PlayerState StateValue = PlayerState::IDLE;
 	float4 MoveDir = float4::Zero;
