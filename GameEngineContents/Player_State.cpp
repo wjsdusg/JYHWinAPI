@@ -78,8 +78,11 @@ void Player::IdleUpdate(float _Time)
 	WaitTime += _Time;
 		
 	Movecalculation(GetPos());
-	if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true) {
-		AnimationRender->ChangeAnimation("BlankMode");
+	if (nullptr != Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos()))
+	{
+		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true) {
+			AnimationRender->ChangeAnimation("BlankMode");
+		}
 	}
 	if (GameEngineInput::IsPress("LeftMove") || GameEngineInput::IsPress("RightMove")|| GameEngineInput::IsPress("UpMove")|| GameEngineInput::IsPress("DownMove"))
 	{
@@ -91,10 +94,14 @@ void Player::IdleUpdate(float _Time)
 		NewPlayerDiretion = PlayerDirection::Down;
 		
 		Movecalculation(GetPos());
+	if (nullptr != Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos()))
+	{
 		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true) {
 			AnimationRender->ChangeAnimation("BlankMode");
 		}
 	}
+	
+}
 }
 void Player::IdleEnd() {
 	WaitTime = 0.f;
@@ -157,12 +164,14 @@ void Player::MoveUpdate(float _Time)
 
 
 	DirCheck("Move");
-	if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true) {
-		AnimationRender->ChangeAnimation("BlankMode");
+	if (nullptr != Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())) 
+	{
+		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true) {
+			AnimationRender->ChangeAnimation("BlankMode");
+		}
 	}
-	if (true == WoodBlockCheck) {
-
-	}
+	
+	
 }
 void Player::MoveEnd() {
 

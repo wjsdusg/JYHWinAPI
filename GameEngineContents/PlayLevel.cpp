@@ -78,7 +78,11 @@ void PlayLevel::Loading()
 		GameEngineImage* Image3 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("power_max.BMP"));
 		Image3->Cut(2, 1);
 	}
-
+	{
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Shop.BMP"));
+		Image->Cut(2, 1);
+		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Shop2.BMP"));
+	}
 
 	Dir.MoveParentToDirectory("Image");
 	Dir.Move("Image");
@@ -96,7 +100,16 @@ void PlayLevel::Loading()
 		Image5->Cut(3, 1);
 		GameEngineImage* Image6 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("up.BMP"));
 		Image6->Cut(8, 1);
+		GameEngineImage* Image7 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("die.BMP"));
+		Image7->Cut(13, 1);
+		GameEngineImage* Image8 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("live.BMP"));
+		Image8->Cut(5, 1);
+		GameEngineImage* Image9 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("trap.BMP"));
+		Image9->Cut(13, 1);
+		GameEngineImage* Image10 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("ready.BMP"));
+		Image10->Cut(18, 1);
 	}
+
 	// 액터 생성
 	{
 		BackGround* Actor = CreateActor<BackGround>();

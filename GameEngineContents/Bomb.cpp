@@ -45,6 +45,7 @@ void Bomb::BombMapInit()
 
 bool Bomb::IsBomb(const float4& _Pos)
 {
+	
 	float4 Index = Block::OwnerBlock->GetTileMap()->GetIndex(_Pos);
 	return IsBomb(Index.ix(), Index.iy());
 }
@@ -75,7 +76,7 @@ bool Bomb::IsBombExceptMe(Bomb* _BombPtr, const float4& _Pos) {
 	else {
 		return false;
 	}
-
+	
 	
 }
 
@@ -89,11 +90,12 @@ void Bomb::Start() {
 	AnimationRender = CreateRender(CrazyRenderOrder::Item);
 	AnimationRender->SetPosition(GetPos());
 	AnimationRender->CreateAnimation({ .AnimationName = "Bomb",.ImageName = "Bomb.BMP",.Start = 0,.End = 3,.InterTime = 0.2f });
-	AnimationRender->CreateAnimation({ .AnimationName = "BombEnd",.ImageName = "unit_bombwaterAll.BMP",.Start = 4,.End = 7,.InterTime = 0.17f });
+	AnimationRender->CreateAnimation({ .AnimationName = "BombEnd",.ImageName = "unit_bombwaterAll.BMP",.Start = 4,.End = 7,.InterTime = 0.2f });
 	AnimationRender->SetScale(float4{ 40.0f,40.0f });
 	AnimationRender->ChangeAnimation("Bomb");
 
 	Playerbombcount = Player::MainPlayer->BombCountptr;
+	
 }
 
 void Bomb::Update(float _DeltaTime)
@@ -125,7 +127,7 @@ void Bomb::UpdateState(float _Time)
 	default:
 		break;
 	}
-
+	
 }
 int num = 0;
 void Bomb::IdleUpdate(float _Time)
@@ -138,12 +140,12 @@ void Bomb::IdleUpdate(float _Time)
 void Bomb::FireUpdate(float _Time)
 {
 	AnimationRender->ChangeAnimation("BombEnd");
-
+	AnimationRender->SetScale(float4{ 50,50 });
 	ActTime += _Time;
 
 	
 	if (true == Cycle) {
-		for (size_t i = 1; i < 2; i++)
+		for (size_t i = 0; i < 4; i++)
 		{
 			for (int bombPowerIndex = 1; bombPowerIndex <= Player::MainPlayer->BombPowerCount; bombPowerIndex++) {
 
@@ -166,10 +168,45 @@ void Bomb::FireUpdate(float _Time)
 				}
 				
 				GameEngineRender* NewRender = CreateRender(CrazyRenderOrder::Item);
-				NewRender->CreateAnimation({ .AnimationName = "BombUpEnd",.ImageName = "unit_bombwaterAll.BMP",.Start = 8,.End = 11, });
-				NewRender->CreateAnimation({ .AnimationName = "BombUping",.ImageName = "unit_bombwaterAll.BMP",.Start = 24,.End = 27, });
+				NewRender->CreateAnimation({ .AnimationName = "BombUpEnd",.ImageName = "unit_bombwaterAll.BMP",.Start = 8,.End = 11,.InterTime = 0.2f });
+				NewRender->CreateAnimation({ .AnimationName = "BombUping",.ImageName = "unit_bombwaterAll.BMP",.Start = 24,.End = 27,.InterTime = 0.2f });
+
+				NewRender->CreateAnimation({ .AnimationName = "BombDowning",.ImageName = "unit_bombwaterAll.BMP",.Start = 32,.End = 35,.InterTime = 0.2f });
+				NewRender->CreateAnimation({ .AnimationName = "BombDownEnd",.ImageName = "unit_bombwaterAll.BMP",.Start = 16,.End = 19,.InterTime = 0.2f });
+
+				NewRender->CreateAnimation({ .AnimationName = "BombLefting",.ImageName = "unit_bombwaterAll.BMP",.Start = 36,.End = 39,.InterTime = 0.2f });
+				NewRender->CreateAnimation({ .AnimationName = "BombLeftEnd",.ImageName = "unit_bombwaterAll.BMP",.Start = 20,.End = 23,.InterTime = 0.2f });
+
+				NewRender->CreateAnimation({ .AnimationName = "BombRighting",.ImageName = "unit_bombwaterAll.BMP",.Start = 28,.End = 31,.InterTime = 0.2f });
+				NewRender->CreateAnimation({ .AnimationName = "BombRightEnd",.ImageName = "unit_bombwaterAll.BMP",.Start = 12,.End = 15,.InterTime = 0.2f });
+
 				NewRender->SetScale(float4{ 45.0f,45.0f });
-				NewRender->ChangeAnimation("BombUping");
+								
+				if (float4::Up == ArrBombDir[i]) {
+					NewRender->ChangeAnimation("BombUping");
+					if (bombPowerIndex == Player::MainPlayer->BombPowerCount) {
+						NewRender->ChangeAnimation("BombUpEnd");
+					}
+				}
+				else if (float4::Down == ArrBombDir[i]) {
+					NewRender->ChangeAnimation("BombDowning");
+					if (bombPowerIndex == Player::MainPlayer->BombPowerCount) {
+						NewRender->ChangeAnimation("BombDownEnd");
+					}
+				}
+				else if (float4::Right == ArrBombDir[i]) {
+					NewRender->ChangeAnimation("BombRighting");
+					if (bombPowerIndex == Player::MainPlayer->BombPowerCount) {
+						NewRender->ChangeAnimation("BombRightEnd");
+					}
+				}
+				else if (float4::Left == ArrBombDir[i]) {
+					NewRender->ChangeAnimation("BombLefting");
+					if (bombPowerIndex == Player::MainPlayer->BombPowerCount) {
+						NewRender->ChangeAnimation("BombLeftEnd");
+					}
+				}
+				
 				NewRender->SetPosition(ArrBombDir[i] * 40.0f * static_cast<float>(bombPowerIndex));
 
 				GameEngineCollision* NewBodyCollision = CreateCollision(CrazyRenderOrder::BombPower);

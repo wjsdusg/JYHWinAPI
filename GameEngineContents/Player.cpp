@@ -14,6 +14,7 @@
 #include "Block.h"
 #include "DropItem.h"
 #include "ContentsValue.h"
+#include "BackGround.h"
 Player* Player::MainPlayer;
 
 Player::Player()
@@ -45,7 +46,7 @@ void Player::Start()
 	}
 
 	{
-
+		
 		AnimationRender = CreateRender(CrazyRenderOrder::Player);
 		AnimationRender->SetScale({ 50, 60 });
 
@@ -62,8 +63,10 @@ void Player::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Down_Move",  .ImageName = "down.bmp", .Start = 0, .End = 7 });
 		AnimationRender->CreateAnimation({ .AnimationName = "BlankMode",  .ImageName = "blank.bmp", .Start = 0, .End = 0 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Wait",  .ImageName = "wait.bmp", .Start = 0, .End = 0 });
+	
+		AnimationRender->CreateAnimation({ .AnimationName = "Trap",  .ImageName = "trap.bmp", .Start = 0, .End = 12,.InterTime=0.3f });
 	}
-
+	
 	ChangeState(PlayerState::IDLE);
 }
 
@@ -132,7 +135,7 @@ bool Player::Movecalculation(float4 _Pos)
 
 			WoodStartPos = WoodRender->GetPosition();
 			WoodTagetPos = WoodRender->GetPosition();
-
+			
 			if (WoodBlockCheck == false) {
 
 				WoodBlockCheck = true;
@@ -226,12 +229,10 @@ void Player::Update(float _DeltaTime)
 			{
 				GameEngineActor* ColActor = Collision[i]->GetActor();  //DropItem을상속하는 Item
 				DropItem* Drop = dynamic_cast<DropItem*>(ColActor);
-
 				if (nullptr == Drop)
 				{
 					continue;
 				}
-
 				ItemType NewItemType = Drop->GetItemType();
 
 				if (NewItemType == ItemType::Bomb) {
@@ -250,6 +251,15 @@ void Player::Update(float _DeltaTime)
 			}
 		}
 
+	}
+	std::vector<GameEngineCollision*> Collision2;
+	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::BombPower), .TargetColType = CT_Rect , .ThisColType = CT_Rect }, Collision2)) {
+
+		for (size_t i = 0; i < Collision2.size(); i++)
+		{
+			BackGround::MainBackGround->ActiveOnOffSwicth();
+			AnimationRender->ChangeAnimation("Trap");
+		}
 	}
 	float4 BombPos = GetPos();
 	BombPos.y += 10.f;
