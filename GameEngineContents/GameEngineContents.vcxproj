@@ -167,6 +167,7 @@
     <ClInclude Include="ContentsValue.h" />
     <ClInclude Include="DropItem.h" />
     <ClInclude Include="IceMonster.h" />
+    <ClInclude Include="KickItem.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapCover.h" />
     <ClInclude Include="MaxPower.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayLevel.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="ShopItem.h" />
     <ClInclude Include="SpeedItem.h" />
     <ClInclude Include="StudyGameCore.h" />
     <ClInclude Include="TitleBack.h" />
@@ -190,6 +192,7 @@
     <ClCompile Include="ContentsValue.cpp" />
     <ClCompile Include="DropItem.cpp" />
     <ClCompile Include="IceMonster.cpp" />
+    <ClCompile Include="KickItem.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapCover.cpp" />
     <ClCompile Include="MaxPower.cpp" />
@@ -201,6 +204,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player_State.cpp" />
     <ClCompile Include="PlayLevel.cpp" />
+    <ClCompile Include="ShopItem.cpp" />
     <ClCompile Include="SpeedItem.cpp" />
     <ClCompile Include="StudyGameCore.cpp" />
     <ClCompile Include="TitleBack.cpp" />

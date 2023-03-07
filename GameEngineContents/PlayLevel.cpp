@@ -83,7 +83,11 @@ void PlayLevel::Loading()
 		Image->Cut(2, 1);
 		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Shop2.BMP"));
 	}
+	{
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("KickItem.BMP"));
+		Image->Cut(2, 1);
 
+	}
 	Dir.MoveParentToDirectory("Image");
 	Dir.Move("Image");
 	Dir.Move("bazzi");
@@ -300,10 +304,11 @@ void PlayLevel::Loading()
 	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 14, 12, 0);
 
 	// 아이템이 몇개 배치될지 결정한다음
-	Actor->ItemCountInsert(ItemType::Skate, 1);
-	Actor->ItemCountInsert(ItemType::PowerMax, 1);
-	Actor->ItemCountInsert(ItemType::Bomb, 1);
-
+	Actor->ItemCountInsert(ItemType::Skate, 9);
+	Actor->ItemCountInsert(ItemType::PowerMax, 6);
+	Actor->ItemCountInsert(ItemType::Bomb, 10);
+	Actor->ItemCountInsert(ItemType::Shop, 5);
+	Actor->ItemCountInsert(ItemType::Kick, 8);
 	// 아이템을 진짜 배치한다.
 	Actor->ItemCreate();
 

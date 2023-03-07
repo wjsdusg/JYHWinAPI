@@ -28,7 +28,7 @@ void BombItem::Start() {
 
 	{
 		BodyCollision = CreateCollision(CrazyRenderOrder::DropItem);
-		BodyCollision->SetScale(float4(200, 200));
+		BodyCollision->SetScale(float4(40, 40));
 
 	}
 

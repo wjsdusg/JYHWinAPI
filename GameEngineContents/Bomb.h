@@ -82,5 +82,6 @@ private:
 	float4 TargetPos = { 0,0 };
 	int Dirnum = 1;
 	float BombMoveTime = 0.f;
+	float BombIdleTime = 0.f;
 };
 

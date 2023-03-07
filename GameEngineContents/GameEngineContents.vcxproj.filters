@@ -55,6 +55,12 @@
     <ClInclude Include="IceMonster.h">
       <Filter>Monster</Filter>
     </ClInclude>
+    <ClInclude Include="KickItem.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopItem.h">
+      <Filter>Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp" />
@@ -112,6 +118,12 @@
     </ClCompile>
     <ClCompile Include="IceMonster.cpp">
       <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="KickItem.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopItem.cpp">
+      <Filter>Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

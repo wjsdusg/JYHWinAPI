@@ -149,8 +149,8 @@ void Bomb::UpdateState(float _Time)
 void Bomb::IdleUpdate(float _Time)
 {
 	TargetPos = GetPos();
-
-	if (4.3f < GetLiveTime())
+	BombIdleTime += _Time;
+	if (4.3f < BombIdleTime)
 	{
 		NewBombState = BombState::FIRE;
 	}
@@ -321,13 +321,13 @@ void Bomb::KickStart() {
 void Bomb::KickUpdate(float _Time)
 {
 	BombMoveTime += _Time;
-
+	BombIdleTime = 0.f;
 	float4 Pos = float4::LerpClamp(StartPos, TargetPos, BombMoveTime);
-
+	
 	SetMove(Pos);
 	if (1.f <= BombMoveTime)
 	{
-		GetLiveTime() == 0.f;
+		 
 		NewBombState = BombState::IDLE;
 	}
 }

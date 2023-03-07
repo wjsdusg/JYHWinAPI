@@ -10,7 +10,8 @@
 #include "MaxPower.h"
 #include "BombItem.h"
 #include "ContentsValue.h"
-
+#include "KickItem.h"
+#include "ShopItem.h"
 
 Block::Block()
 {
@@ -93,6 +94,22 @@ void Block::ItemCreate()
 				Item->SetPos(CreatePos);
 				break;
 			}
+			case ItemType::Shop:
+			{
+				TileIndex Index = AllTileIndex[Count];
+				ShopItem* Item = GetLevel()->CreateActor<ShopItem>();
+				float4 CreatePos = Block::NewGameEngineTileMap->ConvertIndexToTilePosition(Index.X, Index.Y);
+				Item->SetPos(CreatePos);
+				break;
+			}
+			case ItemType::Kick:
+			{
+				TileIndex Index = AllTileIndex[Count];
+				KickItem* Item = GetLevel()->CreateActor<KickItem>();
+				float4 CreatePos = Block::NewGameEngineTileMap->ConvertIndexToTilePosition(Index.X, Index.Y);
+				Item->SetPos(CreatePos);
+				break;
+			}
 			case ItemType::Max:
 				break;
 			default:
@@ -154,7 +171,7 @@ void Block::AllBlockDestroy() {
 			int y = AllTileIndex[i].Y;
 			Block::NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::Block1), x, y)->Death();
 		}
-
+		
 }
 	
 void  Block::MoveWoodBlock(GameEngineRender* _GameEngineRender, float4 StartPos, float4 TargetPos,float _DeltaTime)

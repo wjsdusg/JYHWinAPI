@@ -20,6 +20,8 @@ enum class ItemType
 	Skate,
 	Bomb,
 	PowerMax,
+	Shop,
+	Kick,
 	Max
 };
 enum class BlockType

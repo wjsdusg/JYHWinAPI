@@ -179,24 +179,20 @@ bool Player::Movecalculation(float4 _Pos)
 				return true;
 			}
 		}
-
-
 		return false;
 	}
-
-
 	Bomb* FindBomb = Bomb::GetBomb(CollisionDiretion);
-
 	if (nullptr != FindBomb)
-	{
-		
+	{		
 			// 나의 미래의 위치에도 폭탄이 있다면 안된다.
 			Bomb* NextBomb = Bomb::GetBomb(GetPos() + MoveDir * 40.0f);
 			if (nullptr != NextBomb)
 			{
-				NextBomb->BombDir = MoveDir;
-				NextBomb->ChangeState(BombState::KICK);
-
+				/*if (true == KickOn)
+				{
+					NextBomb->BombDir = MoveDir;
+					NextBomb->ChangeState(BombState::KICK);
+				}*/
 				return false;
 			}
 
@@ -207,9 +203,7 @@ bool Player::Movecalculation(float4 _Pos)
 
 				return true;
 			}
-			
-		
-		return false;
+	      return false;
 	}
 
 
@@ -244,12 +238,21 @@ void Player::Update(float _DeltaTime)
 				if (NewItemType == ItemType::Skate) {
 					SpeedUp();
 				}
-				if (NewItemType == ItemType::PowerMax) {
-					for (int i = 0; i < 7; i++) {
+				if (NewItemType == ItemType::PowerMax) 
+				{
+					for (int i = 0; i < 7; i++)
+					{
 						BombPowerCountUp();
+					}
 				}
+				if (NewItemType == ItemType::Shop)
+				{
+					BackGround::MainBackGround->ActiveItemRender->On();
 				}
-
+				if (NewItemType == ItemType::Kick)
+				{
+					KickOn = true;
+				}
 				ColActor->Death();
 			}
 		}
@@ -273,7 +276,7 @@ void Player::Update(float _DeltaTime)
 	
 		NewBomb->InitBomb(Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(BombPos));
 
-		//Len = (GetPos() - NewBombPos).Size();
+		
 		BombCount--;
 	}
 }
@@ -318,11 +321,7 @@ void Player::Render(float _DeltaTime)
 		ActorPos.iy() + 5
 	);
 	std::string Text = "PlayerCollisonPos : ";
-	/*Text += CollisionDiretion.ToString();
-	GameEngineLevel::DebugTextPush(Text);*/
-
 	
-	// 디버깅용.
 }
 
 bool Player::CollisionRectToRect(const PlayerCollisionData& _Left, const PlayerCollisionData& _Right)

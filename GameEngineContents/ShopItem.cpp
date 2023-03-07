@@ -1,30 +1,30 @@
-#include "SpeedItem.h"
+#include "ShopItem.h"
 
 #include <GameEngineCore/GameEngineCollision.h>
 
 #include "ContentsEnums.h"
 #include "Player.h"
 
-SpeedItem::SpeedItem()
+ShopItem::ShopItem()
 {
 
 
 }
 
-SpeedItem::~SpeedItem()
+ShopItem::~ShopItem()
 {
 }
 
 
 
-void SpeedItem::Start() {
+void ShopItem::Start() {
 
 
 	AnimationRender = CreateRender(CrazyRenderOrder::DropItem);
 	//AnimationRender->SetPosition(float4(200, 200));
-	AnimationRender->CreateAnimation({ .AnimationName = "skate",.ImageName = "skate.BMP",.Start = 0,.End = 1,.InterTime = 0.8f });
+	AnimationRender->CreateAnimation({ .AnimationName = "Shop",.ImageName = "Shop.BMP",.Start = 0,.End = 1,.InterTime = 0.8f });
 	AnimationRender->SetScale(float4{ 40.0f,40.0f });
-	AnimationRender->ChangeAnimation("skate");
+	AnimationRender->ChangeAnimation("Shop");
 
 	{
 		BodyCollision = CreateCollision(CrazyRenderOrder::DropItem);

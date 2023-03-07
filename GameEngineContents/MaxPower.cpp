@@ -28,7 +28,7 @@ void MaxPower::Start() {
 
 	{
 		BodyCollision = CreateCollision(CrazyRenderOrder::DropItem);
-		BodyCollision->SetScale(float4(100, 100));
+		BodyCollision->SetScale(float4(40, 40));
 
 	}
 
