@@ -100,7 +100,7 @@ void Bomb::Start() {
 
 void Bomb::Update(float _DeltaTime)
 {
-
+	
 	UpdateState(_DeltaTime);
 	
 }
@@ -291,8 +291,8 @@ void Bomb::KickStart() {
 	//ÀÌÁîºí·°ÀÌ³ª ¸Ê¾Æ¿ô,´Ù¸¥ ÆøÅºÀÌ ÀÖÀ¸¸é ¸ØÃá´Ù ±×°Ô ¸ñÇ¥°Å¸®
 	StartPos = GetPos();
 
-	float4 NextPos = TargetPos + (BombDir * ContentsValue::TileSize)* Dirnum;
-	Dirnum++;
+	float4 NextPos = TargetPos + (BombDir * ContentsValue::TileSize);
+	
 	if (true == Block::OwnerBlock->IsMapOut(NextPos))
 	{
 		BombTileIndexChange(GetPos(), TargetPos);
@@ -305,7 +305,7 @@ void Bomb::KickStart() {
 	}
 	if (true == Block::OwnerBlock->IsBlock(NextPos))
 	{
-		if (Block::OwnerBlock->NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::TownBush), NextPos))
+		if (true==Block::OwnerBlock->NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::TownBush), NextPos)->IsUpdate())
 		{
 			TargetPos = NextPos;
 			KickStart();
@@ -321,13 +321,13 @@ void Bomb::KickStart() {
 void Bomb::KickUpdate(float _Time)
 {
 	BombMoveTime += _Time;
-	BombIdleTime = 0.f;
-	float4 Pos = float4::LerpClamp(StartPos, TargetPos, BombMoveTime);
 	
-	SetMove(Pos);
-	if (1.f <= BombMoveTime)
+	float4 Pos = float4::LerpClamp(StartPos, TargetPos, BombMoveTime);
+	SetPos(Pos);
+	
+	if (Pos == TargetPos)
 	{
-		 
+		BombIdleTime = 0.f;
 		NewBombState = BombState::IDLE;
 	}
 }

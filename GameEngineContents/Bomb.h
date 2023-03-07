@@ -80,7 +80,7 @@ private:
 	float4 BombDir = { 0,0 };
 	float4 StartPos = { 0,0 };
 	float4 TargetPos = { 0,0 };
-	int Dirnum = 1;
+	
 	float BombMoveTime = 0.f;
 	float BombIdleTime = 0.f;
 };
