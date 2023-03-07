@@ -45,8 +45,11 @@ void Bomb::BombMapInit()
 
 bool Bomb::IsBomb(const float4& _Pos)
 {
-
+	
 	float4 Index = Block::OwnerBlock->GetTileMap()->GetIndex(_Pos);
+	if (0 > Index.ix() || 0 > Index.iy()) {
+		return true;
+	}
 	return IsBomb(Index.ix(), Index.iy());
 }
 

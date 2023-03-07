@@ -277,7 +277,10 @@ void GameEngineTileMap::TileIndexChange(int _Zindex, float4 _CurIndex, float4 _T
     GameEngineRender* NewgameEngineRender = nullptr;
     float4 CurIndex = GetIndex(_CurIndex);
     float4 TargetIndex= GetIndex(_TargetIndex);
-
+    if (0 > CurIndex.x || 0 > CurIndex.y || 0 > TargetIndex.x || 0 > TargetIndex.y)
+    {
+        return;
+    }
     GameEngineRender* TempGameEngineRender = TileRenders[_Zindex][CurIndex.iy()][CurIndex.ix()];
     TileRenders[_Zindex][CurIndex.iy()][CurIndex.ix()] = TileRenders[_Zindex][TargetIndex.iy()][TargetIndex.ix()];
     TileRenders[_Zindex][TargetIndex.iy()][TargetIndex.ix()] = TempGameEngineRender;

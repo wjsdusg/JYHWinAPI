@@ -291,6 +291,13 @@ void Player::PushUpdate(float _Time)
 {
 	WoodMoveTime += _Time;
 	float4 Pos = float4::LerpClamp(WoodStartPos, WoodTargetPos, WoodMoveTime);
+	if (WoodDir == float4::Up || WoodDir == float4::Down) {
+		Pos -= Block::OwnerBlock->NewGameEngineTileMap->GetPos();
+	}
+	if (WoodDir == float4::Left || WoodDir == float4::Right) {
+		Pos.y -= Block::OwnerBlock->NewGameEngineTileMap->GetPos().y;
+		Pos.x -= Block::OwnerBlock->NewGameEngineTileMap->GetPos().x;
+	}
 	WoodRender->SetPosition(Pos);
 	if (1.f <= WoodMoveTime)
 	{

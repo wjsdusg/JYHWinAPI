@@ -281,7 +281,10 @@ void Player::Render(float _DeltaTime)
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
 	);
-	std::string Text = "PlayerCollisonPos : ";
+	
+	std::string Text = "PlayerPos : ";
+	Text += GetPos().ToString();
+	GameEngineLevel::DebugTextPush(Text);
 	
 }
 
