@@ -200,13 +200,62 @@ void Player::StartUpdate(float _Time)
 }
 void Player::LiveUpdate(float _Time)
 {
-
+	LiveTime += _Time;
+	AnimationRender->ChangeAnimation("Live");
+	if (0.5f < LiveTime)
+	{
+		ChangeState(PlayerState::IDLE);
+	}
 }
 void Player::TrapUpdate(float _Time)
 {
+	MoveSpeed = 10.f;
+	AnimationRender->ChangeAnimation("Trap");
+	TrapTime += _Time;
+	if (true == GameEngineInput::IsPress("LeftMove"))
+	{
+		NewPlayerDiretion = PlayerDirection::Left;
 
+		if (true == Movecalculation(GetPos() + (float4::Left * MoveSpeed * _Time)))
+		{
+			SetMove(float4::Left * MoveSpeed * _Time);
+		}
+	}
+	else if (true == GameEngineInput::IsPress("RightMove"))
+	{
+		NewPlayerDiretion = PlayerDirection::Right;
+		if (true == Movecalculation(GetPos() + (float4::Right * MoveSpeed * _Time))) {
+			SetMove(float4::Right * MoveSpeed * _Time);
+		}
+	}
+	else if (true == GameEngineInput::IsPress("UpMove")) {
+		NewPlayerDiretion = PlayerDirection::Up;
+		if (true == Movecalculation(GetPos() + (float4::Up * MoveSpeed * _Time))) {
+			SetMove(float4::Up * MoveSpeed * _Time);
+		}
+	}
+	else if (true == GameEngineInput::IsPress("DownMove")) {
+		NewPlayerDiretion = PlayerDirection::Down;
+		if (true == Movecalculation(GetPos() + (float4::Down * MoveSpeed * _Time))) {
+			SetMove(float4::Down * MoveSpeed * _Time);
+		}
+	}			
+	if (nullptr != Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos()))
+	{
+		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true) {
+			AnimationRender->ChangeAnimation("BlankMode");
+		}
+	}
+
+	if (3.6f < TrapTime) {
+		StateValue = PlayerState::DIE;
+	}
 }
 void Player::DieUpdate(float _Time)
 {
-
+	DieTime += _Time;
+	AnimationRender->ChangeAnimation("die");
+	if (1.f < DieTime) {
+		StateValue = PlayerState::IDLE;
+	}
 }

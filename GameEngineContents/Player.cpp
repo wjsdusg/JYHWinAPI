@@ -192,11 +192,11 @@ bool Player::Movecalculation(float4 _Pos)
 			Bomb* NextBomb = Bomb::GetBomb(GetPos() + MoveDir * 40.0f);
 			if (nullptr != NextBomb)
 			{
-				/*if (true == KickOn)
+				if (true == KickOn)
 				{
 					NextBomb->BombDir = MoveDir;
 					NextBomb->ChangeState(BombState::KICK);
-				}*/
+				}
 				return false;
 			}
 
