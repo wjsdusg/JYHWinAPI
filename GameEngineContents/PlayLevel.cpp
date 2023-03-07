@@ -88,6 +88,11 @@ void PlayLevel::Loading()
 		Image->Cut(2, 1);
 
 	}
+	{
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("number.BMP"));
+		Image->Cut(10, 1);
+
+	}
 	Dir.MoveParentToDirectory("Image");
 	Dir.Move("Image");
 	Dir.Move("bazzi");

@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/NumberRenderObject.h>
 // Ό³Έν :
 class Player;
 class BackGround : public GameEngineActor
@@ -20,11 +20,18 @@ public:
 	static BackGround* MainBackGround;
 protected:
 	void Start() override;
-
+	void Update(float _DeltaTime);
 private:
 	
 	GameEngineRender* ActiveItemRender = nullptr;
 
 	void ActiveOnOffSwicth();
+	NumberRenderObject NewNumberObject;
+	int Value = 60;
+	float ActTime = 0.f;
+
+	NumberRenderObject NewNumberObject2;
+	int Value2 = 2;
+	float ActTime2 = 0.f;
 };
 
