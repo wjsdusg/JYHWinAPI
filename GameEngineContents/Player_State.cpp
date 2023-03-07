@@ -8,7 +8,8 @@
 #include <GameEngineCore/GameEngineTileMap.h>
 #include "ContentsEnums.h"
 #include "Block.h"
-
+#include "ContentsValue.h"
+#include "Bomb.h"
 // State
 void Player::ChangeState(PlayerState _State) 
 {
@@ -26,7 +27,7 @@ void Player::ChangeState(PlayerState _State)
 		MoveStart();
 		break;
 	case PlayerState::PUSH:
-		//PushStart();
+		PushStart();
 		break;
 	default:
 		break;
@@ -41,7 +42,7 @@ void Player::ChangeState(PlayerState _State)
 		MoveEnd();
 		break;
 	case PlayerState::PUSH:
-		//PushEnd();
+		PushEnd();
 		break;
 	default:
 		break;
@@ -60,7 +61,7 @@ void Player::UpdateState(float _Time)
 		MoveUpdate(_Time);
 		break;
 	case PlayerState::PUSH:
-		//PushUpdate(_Time);
+		PushUpdate(_Time);
 		break;
 	case PlayerState::START:
 		StartUpdate(_Time);
@@ -258,4 +259,49 @@ void Player::DieUpdate(float _Time)
 	if (1.f < DieTime) {
 		StateValue = PlayerState::IDLE;
 	}
+}
+
+void Player::PushStart() {
+	
+	WoodTargetPos = WoodStartPos + (WoodDir * ContentsValue::TileSize);
+	
+	if (true == Block::OwnerBlock->IsMapOut(WoodTargetPos))
+	{
+		ChangeState(PlayerState::MOVE);
+	}
+	if (true == Bomb::IsBomb(WoodTargetPos))
+	{
+		ChangeState(PlayerState::MOVE);
+	}
+	if (true == Block::OwnerBlock->IsBlock(WoodTargetPos))
+	{
+		if (true == Block::OwnerBlock->NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::TownBush), WoodTargetPos)->IsUpdate())
+		{
+			return;
+		}
+		
+		ChangeState(PlayerState::MOVE);
+	}
+	Block::OwnerBlock->NewGameEngineTileMap->TileIndexChange(static_cast<int>(BlockType::Block1), WoodStartPos, WoodTargetPos);
+	WoodStartPos = Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(WoodStartPos);
+	WoodTargetPos = Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(WoodTargetPos);
+}
+
+void Player::PushUpdate(float _Time)
+{
+	WoodMoveTime += _Time;
+	float4 Pos = float4::LerpClamp(WoodStartPos, WoodTargetPos, WoodMoveTime);
+	WoodRender->SetPosition(Pos);
+	if (1.f <= WoodMoveTime)
+	{
+		ChangeState(PlayerState::MOVE);
+	}
+}
+
+void Player::PushEnd() {
+	WoodStartPos = { 0,0 };
+	WoodDir = { 0,0 };
+	WoodTargetPos = { 0,0 };
+	WoodMoveTime = 0.f;
+	WoodRender = nullptr;
 }

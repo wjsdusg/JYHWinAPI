@@ -97,12 +97,7 @@ public:
 	Player(Player&& _Other) noexcept = delete;
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
-	
-	bool WoodBlockCheck = false;
-	GameEngineRender* WoodRender = nullptr;
-	float4 WoodTagetPos = { 0.f,0.f };
-	float4 WoodStartPos = { 0.f,0.f };
-
+		
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -149,9 +144,9 @@ private:
 	void LiveUpdate(float _Time);
 	void TrapUpdate(float _Time);
 	void DieUpdate(float _Time);
-	//void PushStart();
-	//void PushUpdate(float _Time);
-	//void PushEnd();
+	void PushStart();
+	void PushUpdate(float _Time);
+	void PushEnd();
 
 	bool Movecalculation(float4 _Pos);
 	bool CollisionRectToRect(const PlayerCollisionData& _Left, const PlayerCollisionData& _Right);
@@ -168,6 +163,10 @@ private:
 	float LiveTime = 0.f;
 	float TrapTime = 0.f;
 	float DieTime = 0.f;
-
+	float4 WoodStartPos = { 0,0 };
+	float4 WoodTargetPos = { 0,0 };
+	float4 WoodDir = { 0,0 };
+	float WoodMoveTime = 0.f;
+	GameEngineRender* WoodRender = nullptr;
 };
 

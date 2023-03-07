@@ -87,6 +87,7 @@ public:
 
 	void DebugRender();
 
+	
 protected:
 
 private:

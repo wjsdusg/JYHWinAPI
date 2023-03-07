@@ -74,6 +74,7 @@ public:
 
 	GameEngineCollision* CreateCollision(int _GroupIndex = 0);
 
+
 protected:
 	
 	virtual void Start() {}

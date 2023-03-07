@@ -160,8 +160,18 @@ void Bomb::FireUpdate(float _Time)
 	AnimationRender->ChangeAnimation("BombEnd");
 	AnimationRender->SetScale(float4{ 50,50 });
 	ActTime += _Time;
+	BodyCollision->SetOrder(static_cast<int>(CrazyRenderOrder::BombPower));
+	if (nullptr != Block::OwnerBlock->NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::TownBush), GetPos()))
+	{
+		if (true == Block::OwnerBlock->NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate())
+		{
+			Block::OwnerBlock->NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->Death();
+			Block::OwnerBlock->NewGameEngineTileMap->RemoveTile(static_cast<int>(BlockType::TownBush), GetPos());
 
+		}
+	}
 	
+
 	if (true == Cycle) {
 		for (size_t i = 0; i < 4; i++)
 		{
@@ -231,8 +241,10 @@ void Bomb::FireUpdate(float _Time)
 				NewBodyCollision->SetScale(float4(40, 40));
 				NewBodyCollision->SetPosition(ArrBombDir[i] * 40.0f * static_cast<float>(bombPowerIndex));
 				std::vector<GameEngineCollision*> Collision;
-				if (true == NewBodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::Bomb) }, Collision)) {
-					for (size_t i = 0; i < Collision.size(); i++) {
+				if (true == NewBodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::Bomb) }, Collision))
+				{
+					for (size_t i = 0; i < Collision.size(); i++)
+					{
 						GameEngineActor* ColActor = Collision[i]->GetActor();
 						Bomb* Bombptr = dynamic_cast<Bomb*>(ColActor);
 						Bombptr->NewBombState = BombState::FIRE;
@@ -241,17 +253,21 @@ void Bomb::FireUpdate(float _Time)
 				}
 
 				std::vector<GameEngineCollision*> Collision2;
-				if (true == NewBodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::DropItem),.TargetColType = CT_Point , .ThisColType = CT_CirCle }, Collision)) {
-					for (size_t i = 0; i < Collision.size(); i++) {
+				if (true == NewBodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::DropItem),.TargetColType = CT_Point , .ThisColType = CT_CirCle }, Collision))
+				{
+					for (size_t i = 0; i < Collision.size(); i++) 
+					{
 						GameEngineActor* ColActor = Collision[i]->GetActor();
 						DropItem* DropItemptr = dynamic_cast<DropItem*>(ColActor);
-						if (nullptr != Block::OwnerBlock->NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::Block1), DropItemptr->GetPos())) {
+						if (nullptr != Block::OwnerBlock->NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::Block1), DropItemptr->GetPos()))
+						{
 							continue;
 						}
 						DropItemptr->Death();
 					}
 
 				}
+
 			}
 		
 		}

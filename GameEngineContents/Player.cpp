@@ -133,55 +133,13 @@ bool Player::Movecalculation(float4 _Pos)
 			return true;
 		}
 		//나무블록확인
-		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), CollisionDiretion)->GetFrame() == 1) {
+		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), CollisionDiretion)->GetFrame() == 1)
+		{
 			// 밀었는데 
+			WoodStartPos = CollisionDiretion;
+			WoodDir = MoveDir;
 			WoodRender = Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::Block1), CollisionDiretion);
-
-			WoodStartPos = WoodRender->GetPosition();
-			WoodTagetPos = WoodRender->GetPosition();
-			
-			if (WoodBlockCheck == false) {
-
-				WoodBlockCheck = true;
-				float4 WoodPos = { 0.f,0.f };
-				switch (NewPlayerDiretion)
-				{
-
-				case PlayerDirection::Left:
-
-					WoodPos = CollisionDiretion;
-					WoodPos.x -= ContentsValue::TileSize;
-					WoodTagetPos += float4::Left * static_cast<float>(ContentsValue::TileSize);
-					break;
-				case PlayerDirection::Right:
-					WoodPos = CollisionDiretion;
-					WoodPos.x += ContentsValue::TileSize;
-					WoodTagetPos += float4::Right * static_cast<float>(ContentsValue::TileSize);
-					break;
-				case PlayerDirection::Up:
-					WoodPos = CollisionDiretion;
-					WoodPos.y -= ContentsValue::TileSize;
-					WoodTagetPos += float4::Up * static_cast<float>(ContentsValue::TileSize);
-					break;
-				case PlayerDirection::Down:
-					WoodPos = CollisionDiretion;
-					WoodPos.y += ContentsValue::TileSize;
-					WoodTagetPos += float4::Down * static_cast<float>(ContentsValue::TileSize);
-					break;
-				default:
-					break;
-				}
-
-				Block::OwnerBlock->NewGameEngineTileMap->TileIndexChange(static_cast<int>(BlockType::Block1), WoodStartPos, WoodTagetPos);
-
-				/*if (true == Block::OwnerBlock->IsBlock(WoodPos)) {
-					WoodBlockCheck = false;
-					return false;
-				}*/
-
-
-				return true;
-			}
+			ChangeState(PlayerState::PUSH);
 		}
 		return false;
 	}
@@ -260,7 +218,6 @@ void Player::Update(float _DeltaTime)
 				ColActor->Death();
 			}
 		}
-
 	}
 	std::vector<GameEngineCollision*> Collision2;
 	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::BombPower), .TargetColType = CT_Rect , .ThisColType = CT_Rect }, Collision2)) {
