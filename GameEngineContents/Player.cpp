@@ -65,9 +65,13 @@ void Player::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Wait",  .ImageName = "wait.bmp", .Start = 0, .End = 0 });
 	
 		AnimationRender->CreateAnimation({ .AnimationName = "Trap",  .ImageName = "trap.bmp", .Start = 0, .End = 12,.InterTime=0.3f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Start",  .ImageName = "ready.bmp", .Start = 0, .End = 17,.InterTime = 0.1f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Live",  .ImageName = "Live.bmp", .Start = 0, .End = 4,.InterTime = 0.1f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Die",  .ImageName = "die.bmp", .Start = 0, .End = 12,.InterTime = 0.2f });
 	}
 	
-	ChangeState(PlayerState::IDLE);
+	StateValue = PlayerState::START;
+	//ChangeState(PlayerState::IDLE);
 }
 
 bool Player::Movecalculation(float4 _Pos)

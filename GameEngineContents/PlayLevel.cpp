@@ -313,16 +313,7 @@ void PlayLevel::Loading()
 	Actor->ItemCreate();
 
 	//}
-
-
-	{
-		DropItem* Actor = CreateActor<BombItem>(CrazyRenderOrder::DropItem);
-		Actor->SetPos(float4(200, 200));
-	}
-	{
-		DropItem* Actor = CreateActor<SpeedItem>(CrazyRenderOrder::DropItem);
-		Actor->SetPos(float4(240, 200));
-	}
+	
 
 	//if (false == GameEngineInput::IsKey("PlayerOff"))
 	//{

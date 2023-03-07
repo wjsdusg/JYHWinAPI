@@ -62,6 +62,17 @@ void Player::UpdateState(float _Time)
 	case PlayerState::PUSH:
 		//PushUpdate(_Time);
 		break;
+	case PlayerState::START:
+		StartUpdate(_Time);
+		break;
+	case PlayerState::TRAP:
+		TrapUpdate(_Time);
+		break;
+	case PlayerState::LIVE:
+		LiveUpdate(_Time);
+		break;
+	case PlayerState::DIE:
+		DieUpdate(_Time);
 	default:
 		break;
 	}
@@ -96,7 +107,8 @@ void Player::IdleUpdate(float _Time)
 		Movecalculation(GetPos());
 	if (nullptr != Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos()))
 	{
-		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true) {
+		if (Block::OwnerBlock->GetTileMap()->GetTile(static_cast<int>(BlockType::TownBush), GetPos())->IsUpdate() == true)
+		{
 			AnimationRender->ChangeAnimation("BlankMode");
 		}
 	}
@@ -174,5 +186,27 @@ void Player::MoveUpdate(float _Time)
 	
 }
 void Player::MoveEnd() {
+
+}
+
+
+void Player::StartUpdate(float _Time)
+{
+	AnimationRender->ChangeAnimation("Start");
+	StartTime += _Time;
+	if (1.8f < StartTime) {
+		ChangeState(PlayerState::IDLE);
+	}
+}
+void Player::LiveUpdate(float _Time)
+{
+
+}
+void Player::TrapUpdate(float _Time)
+{
+
+}
+void Player::DieUpdate(float _Time)
+{
 
 }

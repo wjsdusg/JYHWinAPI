@@ -4,8 +4,12 @@
 
 enum class PlayerState
 {
+	START,
 	IDLE,
 	MOVE,
+	TRAP,
+	LIVE,
+	DIE,
 	PUSH,
 
 };
@@ -118,7 +122,7 @@ private:
 	void SpeedUp();
 	void BombCountUp();
 	void BombPowerCountUp();
-	std::string DirString = "Right_";
+	std::string DirString = "Down_";
 	PlayerState StateValue = PlayerState::IDLE;
 	float4 MoveDir = float4::Zero;
 
@@ -141,6 +145,10 @@ private:
 	void MoveUpdate(float _Time);
 	void MoveEnd();
 	
+	void StartUpdate(float _Time);
+	void LiveUpdate(float _Time);
+	void TrapUpdate(float _Time);
+	void DieUpdate(float _Time);
 	//void PushStart();
 	//void PushUpdate(float _Time);
 	//void PushEnd();
@@ -156,5 +164,10 @@ private:
 
 	float4 CollisionDiretion;
 	bool KickOn = false;
+	float StartTime = 0.f;
+	float LiveTime = 0.f;
+	float TrapTime = 0.f;
+	float DieTime = 0.f;
+
 };
 
