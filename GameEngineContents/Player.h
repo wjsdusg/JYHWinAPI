@@ -155,6 +155,6 @@ private:
 	float WaitTime = 0.f;
 
 	float4 CollisionDiretion;
-
+	bool KickOn = false;
 };
 

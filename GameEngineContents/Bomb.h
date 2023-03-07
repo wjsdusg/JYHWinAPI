@@ -3,6 +3,7 @@
 enum class BombState {
 	IDLE,
 	FIRE,
+	KICK,
 	MAX
 };
 
@@ -67,8 +68,19 @@ private:
 	void UpdateState(float _Time);
 	void IdleUpdate(float _Time);
 	void FireUpdate(float _Time);
+	void ChangeState(BombState _State);
+	void KickStart();
+	void KickUpdate(float _Time);
+
+	void BombTileIndexChange(float4 _CurIndex, float4 _TargetIndex);
+
 	BombState NewBombState = BombState::IDLE;
 	float ActTime = 0.f;
 	bool Cycle = true;
+	float4 BombDir = { 0,0 };
+	float4 StartPos = { 0,0 };
+	float4 TargetPos = { 0,0 };
+	int Dirnum = 1;
+	float BombMoveTime = 0.f;
 };
 

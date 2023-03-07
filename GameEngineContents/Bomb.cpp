@@ -45,7 +45,7 @@ void Bomb::BombMapInit()
 
 bool Bomb::IsBomb(const float4& _Pos)
 {
-	
+
 	float4 Index = Block::OwnerBlock->GetTileMap()->GetIndex(_Pos);
 	return IsBomb(Index.ix(), Index.iy());
 }
@@ -113,6 +113,20 @@ void Bomb::InitBomb(float4 _Pos)
 	AllBomb[Index.iy()][Index.ix()] = this;
 }
 
+void Bomb::ChangeState(BombState _State)
+{
+
+	BombState NextState = _State;
+	NewBombState = NextState;
+	switch (NextState)
+	{
+	case BombState::KICK:
+		KickStart();
+	default:
+		break;
+	}
+}
+
 void Bomb::UpdateState(float _Time)
 {
 	switch (NewBombState)
@@ -123,15 +137,19 @@ void Bomb::UpdateState(float _Time)
 	case BombState::FIRE:
 		FireUpdate(_Time);
 		break;
-
+	case BombState::KICK:
+		KickUpdate(_Time);
+		break;
 	default:
 		break;
 	}
 	
 }
-int num = 0;
+
 void Bomb::IdleUpdate(float _Time)
 {
+	TargetPos = GetPos();
+
 	if (4.3f < GetLiveTime())
 	{
 		NewBombState = BombState::FIRE;
@@ -252,9 +270,64 @@ void Bomb::FireUpdate(float _Time)
 		Death();
 
 	}
-	
+}
 
-		
+void Bomb::BombTileIndexChange(float4 _CurIndex, float4 _TargetIndex)
+{
+	Bomb* NewBomb = nullptr;
 	
+	float4 CurIndex = Block::OwnerBlock->NewGameEngineTileMap->GetIndex(_CurIndex);
+	float4 TargetIndex = Block::OwnerBlock->NewGameEngineTileMap->GetIndex(_TargetIndex);
 
+     NewBomb = AllBomb[CurIndex.iy()][CurIndex.ix()];
+	AllBomb[CurIndex.iy()][CurIndex.ix()] = AllBomb[TargetIndex.iy()][TargetIndex.ix()];
+	AllBomb[TargetIndex.iy()][TargetIndex.ix()] = NewBomb;
+}
+
+void Bomb::KickStart() {
+	//방향<- 플레이어가 줌
+	//어디까지 갈수있는지 목표거리계산
+	//방향 곱하기 40씩한다.
+	//이즈블럭이나 맵아웃,다른 폭탄이 있으면 멈춘다 그게 목표거리
+	StartPos = GetPos();
+
+	float4 NextPos = TargetPos + (BombDir * ContentsValue::TileSize)* Dirnum;
+	Dirnum++;
+	if (true == Block::OwnerBlock->IsMapOut(NextPos))
+	{
+		BombTileIndexChange(GetPos(), TargetPos);
+		return;
+	}
+	if (true == IsBomb(NextPos))
+	{
+		BombTileIndexChange(GetPos(), TargetPos);
+		return;
+	}
+	if (true == Block::OwnerBlock->IsBlock(NextPos))
+	{
+		if (Block::OwnerBlock->NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::TownBush), NextPos))
+		{
+			TargetPos = NextPos;
+			KickStart();
+			return;
+		}
+		BombTileIndexChange(GetPos(), TargetPos);
+		return;
+	}
+	TargetPos = NextPos;
+	KickStart();
+}
+
+void Bomb::KickUpdate(float _Time)
+{
+	BombMoveTime += _Time;
+
+	float4 Pos = float4::LerpClamp(StartPos, TargetPos, BombMoveTime);
+
+	SetMove(Pos);
+	if (1.f <= BombMoveTime)
+	{
+		GetLiveTime() == 0.f;
+		NewBombState = BombState::IDLE;
+	}
 }
