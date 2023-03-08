@@ -38,5 +38,6 @@ private:
 
 	GameEngineRender* StartRender = nullptr;
 	GameEngineRender* WinRender = nullptr;
+	GameEngineRender* NewBazzifront = nullptr;
 };
 

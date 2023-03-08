@@ -57,6 +57,12 @@ void BackGround::Start()
 	WinRender->SetPosition(Pos);
 	WinRender->SetScale(float4{ 500,80 });
 	WinRender->Off();
+
+	NewBazzifront = CreateRender(CrazyRenderOrder::Player);
+	NewBazzifront->SetImage("Bazzifront.bmp");
+	NewBazzifront->SetPosition(float4{ 680,80 });
+	NewBazzifront->SetScale(float4{ 40,40 });
+	
 }
 
 void BackGround::ActiveOnOffSwicth() {

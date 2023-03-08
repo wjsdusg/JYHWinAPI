@@ -106,6 +106,11 @@ void PlayLevel::Loading()
 		Image->Cut(10, 1);
 
 	}
+	{
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Bazzifront.BMP"));
+		
+
+	}
 	Dir.MoveParentToDirectory("Image");
 	Dir.Move("Image");
 	Dir.Move("bazzi");
@@ -145,7 +150,7 @@ void PlayLevel::Loading()
 	{
 		MapCover* Actor = CreateActor< MapCover>();
 	}
-	//{
+	
 	Block* Actor = CreateActor< Block>();
 
 	Bomb::BombMapInit();
