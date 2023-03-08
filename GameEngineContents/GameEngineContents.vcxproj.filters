@@ -61,6 +61,9 @@
     <ClInclude Include="ShopItem.h">
       <Filter>Item</Filter>
     </ClInclude>
+    <ClInclude Include="BossMonster.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp" />
@@ -124,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="ShopItem.cpp">
       <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="BossMonster.cpp">
+      <Filter>Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -21,7 +21,7 @@ void BackGround::Start()
 	NewNumberObject.SetAlign(Align::Right);
 	NewNumberObject.SetMove({ 758,48 });
 	NewNumberObject.SetRenderPos({ 758,48 });
-	NewNumberObject.SetValue(59);
+	NewNumberObject.SetValue(Value);
 
 	NewNumberObject2.SetOwner(this);
 	NewNumberObject2.SetImage("Number.BMp", { 10, 12 }, 10, RGB(255, 255, 255), "Number.BMp");
@@ -29,7 +29,7 @@ void BackGround::Start()
 	NewNumberObject2.SetAlign(Align::Right);
 	NewNumberObject2.SetMove({ 728,48 });
 	NewNumberObject2.SetRenderPos({ 728,48 });
-	NewNumberObject2.SetValue(2);
+	NewNumberObject2.SetValue(Value2);
 
 	MainBackGround = this;
 	{

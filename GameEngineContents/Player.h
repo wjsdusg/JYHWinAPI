@@ -158,7 +158,7 @@ private:
 	float WaitTime = 0.f;
 
 	float4 CollisionDiretion;
-	bool KickOn = true;
+	bool KickOn = false;
 	float StartTime = 0.f;
 	float LiveTime = 0.f;
 	float TrapTime = 0.f;

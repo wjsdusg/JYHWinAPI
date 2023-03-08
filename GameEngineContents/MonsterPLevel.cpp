@@ -19,6 +19,7 @@
 #include "Monster.h"
 #include "PirateMonster.h"
 #include "IceMonster.h"
+#include "BossMonster.h"
 MonsterPLevel::MonsterPLevel()
 {
 }
@@ -56,6 +57,14 @@ void MonsterPLevel::LevelChangeStart(GameEngineLevel* _PrevLevel) {
 		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("iceMonsterDie.BMP"));
 		Image2->Cut(3, 1);
 	}
+	{
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("boss2.BMP"));
+		Image->Cut(4, 1);
+		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("boss3.BMP"));
+		Image2->Cut(8, 1);
+		GameEngineImage* Image3 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("bossLeftRight.BMP"));
+		Image3->Cut(4, 1);
+	}
 	// 액터 생성
 	{
 		BackGround* Actor = CreateActor<BackGround>();
@@ -69,22 +78,28 @@ void MonsterPLevel::LevelChangeStart(GameEngineLevel* _PrevLevel) {
 	{
 		Block* Actor = CreateActor< Block>();
 	}
-	{
-		for (int i = 0; i < 2; i++) {
+	/*{
+		for (int i = 0; i < 2; i++)
+		{
 			IceMonster* Actor = CreateActor<IceMonster>();
 		}
 		
 	}
 	{
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 3; i++)
+		{
 			PirateMonster* Actor = CreateActor<PirateMonster>();
 		}
-	}
+	}*/
+	
 	{
 
 	}
 	if (false == GameEngineInput::IsKey("CollisionRender")) {
 		GameEngineInput::CreateKey("CollisionRender", 'R');
+	}
+	if (false == GameEngineInput::IsKey("CreateBoss")) {
+		GameEngineInput::CreateKey("CreateBoss", 'P');
 	}
 
 	
@@ -100,6 +115,8 @@ void MonsterPLevel::Update(float _DeltaTime)
 		DebugRenderSwitch();
 	}
 
-
+	if (GameEngineInput::IsDown("CreateBoss")) {
+		BossMonster* Actor = CreateActor<BossMonster>();
+	}
 
 }

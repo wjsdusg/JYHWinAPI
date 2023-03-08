@@ -142,7 +142,7 @@ void Monster::FightUpdate(float _Time)
 	switch (NewMonsterDirection)
 	{
 	case MonsterDirection::Left:
-
+		MoveSpeed = 40.f;
 		if (true == Movecalculation(GetPos() + (float4::Left * MoveSpeed * _Time)))
 		{
 			SetMove(float4::Left * MoveSpeed * _Time);
@@ -212,6 +212,62 @@ void Monster::FightUpdate(float _Time)
 
 		if (IceDieTime > 0.8f) {
 			Death();
+		}
+		break;
+	case MonsterDirection::Hit:
+		AnimationRender->ChangeAnimation("Hit");
+		HitTime += _Time;
+		if (0.5f < HitTime)
+		{
+			NewMonsterDirection = MonsterDirection::Angry;
+			--HP;
+			HitTime = 0.f;
+		}
+		break;
+	case MonsterDirection::Angry:
+		AnimationRender->ChangeAnimation("Angry");
+		IceDieTime += _Time;
+		if (0.4f < IceDieTime)
+		{			
+			
+			NewMonsterDirection = MonsterDirection::Skill;
+			IceDieTime = 0.f;
+		}
+		break;
+	case MonsterDirection::Bubble:
+		DieTime += _Time;
+		AnimationRender->ChangeAnimation("Die2");
+		if (0.3f < DieTime)
+		{
+			DieTime = 0.f;
+			NewMonsterDirection = MonsterDirection::Dieing;
+		}
+		break;
+	case MonsterDirection::Skill:
+		AnimationRender->ChangeAnimation("Skill");
+		MoveSpeed = 100;
+		SkillTime += _Time;
+		if (2.f > SkillTime)
+		{
+			if (true == Movecalculation(GetPos() + (float4::Down * MoveSpeed * _Time)))
+			{
+				SetMove(float4::Down * MoveSpeed * _Time);
+			}
+
+		}
+		if (2.f <= SkillTime)
+		{
+			MoveSpeed = 40;
+			NewMonsterDirection = MonsterDirection::Left;
+		}
+		break;
+	case MonsterDirection::Dieing:
+		DieTime += _Time;
+		AnimationRender->ChangeAnimation("Dieing");
+		if (6.f < DieTime)
+		{
+			DieTime = 0.f;
+			NewMonsterDirection = MonsterDirection::Die;
 		}
 		break;
 	default:

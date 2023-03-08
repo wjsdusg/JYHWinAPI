@@ -27,11 +27,11 @@ private:
 
 	void ActiveOnOffSwicth();
 	NumberRenderObject NewNumberObject;
-	int Value = 60;
+	int Value = 59;
 	float ActTime = 0.f;
 
 	NumberRenderObject NewNumberObject2;
-	int Value2 = 2;
+	int Value2 = 3;
 	float ActTime2 = 0.f;
 };
 

@@ -277,6 +277,9 @@ void Player::PushStart() {
 	{
 		if (true == Block::OwnerBlock->NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::TownBush), WoodTargetPos)->IsUpdate())
 		{
+			Block::OwnerBlock->NewGameEngineTileMap->TileIndexChange(static_cast<int>(BlockType::Block1), WoodStartPos, WoodTargetPos);
+			WoodStartPos = Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(WoodStartPos);
+			WoodTargetPos = Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(WoodTargetPos);
 			return;
 		}
 		

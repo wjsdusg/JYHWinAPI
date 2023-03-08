@@ -23,6 +23,11 @@ enum class MonsterDirection {
 	Ice,
 	Resurrection,
 	DieIce,
+	Hit,
+	Angry,
+	Bubble,
+	Skill,
+	Dieing,
 	Max
 
 };
@@ -54,12 +59,16 @@ protected:
 	void FightStart();
 	void FightUpdate(float _Time);
 	void FightEnd();
-	bool Movecalculation(float4 _Pos);
+    virtual bool Movecalculation(float4 _Pos);
 	float MoveSpeed = 40.f;
 	float4 CollisionDiretion = { 0,0 };
 	float DieTime = 0.f;
 	float IceDieTime = 0.f;
 	float UpTime = 0.f;
+	float HitTime = 0.f;
+	float BubbleTime = 0.f;
+	float SkillTime = 0.f;
+	int HP = 2;
 	bool IsUptime = false;
 	MonsterDirection NewMonsterDirection = MonsterDirection::Max;
 	GameEngineCollision* BodyCollision = nullptr;

@@ -66,6 +66,9 @@ Bomb* Bomb::GetBomb(const float4& _Pos)
 
 Bomb* Bomb::GetBomb(int _X, int _Y)
 {
+	/*if (_Y >= 13) {
+		return nullptr;
+	}*/
 	return AllBomb[_Y][_X];
 }
 
@@ -161,7 +164,7 @@ void Bomb::IdleUpdate(float _Time)
 void Bomb::FireUpdate(float _Time)
 {
 	AnimationRender->ChangeAnimation("BombEnd");
-	AnimationRender->SetScale(float4{ 50,50 });
+	AnimationRender->SetScale(float4{ 40,40 });
 	ActTime += _Time;
 	BodyCollision->SetOrder(static_cast<int>(CrazyRenderOrder::BombPower));
 	if (nullptr != Block::OwnerBlock->NewGameEngineTileMap->GetTile(static_cast<int>(BlockType::TownBush), GetPos()))
@@ -297,7 +300,10 @@ void Bomb::BombTileIndexChange(float4 _CurIndex, float4 _TargetIndex)
 	
 	float4 CurIndex = Block::OwnerBlock->NewGameEngineTileMap->GetIndex(_CurIndex);
 	float4 TargetIndex = Block::OwnerBlock->NewGameEngineTileMap->GetIndex(_TargetIndex);
-
+	if (CurIndex.x < 0 || CurIndex.y < 0 || TargetIndex.x < 0 || TargetIndex.y < 0)
+	{
+		return;
+	}
      NewBomb = AllBomb[CurIndex.iy()][CurIndex.ix()];
 	AllBomb[CurIndex.iy()][CurIndex.ix()] = AllBomb[TargetIndex.iy()][TargetIndex.ix()];
 	AllBomb[TargetIndex.iy()][TargetIndex.ix()] = NewBomb;

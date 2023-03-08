@@ -5,6 +5,7 @@
 #include "Block.h"
 #include "Player.h"
 #include "Bomb.h"
+#include "BossMonster.h"
 Monster::Monster() 
 {
 	
@@ -53,6 +54,8 @@ bool Monster::Movecalculation(float4 _Pos)
 		break;
 	}
 
+	
+
 	float4 DistanceToPlayer;
 
 	DistanceToPlayer = Player::MainPlayer->GetPos() - GetPos();
@@ -92,24 +95,27 @@ bool Monster::Movecalculation(float4 _Pos)
 	}
 
 	if (MonsterState::FIGHT == NewMonsterState) {
-		if (GetPos().x > Player::MainPlayer->GetPos().x)
-		{
-			NewMonsterDirection= MonsterDirection::Left;
-		}
-		else if (GetPos().x <= Player::MainPlayer->GetPos().x)
-		{
-			NewMonsterDirection = MonsterDirection::Right;
-		}
+		
+			if (GetPos().x > Player::MainPlayer->GetPos().x)
+			{
+				NewMonsterDirection = MonsterDirection::Left;
+			}
+			else if (GetPos().x <= Player::MainPlayer->GetPos().x)
+			{
+				NewMonsterDirection = MonsterDirection::Right;
+			}
 
-		if (20.f >= abs(GetPos().x - Player::MainPlayer->GetPos().x)) {
-			
-			if (GetPos().y <= Player::MainPlayer->GetPos().y) {
-				NewMonsterDirection = MonsterDirection::Down;
+			if (20.f >= abs(GetPos().x - Player::MainPlayer->GetPos().x)) {
+
+				if (GetPos().y <= Player::MainPlayer->GetPos().y) {
+					NewMonsterDirection = MonsterDirection::Down;
+				}
+				else if (GetPos().y > Player::MainPlayer->GetPos().y) {
+					NewMonsterDirection = MonsterDirection::Up;
+				}
 			}
-			else if (GetPos().y > Player::MainPlayer->GetPos().y) {
-				NewMonsterDirection = MonsterDirection::Up;
-			}
-		}
+		
+		
 	   
 	}
 	
