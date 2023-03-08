@@ -156,6 +156,14 @@ void Bomb::IdleUpdate(float _Time)
 {
 	TargetPos = GetPos();
 	BombIdleTime += _Time;
+	if (Block::OwnerBlock->NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()) == Block::OwnerBlock->NewGameEngineTileMap->ConvertIndexToTilePosition(2, 6))
+	{
+		NewBombState = BombState::FIRE;
+	}
+	if (Block::OwnerBlock->NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()) == Block::OwnerBlock->NewGameEngineTileMap->ConvertIndexToTilePosition(12, 6))
+	{
+		NewBombState = BombState::FIRE;
+	}
 	if (4.3f < BombIdleTime)
 	{
 		NewBombState = BombState::FIRE;
@@ -244,7 +252,7 @@ void Bomb::FireUpdate(float _Time)
 				NewRender->SetPosition(ArrBombDir[i] * 40.0f * static_cast<float>(bombPowerIndex));
 
 				GameEngineCollision* NewBodyCollision = CreateCollision(CrazyRenderOrder::BombPower);
-				NewBodyCollision->SetScale(float4(40, 40));
+				NewBodyCollision->SetScale(float4(20, 20));
 				NewBodyCollision->SetPosition(ArrBombDir[i] * 40.0f * static_cast<float>(bombPowerIndex));
 				std::vector<GameEngineCollision*> Collision;
 				if (true == NewBodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::Bomb) }, Collision))

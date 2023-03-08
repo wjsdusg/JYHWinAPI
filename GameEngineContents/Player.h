@@ -97,7 +97,7 @@ public:
 	Player(Player&& _Other) noexcept = delete;
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
-		
+	bool BossDie = false;
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -113,7 +113,7 @@ private:
 	int* BombCountptr = &BombCount;
 	float MoveSpeed = 140.0f;
 	int BombCount = 2;
-	int BombPowerCount = 7;
+	int BombPowerCount = 1;
 	void SpeedUp();
 	void BombCountUp();
 	void BombPowerCountUp();
@@ -168,5 +168,8 @@ private:
 	float4 WoodDir = { 0,0 };
 	float WoodMoveTime = 0.f;
 	GameEngineRender* WoodRender = nullptr;
+	float BossTime = 0.f;
+	float RealMoveSpeed = 140.f;
+	void CheatMode();
 };
 

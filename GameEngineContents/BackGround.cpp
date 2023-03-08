@@ -43,6 +43,20 @@ void BackGround::Start()
 	ActiveItemRender->SetPosition(float4{ 710,480 });
 	ActiveItemRender->SetScale(float4{ 60,60 });
 	ActiveOnOffSwicth();
+
+	StartRender = CreateRender(CrazyRenderOrder::Player);
+	StartRender->SetImage("GAMEStart.bmp");
+	float4 Pos = GameEngineWindow::GetScreenSize().half();
+	Pos.y -= 100;
+	Pos.x -= 100;
+	StartRender->SetPosition(Pos);
+	StartRender->SetScale(float4{ 500,80 });
+
+	WinRender=CreateRender(CrazyRenderOrder::Player);
+	WinRender->SetImage("Win.bmp");
+	WinRender->SetPosition(Pos);
+	WinRender->SetScale(float4{ 500,80 });
+	WinRender->Off();
 }
 
 void BackGround::ActiveOnOffSwicth() {
@@ -72,4 +86,8 @@ void BackGround::Update(float _DeltaTime)
 		ActTime2 = 0.f;
 	}
 
+	if (2.f < GetLiveTime())
+	{
+		StartRender->Off();
+	}
 }

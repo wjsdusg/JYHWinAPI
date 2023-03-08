@@ -69,6 +69,7 @@ void BossMonster::Update(float _DeltaTime) {
 			for (size_t i = 0; i < Collision.size(); i++) {
 				DieTime = 0.f;
 				NewMonsterDirection = MonsterDirection::Die;
+				Player::MainPlayer->BossDie = true;
 			}
 
 		}

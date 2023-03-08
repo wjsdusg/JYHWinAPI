@@ -78,7 +78,7 @@ void MonsterPLevel::LevelChangeStart(GameEngineLevel* _PrevLevel) {
 	{
 		Block* Actor = CreateActor< Block>();
 	}
-	/*{
+	{
 		for (int i = 0; i < 2; i++)
 		{
 			IceMonster* Actor = CreateActor<IceMonster>();
@@ -90,7 +90,7 @@ void MonsterPLevel::LevelChangeStart(GameEngineLevel* _PrevLevel) {
 		{
 			PirateMonster* Actor = CreateActor<PirateMonster>();
 		}
-	}*/
+	}
 	
 	{
 

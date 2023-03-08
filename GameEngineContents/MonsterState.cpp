@@ -1,4 +1,5 @@
 #include "Monster.h"
+#include "Player.h"
 // State
 void Monster::ChangeState(MonsterState _State)
 {
@@ -268,6 +269,7 @@ void Monster::FightUpdate(float _Time)
 		{
 			DieTime = 0.f;
 			NewMonsterDirection = MonsterDirection::Die;
+			Player::MainPlayer->BossDie = true;
 		}
 		break;
 	default:

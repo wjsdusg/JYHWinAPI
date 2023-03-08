@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineCore.h>
 #include "ContentsEnums.h"
 #include "Bomb.h"
 
@@ -34,8 +35,8 @@ void Player::Start()
 	SetMove(GameEngineWindow::GetScreenSize().half() - float4{ 200,0 });
 
 	BodyCollision = CreateCollision(CrazyRenderOrder::Player);
-	BodyCollision->SetScale(float4(40, 40));
-
+	BodyCollision->SetScale(float4(20,20));
+	BodyCollision->SetPosition(float4{ 0,10 });
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
 		GameEngineInput::CreateKey("LeftMove", 'A');
@@ -43,6 +44,9 @@ void Player::Start()
 		GameEngineInput::CreateKey("DownMove", 'S');
 		GameEngineInput::CreateKey("UpMove", 'W');
 		GameEngineInput::CreateKey("Space", VK_SPACE);
+		GameEngineInput::CreateKey("Control", VK_CONTROL);
+		GameEngineInput::CreateKey("CheatMode", 'T');
+		
 	}
 
 	{
@@ -67,7 +71,7 @@ void Player::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Trap",  .ImageName = "trap.bmp", .Start = 0, .End = 12,.InterTime=0.3f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Start",  .ImageName = "ready.bmp", .Start = 0, .End = 17,.InterTime = 0.1f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Live",  .ImageName = "Live.bmp", .Start = 0, .End = 4,.InterTime = 0.1f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Die",  .ImageName = "die.bmp", .Start = 0, .End = 12,.InterTime = 0.2f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Die",  .ImageName = "die.bmp", .Start = 0, .End = 12,.InterTime = 0.2f,.Loop=true});
 	}
 	
 	StateValue = PlayerState::START;
@@ -176,6 +180,10 @@ bool Player::Movecalculation(float4 _Pos)
 
 void Player::Update(float _DeltaTime)
 {
+	if (GameEngineInput::IsDown("CheatMode"))
+	{
+		CheatMode();
+	}
 	UpdateState(_DeltaTime);
 
 	if (BodyCollision != nullptr) {
@@ -220,12 +228,11 @@ void Player::Update(float _DeltaTime)
 		}
 	}
 	std::vector<GameEngineCollision*> Collision2;
-	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::BombPower), .TargetColType = CT_Rect , .ThisColType = CT_Rect }, Collision2)) {
+	if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(CrazyRenderOrder::BombPower), .TargetColType = CT_Point , .ThisColType = CT_CirCle }, Collision2)) {
 
 		for (size_t i = 0; i < Collision2.size(); i++)
 		{
-			BackGround::MainBackGround->ActiveOnOffSwicth();
-			AnimationRender->ChangeAnimation("Trap");
+			ChangeState(PlayerState::TRAP);
 		}
 	}
 	float4 BombPos = GetPos();
@@ -239,6 +246,23 @@ void Player::Update(float _DeltaTime)
 
 		
 		BombCount--;
+	}
+	if (GameEngineInput::IsDown("Control") && true == BackGround::MainBackGround->ActiveItemRender->IsUpdate()&&PlayerState::TRAP==StateValue)
+	{
+		BackGround::MainBackGround->ActiveItemRender->Off();
+		ChangeState(PlayerState::LIVE);
+	}
+	if (true == BossDie)
+	{
+		BossTime += _DeltaTime;
+		if (1.f < BossTime)
+		{
+			BackGround::MainBackGround->WinRender->On();
+		}
+		if (4.f < BossTime)
+		{
+			GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
+		}
 	}
 }
 
@@ -272,7 +296,7 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 
 void Player::Render(float _DeltaTime)
 {
-	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+	/*HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
 	float4 ActorPos = CollisionDiretion;
 
 	Rectangle(DoubleDC,
@@ -280,7 +304,7 @@ void Player::Render(float _DeltaTime)
 		ActorPos.iy() - 5,
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
-	);
+	);*/
 	
 	std::string Text = "PlayerPos : ";
 	Text += GetPos().ToString();
@@ -325,6 +349,7 @@ void Player::SpeedUp()
 	if (MoveSpeed >= 220.f) {
 		MoveSpeed = 220.f;
 	}
+	RealMoveSpeed = MoveSpeed;
 }
 
 void Player::BombCountUp()
@@ -337,8 +362,15 @@ void Player::BombCountUp()
 void Player::BombPowerCountUp()
 {
 	BombPowerCount += 1;
-	if (BombPowerCount >= 7) 
+	if (BombPowerCount >= 6) 
 	{
-		BombPowerCount = 7;
+		BombPowerCount = 6;
 	}
+}
+void Player::CheatMode()
+{
+	 MoveSpeed = 140.0f;
+	 BombCount = 7;
+	 BombPowerCount = 6;
+
 }

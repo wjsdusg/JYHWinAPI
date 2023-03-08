@@ -3,9 +3,11 @@
 #include <GameEngineCore/NumberRenderObject.h>
 // Ό³Έν :
 class Player;
+class Monster;
 class BackGround : public GameEngineActor
 {
 	friend Player;
+	friend Monster;
 public:
 	// constrcuter destructer
 	BackGround();
@@ -33,5 +35,8 @@ private:
 	NumberRenderObject NewNumberObject2;
 	int Value2 = 3;
 	float ActTime2 = 0.f;
+
+	GameEngineRender* StartRender = nullptr;
+	GameEngineRender* WinRender = nullptr;
 };
 

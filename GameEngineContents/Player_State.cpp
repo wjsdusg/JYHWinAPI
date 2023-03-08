@@ -10,6 +10,7 @@
 #include "Block.h"
 #include "ContentsValue.h"
 #include "Bomb.h"
+#include "BackGround.h"
 // State
 void Player::ChangeState(PlayerState _State) 
 {
@@ -203,13 +204,18 @@ void Player::LiveUpdate(float _Time)
 {
 	LiveTime += _Time;
 	AnimationRender->ChangeAnimation("Live");
-	if (0.5f < LiveTime)
+	if (0.6f < LiveTime)
 	{
+		LiveTime = 0.f;
+		TrapTime = 0.f;
+		MoveSpeed = RealMoveSpeed;
 		ChangeState(PlayerState::IDLE);
 	}
 }
 void Player::TrapUpdate(float _Time)
 {
+	BackGround::MainBackGround->ActiveItemRender->On();
+	
 	MoveSpeed = 10.f;
 	AnimationRender->ChangeAnimation("Trap");
 	TrapTime += _Time;
@@ -248,17 +254,24 @@ void Player::TrapUpdate(float _Time)
 		}
 	}
 
-	if (3.6f < TrapTime) {
-		StateValue = PlayerState::DIE;
+
+	if (true== AnimationRender->IsAnimationEnd()) {
+		TrapTime = 0.f;
+		ChangeState(PlayerState::IDLE);
 	}
 }
 void Player::DieUpdate(float _Time)
 {
 	DieTime += _Time;
 	AnimationRender->ChangeAnimation("die");
-	if (1.f < DieTime) {
-		StateValue = PlayerState::IDLE;
+	if (true == AnimationRender->IsAnimationEnd()) {
+		MoveSpeed = RealMoveSpeed;
+		DieTime = 0.f;
+		ChangeState(PlayerState::IDLE);
+		return;
+		//StateValue = PlayerState::IDLE;
 	}
+	//MainPlayer->OnOffSwtich();
 }
 
 void Player::PushStart() {

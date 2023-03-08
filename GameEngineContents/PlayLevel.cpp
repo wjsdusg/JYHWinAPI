@@ -51,6 +51,12 @@ void PlayLevel::Loading()
 
 	}
 	{
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("GAMEStart.BMP"));
+	}
+	{
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Win.BMP"));
+	}
+	{
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Bomb.BMP"));
 		Image->Cut(4, 1);
 		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("unit_bombwaterAll.BMP"));
@@ -77,6 +83,13 @@ void PlayLevel::Loading()
 		Image2->Cut(2, 1);
 		GameEngineImage* Image3 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("power_max.BMP"));
 		Image3->Cut(2, 1);
+	}
+	{
+		GameEngineImage* Image1 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("CampObject1.BMP"));
+		Image1->Cut(2, 1);
+		GameEngineImage* Image2 = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("CampObject2.BMP"));
+		
+		
 	}
 	{
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Shop.BMP"));
@@ -317,13 +330,13 @@ void PlayLevel::Loading()
 	// 아이템을 진짜 배치한다.
 	Actor->ItemCreate();
 
-	//}
+	//
 	
 
-	//if (false == GameEngineInput::IsKey("PlayerOff"))
-	//{
-	//	GameEngineInput::CreateKey("PlayerOff", 'R');
-	//}
+	if (false == GameEngineInput::IsKey("PlayerOff"))
+	{
+		GameEngineInput::CreateKey("PlayerOff", 'U');
+	}
 
 	if (false == GameEngineInput::IsKey("CollisionRender")) {
 		GameEngineInput::CreateKey("CollisionRender", 'R');
@@ -344,11 +357,11 @@ void PlayLevel::Loading()
 
 void PlayLevel::Update(float _DeltaTime)
 {
-	//if (GameEngineInput::IsDown("PlayerOff"))
-	//{
-	//	Player::MainPlayer->OnOffSwtich();
-	//	// Player::MainPlayer->Death()p;
-	//}
+	if (GameEngineInput::IsDown("PlayerOff"))
+	{
+		Player::MainPlayer->OnOffSwtich();
+		
+	}
 
 	if (GameEngineInput::IsDown("CollisionRender")) {
 		DebugRenderSwitch();
