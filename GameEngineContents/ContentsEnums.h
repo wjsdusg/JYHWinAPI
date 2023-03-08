@@ -29,6 +29,7 @@ enum class BlockType
 	Block1,
 	WoodBlock,
 	TownBush,
+	Wall,
 	Max
 	
 };

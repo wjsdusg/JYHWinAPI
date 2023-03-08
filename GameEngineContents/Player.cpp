@@ -31,8 +31,9 @@ Player::~Player()
 void Player::Start()
 {
 	MainPlayer = this;
-
-	SetMove(GameEngineWindow::GetScreenSize().half() - float4{ 200,0 });
+	float4 Pos = GameEngineWindow::GetScreenSize().half() - float4{ 360,0 };
+	Pos.y -= 10;
+	SetMove(Pos);
 
 	BodyCollision = CreateCollision(CrazyRenderOrder::Player);
 	BodyCollision->SetScale(float4(20,20));

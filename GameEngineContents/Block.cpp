@@ -32,7 +32,7 @@ void Block::Start()
 	NewGameEngineTileMap->CreateTileMap(ContentsValue::XTileNum, ContentsValue::YTileNum, static_cast<int>(BlockType::Max), static_cast<int>(CrazyRenderOrder::Block), float4(40, 40));
 	NewGameEngineTileMap->SetFloorSetting(static_cast<int>(BlockType::Block1), "Block1.bmp");
 	NewGameEngineTileMap->SetFloorSetting(static_cast<int>(BlockType::TownBush), "TownBush.bmp");
-
+	NewGameEngineTileMap->SetFloorSetting(static_cast<int>(BlockType::Wall), "CampObject1.bmp");
 	
 }
 

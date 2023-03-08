@@ -241,7 +241,17 @@ void PlayLevel::Loading()
 	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 11, 6, 5);
 	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 13, 6, 2);
 	//8
-	/*Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 0, 7, 2);
+	/*Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Wall), 3, 11, 1);
+	Actor->GetTileMap()->GetTile(static_cast<int>(BlockType::Wall), 3, 11)->SetOrder(1111);
+	Actor->GetTileMap()->GetTile(static_cast<int>(BlockType::Wall), 3, 11)->SetMove(float4{ 0,-5 });
+	Actor->GetTileMap()->GetTile(static_cast<int>(BlockType::Wall), 3, 11)->SetScale(float4(40, 55));
+
+	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Wall),11, 1, 0);
+	Actor->GetTileMap()->GetTile(static_cast<int>(BlockType::Wall), 11, 0)->SetOrder(1111);
+	Actor->GetTileMap()->GetTile(static_cast<int>(BlockType::Wall), 11, 0)->SetMove(float4{ 0,-5 });
+	Actor->GetTileMap()->GetTile(static_cast<int>(BlockType::Wall), 11, 0)->SetScale(float4(40, 100));*/
+
+	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 0, 7, 2);
 	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 2, 7, 3);
 	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 4, 7, 0);
 	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 5, 7, 2);
@@ -249,7 +259,7 @@ void PlayLevel::Loading()
 	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 8, 7, 0);
 	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 9, 7, 0);
 	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 10, 7, 2);
-	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 12, 7, 2);*/
+	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 12, 7, 2);
 	//9
 	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 1, 8, 0);
 	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 3, 8, 5);
@@ -322,11 +332,11 @@ void PlayLevel::Loading()
 	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 14, 12, 0);
 
 	// 아이템이 몇개 배치될지 결정한다음
-	Actor->ItemCountInsert(ItemType::Skate, 9);
+	Actor->ItemCountInsert(ItemType::Skate, 5);
 	Actor->ItemCountInsert(ItemType::PowerMax, 6);
-	Actor->ItemCountInsert(ItemType::Bomb, 10);
-	Actor->ItemCountInsert(ItemType::Shop, 5);
-	Actor->ItemCountInsert(ItemType::Kick, 8);
+	Actor->ItemCountInsert(ItemType::Bomb, 8);
+	Actor->ItemCountInsert(ItemType::Shop, 4);
+	Actor->ItemCountInsert(ItemType::Kick, 4);
 	// 아이템을 진짜 배치한다.
 	Actor->ItemCreate();
 
