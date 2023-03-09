@@ -84,6 +84,7 @@ void Player::UpdateState(float _Time)
 // FSM 내가 어떤일을 할때 이동하면서 가만히 있을수 없다.
 void Player::IdleStart() 
 {
+	MoveSpeed = RealMoveSpeed;
 	DirCheck("Idle");
 }
 void Player::IdleUpdate(float _Time) 

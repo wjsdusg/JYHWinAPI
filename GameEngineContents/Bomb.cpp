@@ -215,6 +215,10 @@ void Bomb::FireUpdate(float _Time)
 				}
 				
 				GameEngineRender* NewRender = CreateRender(CrazyRenderOrder::Item);
+				if (nullptr == NewRender)
+				{
+					break;
+				}
 				NewRender->CreateAnimation({ .AnimationName = "BombUpEnd",.ImageName = "unit_bombwaterAll.BMP",.Start = 8,.End = 11,.InterTime = 0.2f });
 				NewRender->CreateAnimation({ .AnimationName = "BombUping",.ImageName = "unit_bombwaterAll.BMP",.Start = 24,.End = 27,.InterTime = 0.2f });
 
