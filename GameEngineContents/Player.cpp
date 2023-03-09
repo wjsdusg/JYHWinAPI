@@ -268,12 +268,12 @@ void Player::Update(float _DeltaTime)
 		if (1.f < BossTime)
 		{
 			BackGround::MainBackGround->WinRender->On();
-
+			
 			
 		}
-		if (4.f < BossTime)
+		if (3.f < BossTime)
 		{
-			GameEngineResources::GetInst().SoundPlay("Win_Effect.wav");
+			
 			GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
 		}
 	}

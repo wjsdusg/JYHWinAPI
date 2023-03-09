@@ -5,7 +5,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineTileMap.h>
-
+#include <GameEngineCore/GameEngineCore.h>
 // 나랑 같은 등급의 헤더들
 #include "Player.h"
 #include "MonsterMap.h"
@@ -111,7 +111,9 @@ void MonsterPLevel::LevelChangeStart(GameEngineLevel* _PrevLevel) {
 }
 void MonsterPLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
+	
 	SoundPlayerBGM.Stop();
+
 }
 
 void MonsterPLevel::Update(float _DeltaTime)
@@ -127,6 +129,7 @@ void MonsterPLevel::Update(float _DeltaTime)
 		SoundPlayerBGM = GameEngineResources::GetInst().SoundPlayToControl("Stage3.wav");
 		SoundPlayerBGM.LoopCount(10);
 		SoundPlayerBGM.Volume(0.3);
+		GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
 	}
 
 }

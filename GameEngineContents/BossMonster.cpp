@@ -72,7 +72,7 @@ void BossMonster::Update(float _DeltaTime) {
 				NewMonsterDirection = MonsterDirection::Die;
 				Player::MainPlayer->BossDie = true;
 				GameEngineResources::GetInst().SoundPlay("Pung.wav");
-
+				GameEngineResources::GetInst().SoundPlay("Win_Effect.wav");
 			}
 
 		}
