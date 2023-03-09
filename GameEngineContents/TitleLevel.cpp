@@ -36,18 +36,40 @@ void TitleLevel::Loading()
 		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Button_Start_2.BMP"));
 		Image->Cut(1, 1);
 	}
-	if (false == GameEngineInput::IsKey("LevelChange"))
+	
+	Dir.MoveParentToDirectory("Sound");
+	Dir.Move("Sound");
+
 	{
-		GameEngineInput::CreateKey("LevelChange", 'O');
+		GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("Login.mp3"));
+		GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("bomb1.wav"));
+		GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("Camp_KCW.mp3"));
+		GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("gamestart.wav"));
+		GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("item.wav"));
+		GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("Stage1.wav"));
+		GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("Stage3.wav"));
+		GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("wave.wav"));
+		GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("Win_Effect.wav"));
+		GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("Start_Effect.wav"));
+		GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("Pung.wav"));
 	}
-
+	//
 	CreateActor<TitleBack>();
-
+	
 }
 void TitleLevel::Update(float _DeltaTime)
 {
 	
-	if (GameEngineInput::IsDown("LevelChange")) {
-		GameEngineCore::GetInst()->ChangeLevel("PlayLevel");
-	}
+	
+}
+
+void TitleLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+	SoundPlayerBGM = GameEngineResources::GetInst().SoundPlayToControl("Login.mp3");
+	SoundPlayerBGM.LoopCount(100);
+
+}
+void TitleLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
+{
+	SoundPlayerBGM.Stop();
 }

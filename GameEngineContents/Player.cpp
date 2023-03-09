@@ -158,6 +158,10 @@ bool Player::Movecalculation(float4 _Pos)
 				if (true == KickOn)
 				{
 					NextBomb->BombDir = MoveDir;
+					if (NextBomb->NewBombState == BombState::FIRE)
+					{
+						return false;
+					}
 					NextBomb->ChangeState(BombState::KICK);
 				}
 				return false;
@@ -204,9 +208,11 @@ void Player::Update(float _DeltaTime)
 				ItemType NewItemType = Drop->GetItemType();
 
 				if (NewItemType == ItemType::Bomb) {
+					GameEngineResources::GetInst().SoundPlay("item.wav");
 					BombCountUp();
 				}
 				if (NewItemType == ItemType::Skate) {
+					GameEngineResources::GetInst().SoundPlay("item.wav");
 					SpeedUp();
 				}
 				if (NewItemType == ItemType::PowerMax) 
@@ -215,14 +221,17 @@ void Player::Update(float _DeltaTime)
 					{
 						BombPowerCountUp();
 					}
+					GameEngineResources::GetInst().SoundPlay("item.wav");
 				}
 				if (NewItemType == ItemType::Shop)
 				{
 					BackGround::MainBackGround->ActiveItemRender->On();
+					GameEngineResources::GetInst().SoundPlay("item.wav");
 				}
 				if (NewItemType == ItemType::Kick)
 				{
 					KickOn = true;
+					GameEngineResources::GetInst().SoundPlay("item.wav");
 				}
 				ColActor->Death();
 			}
@@ -240,7 +249,7 @@ void Player::Update(float _DeltaTime)
 	BombPos.y += 10.f;
 	if (GameEngineInput::IsDown("Space") && BombCount > 0 && nullptr == Bomb::GetBomb(BombPos))
 	{
-		
+		GameEngineResources::GetInst().SoundPlay("bomb1.wav");
 		Bomb* NewBomb = GetLevel()->CreateActor<Bomb>();
 	
 		NewBomb->InitBomb(Block::OwnerBlock->GetTileMap()->ConvertIndexToTilePosition(BombPos));
@@ -259,9 +268,12 @@ void Player::Update(float _DeltaTime)
 		if (1.f < BossTime)
 		{
 			BackGround::MainBackGround->WinRender->On();
+
+			
 		}
 		if (4.f < BossTime)
 		{
+			GameEngineResources::GetInst().SoundPlay("Win_Effect.wav");
 			GameEngineCore::GetInst()->ChangeLevel("TitleLevel");
 		}
 	}
@@ -373,5 +385,6 @@ void Player::CheatMode()
 	 MoveSpeed = 140.0f;
 	 BombCount = 7;
 	 BombPowerCount = 6;
+	 KickOn = false;
 
 }

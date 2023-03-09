@@ -2,6 +2,7 @@
 
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineCore/GameEngineResources.h>
 #include "Player.h"
 BossMonster::BossMonster()
 {
@@ -70,6 +71,8 @@ void BossMonster::Update(float _DeltaTime) {
 				DieTime = 0.f;
 				NewMonsterDirection = MonsterDirection::Die;
 				Player::MainPlayer->BossDie = true;
+				GameEngineResources::GetInst().SoundPlay("Pung.wav");
+
 			}
 
 		}

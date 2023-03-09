@@ -137,13 +137,8 @@ void PlayLevel::Loading()
 		Image10->Cut(18, 1);
 	}
 
-	Dir.MoveParentToDirectory("Sound");
-	Dir.Move("Sound");
 	
-	{
-		GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("Login.mp3"));
-	}
-	GameEngineResources::GetInst().SoundPlay("Login.mp3");
+	
 	// 액터 생성
 	{
 		BackGround* Actor = CreateActor<BackGround>();
@@ -344,9 +339,9 @@ void PlayLevel::Loading()
 	Actor->GetTileMap()->SetTileFrame(static_cast<int>(BlockType::Block1), 14, 12, 0);
 
 	// 아이템이 몇개 배치될지 결정한다음
-	Actor->ItemCountInsert(ItemType::Skate, 5);
+	Actor->ItemCountInsert(ItemType::Skate, 3);
 	Actor->ItemCountInsert(ItemType::PowerMax, 6);
-	Actor->ItemCountInsert(ItemType::Bomb, 8);
+	Actor->ItemCountInsert(ItemType::Bomb, 7);
 	Actor->ItemCountInsert(ItemType::Shop, 4);
 	Actor->ItemCountInsert(ItemType::Kick, 4);
 	// 아이템을 진짜 배치한다.
@@ -397,4 +392,16 @@ void PlayLevel::Update(float _DeltaTime)
 		GameEngineCore::GetInst()->ChangeLevel("MonsterPLevel");
 	}
 
+}
+
+void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
+{
+	SoundPlayerBGM.Stop();
+}
+void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+	GameEngineResources::GetInst().SoundPlay("gamestart.wav");
+	SoundPlayerBGM = GameEngineResources::GetInst().SoundPlayToControl("Camp_KCW.mp3");
+	SoundPlayerBGM.LoopCount(10);
+	SoundPlayerBGM.Volume(0.3);
 }

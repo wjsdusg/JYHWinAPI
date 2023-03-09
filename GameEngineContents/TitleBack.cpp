@@ -45,8 +45,10 @@ void TitleBack::Update(float _DeltaTIme)
 	}
 	if (true == IsAct) {
 		ActTime += _DeltaTIme;
+		
 	}
 	if (ActTime > 0.5f) {
 		GameEngineCore::GetInst()->ChangeLevel("PlayLevel");
+		GameEngineResources::GetInst().SoundPlay("Start_Effect.wav");
 	}
 }

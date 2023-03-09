@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineBase/GameEngineMath.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineResources.h>
 #include "ContentsEnums.h"
 #include "Player.h"
 
@@ -158,19 +159,23 @@ void Bomb::IdleUpdate(float _Time)
 	BombIdleTime += _Time;
 	if (Block::OwnerBlock->NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()) == Block::OwnerBlock->NewGameEngineTileMap->ConvertIndexToTilePosition(2, 6))
 	{
+		GameEngineResources::GetInst().SoundPlay("wave.wav");
 		NewBombState = BombState::FIRE;
 	}
 	if (Block::OwnerBlock->NewGameEngineTileMap->ConvertIndexToTilePosition(GetPos()) == Block::OwnerBlock->NewGameEngineTileMap->ConvertIndexToTilePosition(12, 6))
 	{
+		GameEngineResources::GetInst().SoundPlay("wave.wav");
 		NewBombState = BombState::FIRE;
 	}
 	if (4.3f < BombIdleTime)
 	{
+		GameEngineResources::GetInst().SoundPlay("wave.wav");
 		NewBombState = BombState::FIRE;
 	}
 }
 void Bomb::FireUpdate(float _Time)
 {
+	
 	AnimationRender->ChangeAnimation("BombEnd");
 	AnimationRender->SetScale(float4{ 40,40 });
 	ActTime += _Time;
@@ -261,6 +266,10 @@ void Bomb::FireUpdate(float _Time)
 					{
 						GameEngineActor* ColActor = Collision[i]->GetActor();
 						Bomb* Bombptr = dynamic_cast<Bomb*>(ColActor);
+						if (Bombptr->NewBombState == BombState::KICK)
+						{
+							return;
+						}
 						Bombptr->NewBombState = BombState::FIRE;
 					}
 

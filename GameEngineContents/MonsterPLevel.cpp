@@ -101,11 +101,18 @@ void MonsterPLevel::LevelChangeStart(GameEngineLevel* _PrevLevel) {
 	if (false == GameEngineInput::IsKey("CreateBoss")) {
 		GameEngineInput::CreateKey("CreateBoss", 'P');
 	}
+	GameEngineResources::GetInst().SoundPlay("gamestart.wav");
 
+	SoundPlayerBGM = GameEngineResources::GetInst().SoundPlayToControl("Stage1.wav");
+	SoundPlayerBGM.LoopCount(10);
+	SoundPlayerBGM.Volume(0.3);
 	
 
 }
-
+void MonsterPLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
+{
+	SoundPlayerBGM.Stop();
+}
 
 void MonsterPLevel::Update(float _DeltaTime)
 {
@@ -117,6 +124,9 @@ void MonsterPLevel::Update(float _DeltaTime)
 
 	if (GameEngineInput::IsDown("CreateBoss")) {
 		BossMonster* Actor = CreateActor<BossMonster>();
+		SoundPlayerBGM = GameEngineResources::GetInst().SoundPlayToControl("Stage3.wav");
+		SoundPlayerBGM.LoopCount(10);
+		SoundPlayerBGM.Volume(0.3);
 	}
 
 }

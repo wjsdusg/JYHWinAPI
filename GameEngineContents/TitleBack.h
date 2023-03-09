@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/GameEngineResources.h>
 // Ό³Έν :
 class TitleBack : public GameEngineActor
 {
@@ -23,5 +23,7 @@ private:
 	GameEngineRender* NewAnimation = nullptr;
 	float ActTime = 0.f;
 	bool IsAct = false;
+
+	
 };
 
