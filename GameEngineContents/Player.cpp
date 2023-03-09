@@ -375,16 +375,16 @@ void Player::BombCountUp()
 void Player::BombPowerCountUp()
 {
 	BombPowerCount += 1;
-	if (BombPowerCount >= 6) 
+	if (BombPowerCount >= 7) 
 	{
-		BombPowerCount = 6;
+		BombPowerCount = 7;
 	}
 }
 void Player::CheatMode()
 {
 	 MoveSpeed = 140.0f;
 	 BombCount = 7;
-	 BombPowerCount = 6;
+	 BombPowerCount = 7;
 	 KickOn = false;
 
 }

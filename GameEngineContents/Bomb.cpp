@@ -331,10 +331,17 @@ void Bomb::KickStart() {
 	//어디까지 갈수있는지 목표거리계산
 	//방향 곱하기 40씩한다.
 	//이즈블럭이나 맵아웃,다른 폭탄이 있으면 멈춘다 그게 목표거리
+	num2++;
 	StartPos = GetPos();
 
 	float4 NextPos = TargetPos + (BombDir * ContentsValue::TileSize);
 	
+	if (Block::OwnerBlock->NewGameEngineTileMap->ConvertIndexToTilePosition(TargetPos) == Block::OwnerBlock->NewGameEngineTileMap->ConvertIndexToTilePosition(12, 6))
+	{
+		BombTileIndexChange(GetPos(), TargetPos);
+		return;
+	}
+
 	if (true == Block::OwnerBlock->IsMapOut(NextPos))
 	{
 		BombTileIndexChange(GetPos(), TargetPos);
@@ -364,7 +371,7 @@ void Bomb::KickUpdate(float _Time)
 {
 	BombMoveTime += _Time;
 	
-	float4 Pos = float4::LerpClamp(StartPos, TargetPos, BombMoveTime);
+	float4 Pos = float4::LerpClamp(StartPos, TargetPos, BombMoveTime*static_cast<float>((10/num2)));
 	SetPos(Pos);
 	
 	if (Pos == TargetPos)

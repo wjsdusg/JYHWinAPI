@@ -126,6 +126,7 @@ void MonsterPLevel::Update(float _DeltaTime)
 
 	if (GameEngineInput::IsDown("CreateBoss")) {
 		BossMonster* Actor = CreateActor<BossMonster>();
+		SoundPlayerBGM.Stop();
 		SoundPlayerBGM = GameEngineResources::GetInst().SoundPlayToControl("Stage3.wav");
 		SoundPlayerBGM.LoopCount(10);
 		SoundPlayerBGM.Volume(0.3);

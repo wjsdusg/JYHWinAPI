@@ -83,5 +83,6 @@ private:
 	
 	float BombMoveTime = 0.f;
 	float BombIdleTime = 0.f;
+	int num2 = 1;
 };
 
