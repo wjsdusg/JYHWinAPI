@@ -137,6 +137,13 @@ void PlayLevel::Loading()
 		Image10->Cut(18, 1);
 	}
 
+	Dir.MoveParentToDirectory("Sound");
+	Dir.Move("Sound");
+	
+	{
+		GameEngineResources::GetInst().SoundLoad(Dir.GetPlusFileName("Login.mp3"));
+	}
+	GameEngineResources::GetInst().SoundPlay("Login.mp3");
 	// 액터 생성
 	{
 		BackGround* Actor = CreateActor<BackGround>();

@@ -239,7 +239,7 @@ GameEngineRender* GameEngineTileMap::GetTile(int _ZIndex, int _X,int _Y)
 {
    
 
-    if (false == IsValidIndex(_ZIndex, _Y,_X))
+    if (false == IsValidIndex(_ZIndex, static_cast<float>(_Y), static_cast<float>(_X)))
     {
         return nullptr;
     }
@@ -265,7 +265,7 @@ void GameEngineTileMap::RemoveTile(int _ZIndex, float4 _Pos)
 
 void GameEngineTileMap::RemoveTile(int _ZIndex, int _X, int _Y)
 {
-    if (false == IsValidIndex(_ZIndex, _Y, _X))
+    if (false == IsValidIndex(_ZIndex, static_cast<float>(_Y), static_cast<float>(_X)))
     {
         return;
     }
